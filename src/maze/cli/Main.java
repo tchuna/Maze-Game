@@ -1,0 +1,23 @@
+package maze.cli;
+
+import maze.logic.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Maze maze=new Maze();
+		maze.insertGuard(8, 1);
+		maze.insertHero(1, 1);
+		
+		UserInteraction user =new UserInteraction();
+		
+		user.displayMaze(maze);
+		user.play(maze); 
+		System.out.println(maze.getHero().getPosX());
+		System.out.println(maze.getHero().getPosY());
+		
+
+	}
+
+}
