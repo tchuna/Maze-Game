@@ -3,6 +3,35 @@ package maze.logic;
 import java.awt.Point;
 
 public class Maze {
+	//maps
+	char map1[][]=new char[][]{
+		{'X','X','X','X','X','X','X','X','X','X'},
+		{'X',' ',' ',' ','I',' ','X',' ',' ','X'},
+		{'X','X','X',' ','X','X','X',' ',' ','X'},
+		{'X',' ','I',' ','I',' ','X',' ',' ','X'},
+		{'X','X','X',' ','X','X','X',' ',' ','X'},
+		{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X','X','X',' ','X','X','X','X',' ','X'},
+		{'X',' ','I',' ','I',' ','X','k',' ','X'},
+		{'X','X','X','X','X','X','X','X','X','X'},
+	};
+
+	char map2[][]=new char[][]{
+		{'X','X','X','X','X','X','X','X','X','X'},
+		{'I',' ',' ',' ',' ',' ',' ',' ','k','X'},
+		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X','X','X','X','X','X','X','X','X','X'},
+	};
+
+
+
 	//Attributes
 	private char matrix[][];
 	public static final char Door='I';
@@ -12,30 +41,21 @@ public class Maze {
 	Guard guard;
 	Point exit1 =new Point(0, 5);
 	Point exit2 =new Point(0, 6);
+	Point exit1Map2=new Point(0, 1);
+	static int add=0;
 
 
 
 
 	//Methods
 
-	public Maze(){
+	public Maze( ){
 
-		char matrix[][]=new char[][]{
-			{'X','X','X','X','X','X','X','X','X','X'},
-			{'X',' ',' ',' ','I',' ','X',' ',' ','X'},
-			{'X','X','X',' ','X','X','X',' ',' ','X'},
-			{'X',' ','I',' ','I',' ','X',' ',' ','X'},
-			{'X','X','X',' ','X','X','X',' ',' ','X'},
-			{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-			{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-			{'X','X','X',' ','X','X','X','X',' ','X'},
-			{'X',' ','I',' ','I',' ','X','k',' ','X'},
-			{'X','X','X','X','X','X','X','X','X','X'},
-		};
 
-		this.matrix=matrix;
+		this.matrix=map1;
 
 	}
+
 
 	public Maze(char matrix[][]) {
 		this.matrix=matrix;
@@ -59,17 +79,19 @@ public class Maze {
 
 	public void insertHero(int x, int y){
 		hero =new Hero(x, y);
+
 		this.matrix[hero.getPosY()][hero.getPosX()]=hero.getName();
 
 	}
 
 	public void insertGuard(int x, int y){
 		guard =new Guard(x, y);
+		//guard.insertPositionMoves();
 		this.matrix[guard.getPosY()][guard.getPosX()]=guard.getName();
 
 	}
 
-	public Boolean isDoor(int x , int y){
+	public Boolean isCloseDoor(int x , int y){
 
 		if (this.matrix[y][x]=='I'){
 			return true ;
@@ -80,6 +102,20 @@ public class Maze {
 
 
 	}
+
+	public Boolean isOpenDoor(int x , int y){
+
+		if (this.matrix[y][x]=='S'){
+			return true ;
+
+		}else {
+			return false ;
+		}
+
+
+	}
+
+
 
 
 	public Boolean isWall(int x , int y){
@@ -120,6 +156,16 @@ public class Maze {
 
 	}
 
+	public void changeMap(int map){
+		if(map==1){
+			this.matrix=map2;
+			hero.setPosition(1, 1);
+			this.matrix[hero.getPosX()][hero.getPosY()]=hero.getName();
+			guard=null;
+		}
+
+	}
+
 
 	public Boolean guardCaptureHero(){
 
@@ -138,10 +184,34 @@ public class Maze {
 
 
 
+	public void moveGuard(int i){
+		Point newPOint=new Point();
+		newPOint=guard.getguardPositions()[i];
+		this.matrix[guard.getPosY()][guard.getPosX()]=' ';
+		guard.setPosition(newPOint.x, newPOint.y);
+		this.matrix[guard.getPosY()][guard.getPosX()]=guard.getName();
+
+
+
+	}
+
+	public void moveHero(int x,int y) {
+		hero.moveCharacter(x,y);
+		this.matrix[hero.getPosY()][hero.getPosX()]=hero.getName();
+
+	}
+
 	public int playHero(String input){
+
+
 
 		int newXposition=0;
 		int newYposition=0;
+		add++;
+
+		if(add==24){
+			add=0;
+		}
 
 
 		switch (input) {
@@ -155,30 +225,51 @@ public class Maze {
 		break;}
 
 
-		if (matrix[hero.getPosY()+newYposition][hero.getPosX()+newXposition] =='X' ||
-				matrix[hero.getPosY()+newYposition][hero.getPosX()+newXposition] =='I'){
+		if(isOpenDoor(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
+			changeMap(1);
+		}
+
+
+		if (isWall(hero.getPosX()+newXposition,hero.getPosY()+newYposition) ||
+				isCloseDoor(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
+			if(guard!=null){
+				moveGuard(add);
+			}
+
 			return 1;
 
 		}
 
-		if(matrix[hero.getPosY()+newYposition][hero.getPosX()+newXposition] =='k'){
+
+		if(isLever(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
 			cleanCell(hero.getPosX(), hero.getPosY());
+			if(guard!=null){
+				moveGuard(add);
+			}
+			//moveGuard(add);
 			openDoor();
-			hero.moveCharacter(newXposition, newYposition);
-			insertHero(hero.getPosX(), hero.getPosY());
+			moveHero(newXposition, newYposition);
 			return 1;
 		}
 
-		if(guardCaptureHero()==true){
-			System.out.println("Game Over");
-			return 0;
+		if(guard!=null){
+			if(guardCaptureHero()==true){
+				System.out.println("Game Over");
+				return 0;
+			}
 		}
+
 
 
 
 		cleanCell(hero.getPosX(), hero.getPosY());
-		hero.moveCharacter(newXposition, newYposition);
-		insertHero(hero.getPosX(), hero.getPosY());
+
+		if(guard!=null){
+			moveGuard(add);
+		}
+		//moveGuard(add);
+		moveHero(newXposition, newYposition);
+
 
 		return 1;
 
