@@ -16,7 +16,7 @@ public class Character {
 	}
 	
 	
-	public void  moveCharacer(int x,int y){
+	public void  moveCharacter(int x,int y){
 		this.posX+=x;
 		this.posY+=y;
 		

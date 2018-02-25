@@ -12,10 +12,15 @@ public class Main {
 		
 		UserInteraction user =new UserInteraction();
 		
-		user.displayMaze(maze);
-		user.play(maze); 
-		System.out.println(maze.getHero().getPosX());
-		System.out.println(maze.getHero().getPosY());
+		
+		
+		
+			user.displayMaze(maze);
+			user.play(maze);
+		
+		//maze.printexit();
+		//System.out.println(maze.getHero().getPosX());
+		//System.out.println(maze.getHero().getPosY());
 		
 
 	}

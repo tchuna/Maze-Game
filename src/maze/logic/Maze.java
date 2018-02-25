@@ -1,5 +1,7 @@
 package maze.logic;
 
+import java.awt.Point;
+
 public class Maze {
 	//Attributes
 	private char matrix[][];
@@ -8,10 +10,14 @@ public class Maze {
 
 	Hero hero ;
 	Guard guard;
+	Point exit1 =new Point(0, 5);
+	Point exit2 =new Point(0, 6);
+
+
 
 
 	//Methods
-	
+
 	public Maze(){
 
 		char matrix[][]=new char[][]{
@@ -101,78 +107,81 @@ public class Maze {
 	}
 
 
-	public void playPlayer(String input){
+	void openDoor(){
 
-		if(input.equals("d")){
-
-			if(isLever(hero.getPosX()+1,hero.getPosY())){
-
-				//lever things 
-
-			}else if(isWall(hero.getPosX()+1,hero.getPosY()) || isDoor(hero.getPosX()+1,hero.getPosY())){
-				System.out.println("This Position is a Wall or a Close Door ");
-
-			}else{
-
-				matrix[hero.getPosY()][hero.getPosX()]=' ';
-
-				this.hero.setPosition(hero.getPosX()+1, hero.getPosY());
-				insertHero(hero.getPosX(), hero.getPosY());
-			}
-
-		}else if(input.equals("a")){
+		this.matrix[exit1.y][exit1.x]='S';
+		this.matrix[exit2.y][exit2.x]='S';
 
 
-			if(isLever(hero.getPosX()-1,hero.getPosY())){
+	}
 
-				//lever things 
-				
-			}else if(isWall(hero.getPosX()-1,hero.getPosY()) || isDoor(hero.getPosX()-1,hero.getPosY())){
-				System.out.println("This Position is a Wall or a Close Door ");
-			}else{
-				matrix[hero.getPosY()][hero.getPosX()]=' ';
+	void cleanCell(int x,int y){
+		matrix[y][x]=' ';
 
-				this.hero.setPosition(hero.getPosX()-1, hero.getPosY());
-				insertHero(hero.getPosX(), hero.getPosY());
-
-			}
-
-		}else if(input.equals("s")){
+	}
 
 
-			if(isLever(hero.getPosX(),hero.getPosY()+1)){
+	public Boolean guardCaptureHero(){
 
-				//lever things 
+		if (guard.getPosX() == hero.getPosX()+1 && guard.getPosY() == hero.getPosY()
+				|| guard.getPosX() == hero.getPosX()-1 && guard.getPosY() == hero.getPosY()
+				|| guard.getPosY() == hero.getPosY()+1 && guard.getPosX() == hero.getPosX()
+				|| guard.getPosY() == hero.getPosY()-1 && guard.getPosX() == hero.getPosX()){
 
-			}else if(isWall(hero.getPosX(),hero.getPosY()+1) || isDoor(hero.getPosX(),hero.getPosY()+1)){
-				System.out.println("This Position is a Wall or a Close Door ");
-			}else{
-				matrix[hero.getPosY()][hero.getPosX()]=' ';
+			return true ;
+		}else{
+			return false;
+		}
 
-				this.hero.setPosition(hero.getPosX(), hero.getPosY()+1);
-				insertHero(hero.getPosX(), hero.getPosY());
-
-			}
-
-
-		}else if(input.equals("w")){
+	}
 
 
-			if(isLever(hero.getPosX(),hero.getPosY()-1)){
 
-				//lever things 
 
-			}else if(isWall(hero.getPosX(),hero.getPosY()-1) || isDoor(hero.getPosX(),hero.getPosY()-1)){
-				System.out.println("This Position is a Wall or a Close Door ");
-			}else{
-				matrix[hero.getPosY()][hero.getPosX()]=' ';
+	public int playHero(String input){
 
-				this.hero.setPosition(hero.getPosX(), hero.getPosY()-1);
-				insertHero(hero.getPosX(), hero.getPosY());
+		int newXposition=0;
+		int newYposition=0;
 
-			}
+
+		switch (input) {
+		case "d":newXposition++;
+		break;
+		case "a":newXposition--;
+		break;
+		case "w":newYposition--;
+		break;
+		case "s":newYposition++;
+		break;}
+
+
+		if (matrix[hero.getPosY()+newYposition][hero.getPosX()+newXposition] =='X' ||
+				matrix[hero.getPosY()+newYposition][hero.getPosX()+newXposition] =='I'){
+			return 1;
 
 		}
+
+		if(matrix[hero.getPosY()+newYposition][hero.getPosX()+newXposition] =='k'){
+			cleanCell(hero.getPosX(), hero.getPosY());
+			openDoor();
+			hero.moveCharacter(newXposition, newYposition);
+			insertHero(hero.getPosX(), hero.getPosY());
+			return 1;
+		}
+
+		if(guardCaptureHero()==true){
+			System.out.println("Game Over");
+			return 0;
+		}
+
+
+
+		cleanCell(hero.getPosX(), hero.getPosY());
+		hero.moveCharacter(newXposition, newYposition);
+		insertHero(hero.getPosX(), hero.getPosY());
+
+		return 1;
+
 
 	}
 

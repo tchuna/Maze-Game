@@ -29,11 +29,11 @@ public class UserInteraction {
 		String input;
 		Scanner scan=new Scanner(System.in);
 		Boolean exit=true;
-		//chunaaaa
+		int result=1;
 
 		
 		
-		while(exit != false){
+		while(result!= 0){
 			System.out.print("Move Direction : ");
 			input=scan.next();
 			scan.nextLine();
@@ -41,14 +41,14 @@ public class UserInteraction {
 
 			if(input.equals("q")){
 				System.out.println("BYE BYE ");
+				System.exit(0);
 				return ;
 			}else if(input.equals("w")||input.equals("s")||
 					input.equals("a")||input.equals("d")){
 				
-				maze.playPlayer(input);
-				
+				result=maze.playHero(input);
 				displayMaze( maze );
-
+				
 			}
 
 		}
