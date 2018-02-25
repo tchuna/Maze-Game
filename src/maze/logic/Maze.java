@@ -37,12 +37,16 @@ public class Maze {
 	public static final char Door='I';
 	public static final char Lever='k';
 
+
 	Hero hero ;
 	Guard guard;
+	Ogre ogre;
 	Point exit1 =new Point(0, 5);
 	Point exit2 =new Point(0, 6);
 	Point exit1Map2=new Point(0, 1);
 	static int add=0;
+	static int numberMap=0;
+
 
 
 
@@ -88,6 +92,13 @@ public class Maze {
 		guard =new Guard(x, y);
 		//guard.insertPositionMoves();
 		this.matrix[guard.getPosY()][guard.getPosX()]=guard.getName();
+
+	}
+	
+	public void insertOgre(int x, int y){
+		ogre =new Ogre(x, y);
+		//guard.insertPositionMoves();
+		this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
 
 	}
 
@@ -145,8 +156,16 @@ public class Maze {
 
 	void openDoor(){
 
-		this.matrix[exit1.y][exit1.x]='S';
-		this.matrix[exit2.y][exit2.x]='S';
+		switch (numberMap) {
+		case 0:
+			this.matrix[exit1.y][exit1.x]='S';
+			this.matrix[exit2.y][exit2.x]='S'; break;
+			
+		case 1:this.matrix[exit1Map2.y][exit1Map2.x]='S';
+		
+		}
+		
+
 
 
 	}
@@ -156,12 +175,16 @@ public class Maze {
 
 	}
 
-	public void changeMap(int map){
-		if(map==1){
+	public void changeMap(){
+		numberMap++;
+		
+		if(numberMap==1){
 			this.matrix=map2;
 			hero.setPosition(1, 1);
 			this.matrix[hero.getPosX()][hero.getPosY()]=hero.getName();
 			guard=null;
+			
+			insertOgre(4,1);
 		}
 
 	}
@@ -194,11 +217,18 @@ public class Maze {
 
 
 	}
+	
+	
 
 	public void moveHero(int x,int y) {
 		hero.moveCharacter(x,y);
 		this.matrix[hero.getPosY()][hero.getPosX()]=hero.getName();
 
+	}
+	
+	public void randoOgreMoves(){
+		
+		
 	}
 
 	public int playHero(String input){
@@ -226,7 +256,7 @@ public class Maze {
 
 
 		if(isOpenDoor(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
-			changeMap(1);
+			changeMap();
 		}
 
 
