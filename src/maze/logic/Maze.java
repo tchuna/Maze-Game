@@ -34,18 +34,16 @@ public class Maze {
 
 	//Attributes
 	private char matrix[][];
-	public static final char Door='I';
-	public static final char Lever='k';
-
-
-	Hero hero ;
-	Guard guard;
-	Ogre ogre;
-	Point exit1 =new Point(0, 5);
-	Point exit2 =new Point(0, 6);
-	Point exit1Map2=new Point(0, 1);
-	static int add=0;
-	static int numberMap=0;
+	
+	
+	private Hero hero ;
+	private Guard guard;
+	private Ogre ogre;
+	private Point exit1 =new Point(0, 5);
+	private Point exit2 =new Point(0, 6);
+	private Point exit1Map2=new Point(0, 1);
+	private static int add=0;
+	private static int numberMap=0;
 
 
 
@@ -53,10 +51,14 @@ public class Maze {
 
 	//Methods
 
-	public Maze( ){
+	public Maze(int map){
+
+		switch (map) {
+		case 1:this.matrix=map1;break;
+		case 2:this.matrix=map2;break;
+		}
 
 
-		this.matrix=map1;
 
 	}
 
@@ -81,6 +83,11 @@ public class Maze {
 		return this.guard;
 	}
 
+	public void setGuard(){
+
+		this.guard=null;
+	}
+
 	public void insertHero(int x, int y){
 		hero =new Hero(x, y);
 
@@ -94,13 +101,16 @@ public class Maze {
 		this.matrix[guard.getPosY()][guard.getPosX()]=guard.getName();
 
 	}
-	
+
+
 	public void insertOgre(int x, int y){
 		ogre =new Ogre(x, y);
 		//guard.insertPositionMoves();
 		this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
 
 	}
+
+
 
 	public Boolean isCloseDoor(int x , int y){
 
@@ -113,6 +123,8 @@ public class Maze {
 
 
 	}
+
+
 
 	public Boolean isOpenDoor(int x , int y){
 
@@ -160,11 +172,11 @@ public class Maze {
 		case 0:
 			this.matrix[exit1.y][exit1.x]='S';
 			this.matrix[exit2.y][exit2.x]='S'; break;
-			
+
 		case 1:this.matrix[exit1Map2.y][exit1Map2.x]='S';
-		
+
 		}
-		
+
 
 
 
@@ -177,13 +189,13 @@ public class Maze {
 
 	public void changeMap(){
 		numberMap++;
-		
+
 		if(numberMap==1){
 			this.matrix=map2;
 			hero.setPosition(1, 1);
 			this.matrix[hero.getPosX()][hero.getPosY()]=hero.getName();
 			guard=null;
-			
+
 			insertOgre(4,1);
 		}
 
@@ -192,15 +204,21 @@ public class Maze {
 
 	public Boolean guardCaptureHero(){
 
-		if (guard.getPosX() == hero.getPosX()+1 && guard.getPosY() == hero.getPosY()
-				|| guard.getPosX() == hero.getPosX()-1 && guard.getPosY() == hero.getPosY()
-				|| guard.getPosY() == hero.getPosY()+1 && guard.getPosX() == hero.getPosX()
-				|| guard.getPosY() == hero.getPosY()-1 && guard.getPosX() == hero.getPosX()){
+		if(guard!=null){
 
-			return true ;
-		}else{
-			return false;
-		}
+			if (guard.getPosX() == hero.getPosX()+1 && guard.getPosY() == hero.getPosY()
+					|| guard.getPosX() == hero.getPosX()-1 && guard.getPosY() == hero.getPosY()
+					|| guard.getPosY() == hero.getPosY()+1 && guard.getPosX() == hero.getPosX()
+					|| guard.getPosY() == hero.getPosY()-1 && guard.getPosX() == hero.getPosX()){
+
+				return true ;
+
+
+
+			}else return false;
+
+		}else return false;
+
 
 	}
 
@@ -208,6 +226,18 @@ public class Maze {
 
 
 	public void moveGuard(int i){
+
+		add++;
+		
+		if(this.guard==null){
+
+			return ;
+		}
+		
+		if(add==24){
+			add=0;
+		}
+
 		Point newPOint=new Point();
 		newPOint=guard.getguardPositions()[i];
 		this.matrix[guard.getPosY()][guard.getPosX()]=' ';
@@ -217,19 +247,51 @@ public class Maze {
 
 
 	}
-	
-	
+
+
+
+
 
 	public void moveHero(int x,int y) {
+		
+		cleanCell(hero.getPosX(), hero.getPosY());
 		hero.moveCharacter(x,y);
 		this.matrix[hero.getPosY()][hero.getPosX()]=hero.getName();
 
 	}
+
+
+
+
+
+	public void randoMovesOgre(){
+
+
+	}
 	
-	public void randoOgreMoves(){
+	
+	
+	public int playTime(String input){
+		int result;
 		
+		
+		result=playHero(input);
+		
+		moveGuard(add);
+
+		
+		if(guardCaptureHero()==true){ 
+			hero.setIsDead();
+			return 0;
+		}
+		
+	
+		
+		return result;
+
 		
 	}
+	
 
 	public int playHero(String input){
 
@@ -237,11 +299,11 @@ public class Maze {
 
 		int newXposition=0;
 		int newYposition=0;
-		add++;
+		/*add++;
 
 		if(add==24){
 			add=0;
-		}
+		}*/
 
 
 		switch (input) {
@@ -254,6 +316,8 @@ public class Maze {
 		case "s":newYposition++;
 		break;}
 
+		
+
 
 		if(isOpenDoor(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
 			changeMap();
@@ -262,9 +326,6 @@ public class Maze {
 
 		if (isWall(hero.getPosX()+newXposition,hero.getPosY()+newYposition) ||
 				isCloseDoor(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
-			if(guard!=null){
-				moveGuard(add);
-			}
 
 			return 1;
 
@@ -273,33 +334,26 @@ public class Maze {
 
 		if(isLever(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
 			cleanCell(hero.getPosX(), hero.getPosY());
-			if(guard!=null){
-				moveGuard(add);
-			}
-			//moveGuard(add);
+
 			openDoor();
 			moveHero(newXposition, newYposition);
+
 			return 1;
 		}
 
-		if(guard!=null){
-			if(guardCaptureHero()==true){
-				System.out.println("Game Over");
-				return 0;
-			}
-		}
 
-
-
-
-		cleanCell(hero.getPosX(), hero.getPosY());
-
-		if(guard!=null){
-			moveGuard(add);
-		}
-		//moveGuard(add);
 		moveHero(newXposition, newYposition);
+		
+		/*moveGuard(add);
 
+		
+		if(guardCaptureHero()==true){ ////// NOTAAAA dividir essa funçao em partes do jogo e verificar posiveis erros de posiçao 
+			moveGuard(add);
+			System.out.println("Game Over");
+			System.exit(0);
+
+			//return 0;
+		}*/
 
 		return 1;
 

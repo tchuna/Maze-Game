@@ -46,12 +46,20 @@ public class UserInteraction {
 			}else if(input.equals("w")||input.equals("s")||
 					input.equals("a")||input.equals("d")){
 				
-				result=maze.playHero(input);
+				result=maze.playTime(input);
 				displayMaze( maze );
 				
 			}
 
 		}
+		
+		
+		
+		if(maze.getHero().getIsDead()==true){
+			System.out.println("Game Over");
+		}
+		
+		scan.close();
 		
 
 
