@@ -20,7 +20,8 @@ public class UserInteraction {
 				System.out.print(' ');
 			}
 			System.out.print('\n');
-
+			
+			
 		}
 	}
 
@@ -48,6 +49,9 @@ public class UserInteraction {
 				
 				result=maze.playTime(input);
 				displayMaze( maze );
+				
+				
+				
 				
 			}
 

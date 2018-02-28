@@ -28,12 +28,14 @@ public class Main {
 
 
 
+		
 		user.displayMaze(maze);
+		
 		user.play(maze);
 
+		
 		//maze.printexit();
-		//System.out.println(maze.getHero().getPosX());
-		//System.out.println(maze.getHero().getPosY());
+		
 
 
 	}

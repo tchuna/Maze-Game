@@ -89,6 +89,11 @@ public class Maze {
 		return this.hero;
 	}
 
+	public Ogre getOgre(){
+
+		return this.ogre;
+	}
+
 	public Guard getGuard(){
 
 		return this.guard;
@@ -182,7 +187,7 @@ public class Maze {
 			this.matrix[exit1.y][exit1.x]='S';
 			this.matrix[exit2.y][exit2.x]='S'; break;
 
-		case 1:this.matrix[exit1Map2.y][exit1Map2.x]='S';
+		case 1:hero.setName('K');
 
 		}
 
@@ -277,28 +282,29 @@ public class Maze {
 
 
 
-		int random=randomNumber(5);
+		int random=randomNumber(3);
 
 
 		int newXposition=0;
 		int newYposition=0;
 
 		switch (random) {
-		case 1: if(this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]==' '){
+
+		case 2: if(this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]==' ' || this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]=='k'){
 			newXposition++;  //right
 		}break;
 
-		case 2:if(this.matrix[this.ogre.getPosY()][this.ogre.getPosX()-1]==' '){
+		case 1:if(this.matrix[this.ogre.getPosY()][this.ogre.getPosX()-1]==' '  || this.matrix[this.ogre.getPosY()][this.ogre.getPosX()-1]=='k'){
 			newXposition--; //left
 		}break;
 
 		case 3:
-			if(this.matrix[this.ogre.getPosY()-1][this.ogre.getPosX()]==' '){
+			if(this.matrix[this.ogre.getPosY()-1][this.ogre.getPosX()]==' ' || this.matrix[this.ogre.getPosY()-1][this.ogre.getPosX()]=='k'){
 				newYposition--; //up
 			}break;
 
 		case 4:
-			if(this.matrix[this.ogre.getPosY()+1][this.ogre.getPosX()+1]==' '){
+			if(this.matrix[this.ogre.getPosY()+1][this.ogre.getPosX()]==' ' || this.matrix[this.ogre.getPosY()+1][this.ogre.getPosX()]=='k'){
 				newYposition++;//down
 			}break;
 
@@ -321,8 +327,27 @@ public class Maze {
 
 		cleanCell(ogre.getPosX(), ogre.getPosY());
 		ogre.moveCharacter(result.x,result.y);
-		this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
 
+
+		if(isLever(ogre.getPosX(), ogre.getPosY())){
+
+			this.matrix[ogre.getPosY()][ogre.getPosX()]='$';
+
+			ogre. setleverPogre(ogre.getPosX(), ogre.getPosY());}
+
+
+		else if (ogre.getPosX()==ogre.getleverXogre()&& ogre.getPosY()==ogre.getleverYogre()){
+
+
+			this.matrix[ogre.getPosY()][ogre.getPosX()]='$';
+
+		}else{
+
+			this.matrix[ogre.getleverYogre()][ogre.getleverXogre()]='k';
+			
+			this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
+
+		}
 
 	}
 
@@ -336,9 +361,8 @@ public class Maze {
 		result=playHero(input);
 
 		if(numberMap==0){
+			
 			moveGuard(add);
-
-
 			if(guardCaptureHero(guard)==true){ 
 				hero.setIsDead();
 				return 0;
@@ -346,8 +370,8 @@ public class Maze {
 
 		}
 
-
 		if(numberMap==1){
+			
 			moveOgre();
 			if(guardCaptureHero(ogre)==true){ 
 				hero.setIsDead();
