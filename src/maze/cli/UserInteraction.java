@@ -63,6 +63,12 @@ public class UserInteraction {
 			System.out.println("Game Over");
 		}
 		
+		
+		if(maze.getHero().getWin()==true){
+			System.out.println("YOU  WIN ");
+			
+		}
+		
 		scan.close();
 		
 

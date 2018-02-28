@@ -180,14 +180,12 @@ public class Maze {
 	}
 
 
-	void openDoor(){
+	public void openDoorMap1(){
 
 		switch (numberMap) {
 		case 0:
 			this.matrix[exit1.y][exit1.x]='S';
 			this.matrix[exit2.y][exit2.x]='S'; break;
-
-		case 1:hero.setName('K');
 
 		}
 
@@ -196,7 +194,13 @@ public class Maze {
 
 	}
 
-	void cleanCell(int x,int y){
+	public void openDoorMap2(){
+
+		this.matrix[exit1Map2.y][exit1Map2.x]='S';
+
+	}
+
+	public void cleanCell(int x,int y){
 		matrix[y][x]=' ';
 
 	}
@@ -282,7 +286,7 @@ public class Maze {
 
 
 
-		int random=randomNumber(3);
+		int random=randomNumber(5);
 
 
 		int newXposition=0;
@@ -290,7 +294,7 @@ public class Maze {
 
 		switch (random) {
 
-		case 2: if(this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]==' ' || this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]=='k'){
+		case 4: if(this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]==' ' || this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]=='k'){
 			newXposition++;  //right
 		}break;
 
@@ -303,7 +307,7 @@ public class Maze {
 				newYposition--; //up
 			}break;
 
-		case 4:
+		case 2:
 			if(this.matrix[this.ogre.getPosY()+1][this.ogre.getPosX()]==' ' || this.matrix[this.ogre.getPosY()+1][this.ogre.getPosX()]=='k'){
 				newYposition++;//down
 			}break;
@@ -341,10 +345,26 @@ public class Maze {
 
 			this.matrix[ogre.getPosY()][ogre.getPosX()]='$';
 
+
+		}else if(hero.getName()=='K'){
+
+			if(hero.getPosY()==ogre.getleverYogre() && hero.getPosX()==ogre.getleverXogre()){
+
+				this.matrix[ogre.getleverYogre()][ogre.getleverXogre()]=hero.getName();
+
+			}else{
+
+				this.matrix[ogre.getleverYogre()][ogre.getleverXogre()]=' ';
+			}
+
+
+			this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
+
 		}else{
 
+
 			this.matrix[ogre.getleverYogre()][ogre.getleverXogre()]='k';
-			
+
 			this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
 
 		}
@@ -361,7 +381,7 @@ public class Maze {
 		result=playHero(input);
 
 		if(numberMap==0){
-			
+
 			moveGuard(add);
 			if(guardCaptureHero(guard)==true){ 
 				hero.setIsDead();
@@ -370,14 +390,21 @@ public class Maze {
 
 		}
 
+
+
 		if(numberMap==1){
-			
+
 			moveOgre();
 			if(guardCaptureHero(ogre)==true){ 
 				hero.setIsDead();
 				return 0;
 			}
 
+		}
+
+
+		if(hero.getWin()==true){
+			return 0;
 		}
 
 
@@ -408,6 +435,19 @@ public class Maze {
 		break;}
 
 
+		if(hero.getName()=='K' && isCloseDoor(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
+
+			openDoorMap2();
+			return 1;
+
+		}
+
+
+		if(hero.getName()=='K' && isOpenDoor(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
+
+			hero.setWin();
+		}
+
 
 
 		if(isOpenDoor(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
@@ -423,14 +463,23 @@ public class Maze {
 		}
 
 
+
 		if(isLever(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
 			//cleanCell(hero.getPosX(), hero.getPosY());
 
-			openDoor();
+
+			if(numberMap==1){
+				this.hero.setName('K');
+			}
+
+			openDoorMap1();
 			moveHero(newXposition, newYposition);
 
 			return 1;
 		}
+
+
+
 
 		moveHero(newXposition, newYposition);
 
