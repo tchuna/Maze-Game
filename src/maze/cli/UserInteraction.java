@@ -29,8 +29,10 @@ public class UserInteraction {
 	public void play(Maze maze){
 		String input;
 		Scanner scan=new Scanner(System.in);
-		Boolean exit=true;
+		//Boolean exit=true;
 		int result=1;
+		
+	
 
 		
 		
@@ -57,6 +59,9 @@ public class UserInteraction {
 
 		}
 		
+		scan.close();
+		
+		
 		
 		
 		if(maze.getHero().getIsDead()==true){
@@ -69,7 +74,7 @@ public class UserInteraction {
 			
 		}
 		
-		scan.close();
+	
 		
 
 

@@ -2,9 +2,10 @@ package maze.logic;
 
 import java.awt.Point;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class Guard  extends Character{
+	
+	private int numTypeGuard;
 
 	private   Point[] guardPositions = new Point[24];
 
@@ -12,12 +13,8 @@ public class Guard  extends Character{
 
 	public Guard(int x,int y){
 		super(x, y, 'G');
-
-		/*for(int i=0;i<this.guardPositions.length;i++){
-			guardPositions[i]=new Point(7,4);
-
-		}*/	
 		insertPositionMoves();
+		this.numTypeGuard=0;
 	}
 	
 	
@@ -52,5 +49,15 @@ public class Guard  extends Character{
 	public Point[] getguardPositions(){
 		
 		return this.guardPositions;
+	}
+
+
+	public int getNumTypeGuard() {
+		return numTypeGuard;
+	}
+
+
+	public void setNumTypeGuard(int numTypeGuard) {
+		this.numTypeGuard = numTypeGuard;
 	}
 }
