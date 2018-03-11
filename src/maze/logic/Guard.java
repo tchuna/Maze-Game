@@ -1,18 +1,29 @@
 package maze.logic;
 
 import java.awt.Point;
+import java.util.Random;
 
 
 public class Guard  extends Character{
 	
 	private int numTypeGuard;
+	private int mode;
+	private int sleepTurn;
 
 	private   Point[] guardPositions = new Point[24];
 
 
 
-	public Guard(int x,int y){
+	public Guard(int x,int y,int m){
 		super(x, y, 'G');
+		this.setMode(0);
+		switch (m) {
+		case 1:this.setName('G');break;
+		case 2:this.setName('L');break;
+		case 3:this.setName('R');break;
+		}
+		
+		this.sleepTurn=0;
 		insertPositionMoves();
 		this.numTypeGuard=0;
 	}
@@ -46,6 +57,30 @@ public class Guard  extends Character{
 		
 	}
 	
+	
+	
+	public static int randomNumber(int n)	//gera num aleatorio de 1 a n-1
+	{
+		int num = (int) (Math.random() * (n-1) +1);
+		if(num<0)
+		{
+			num=num*(-1);
+		}
+		return num;
+	}
+	
+	
+	
+	public void slepp(){
+		 sleepTurn=randomNumber(5);
+		
+	}
+	
+	public void sleepGuard(){
+		
+		
+	}
+	
 	public Point[] getguardPositions(){
 		
 		return this.guardPositions;
@@ -59,5 +94,25 @@ public class Guard  extends Character{
 
 	public void setNumTypeGuard(int numTypeGuard) {
 		this.numTypeGuard = numTypeGuard;
+	}
+
+
+	public int getMode() {
+		return mode;
+	}
+
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
+
+
+	public int getSleepTurn() {
+		return sleepTurn;
+	}
+
+
+	public void setSleepTurn(int sleepTurn) {
+		this.sleepTurn = sleepTurn;
 	}
 }

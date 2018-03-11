@@ -19,10 +19,10 @@ public class Maze {
 
 	char map2[][]=new char[][]{
 		{'X','X','X','X','X','X','X','X','X','X'},
-		{'I',' ',' ',' ',' ',' ',' ',' ','k','X'},
+		{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X',' ',' ',' ','k',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
@@ -44,7 +44,7 @@ public class Maze {
 	private Point exit1Map2=new Point(0, 1);
 
 	private static int add=0;
-	private static int numberMap=0;
+	private int numberMap;
 
 
 
@@ -58,6 +58,8 @@ public class Maze {
 		case 1:matrix=map1;break;
 		case 2:matrix=map2;break;
 		}
+
+		this.numberMap=map;
 
 
 
@@ -112,8 +114,8 @@ public class Maze {
 
 	}
 
-	public void insertGuard(int x, int y){
-		guard =new Guard(x, y);
+	public void insertGuard(int x, int y,int mode){
+		guard =new Guard(x, y,mode);
 		this.matrix[guard.getPosY()][guard.getPosX()]=guard.getName();
 
 	}
@@ -181,10 +183,26 @@ public class Maze {
 	}
 
 
+	public Boolean isClub(int x , int y){
+
+		if (this.matrix[y][x]=='*'){
+			return true ;
+
+		}else {
+			return false ;
+		}
+
+
+	}
+
+
+
+
+
 	public void openDoorMap1(){
 
 		switch (numberMap) {
-		case 0:
+		case 1:
 			matrix[exit1.y][exit1.x]='S';
 			matrix[exit2.y][exit2.x]='S'; break;
 
@@ -207,9 +225,9 @@ public class Maze {
 	}
 
 	public void changeMap(){
-		numberMap++;
+		//numberMap++;
 
-		if(numberMap==1){
+		if(numberMap==2){
 			this.matrix=map2;
 			hero.setPosition(1, 1);
 			this.matrix[hero.getPosX()][hero.getPosY()]=hero.getName();
@@ -269,7 +287,8 @@ public class Maze {
 			if (character.getPosX() == hero.getPosX()+1 && character.getPosY() == hero.getPosY()
 					|| character.getPosX() == hero.getPosX()-1 && character.getPosY() == hero.getPosY()
 					|| character.getPosY() == hero.getPosY()+1 && character.getPosX() == hero.getPosX()
-					|| character.getPosY() == hero.getPosY()-1 && character.getPosX() == hero.getPosX()){
+					|| character.getPosY() == hero.getPosY()-1 && character.getPosX() == hero.getPosX()
+					|| character.getPosX() == hero.getPosX() && character.getPosY() == hero.getPosY()){
 
 				return true ;
 
@@ -321,44 +340,82 @@ public class Maze {
 	}
 
 
+	public void moveOgre(int x,int y){
+
+		cleanCell(ogre.getPosX(), ogre.getPosY());
+		ogre.moveCharacter(x,y);
+		this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
+
+	}
 
 
 
-	public Point randomMovesOgre(){  // metado mal feito organizar 
 
 
+	public void playRandomMovesOgre(){ 
 
-		int random=randomNumber(5);
 
+		int random=randomNumber(3);
+		Point leverPosition=new Point(4,4);
 
 		int newXposition=0;
 		int newYposition=0;
 
+
+
 		switch (random) {
+		case 4:newXposition++;
+		break;
+		case 3:newXposition--;
+		break;
+		case 2:newYposition--;
+		break;
+		case 1:newYposition++;
+		break;}
 
-		case 4: if(this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]==' ' || this.matrix[this.ogre.getPosY()][this.ogre.getPosX()+1]=='k'){
-			newXposition++;  //right
-		}break;
 
-		case 1:if(this.matrix[this.ogre.getPosY()][this.ogre.getPosX()-1]==' '  || this.matrix[this.ogre.getPosY()][this.ogre.getPosX()-1]=='k'){
-			newXposition--; //left
-		}break;
 
-		case 3:
-			if(this.matrix[this.ogre.getPosY()-1][this.ogre.getPosX()]==' ' || this.matrix[this.ogre.getPosY()-1][this.ogre.getPosX()]=='k'){
-				newYposition--; //up
-			}break;
 
-		case 2:
-			if(this.matrix[this.ogre.getPosY()+1][this.ogre.getPosX()]==' ' || this.matrix[this.ogre.getPosY()+1][this.ogre.getPosX()]=='k'){
-				newYposition++;//down
-			}break;
+		if (isWall(ogre.getPosX()+newXposition,ogre.getPosY()+newYposition) || // verifica se a nova posicao do ogre e parede ou porta fecahdo 
+				isCloseDoor(ogre.getPosX()+newXposition,ogre.getPosY()+newYposition)){
+
+			return;
 
 		}
 
-		Point result=new Point(newXposition,newYposition);
+		
 
-		return result;
+		if( leverPosition.x==ogre.getPosX()+newXposition && leverPosition.y==ogre.getPosY()+newYposition ){
+
+			ogre.setName('$');
+			moveOgre(newXposition,newYposition);
+			return;
+		}
+
+
+
+
+		if(ogre.getName()=='$' && (ogre.getPosY()+newYposition!=leverPosition.y ||ogre.getPosX()+newXposition!=leverPosition.x)){ // verefica se o ogre ja nao encontra na alavanca 
+			ogre.setName('O');
+			moveOgre(newXposition,newYposition);
+			matrix[leverPosition.y][leverPosition.x]='k';
+			return;
+
+		}
+
+
+		moveOgre(newXposition,newYposition);
+		
+		
+		/*if(isLever(ogre.getPosX()+newXposition,ogre.getPosY()+newYposition)){ // verifica se a nova posicao do ogre e a alavanca ou num club do ogre
+		//	|| isClub(ogre.getPosX()+newXposition,ogre.getPosY()+newYposition)
+			ogre.setName('$');
+			moveOgre(newXposition,newYposition);
+			return;
+
+		}*/
+
+
 
 
 	}
@@ -367,7 +424,76 @@ public class Maze {
 
 
 
+	public void attackOgre(){
 
+		Point leverPosition=new Point(4,4);
+
+		cleannclub();
+		ogre.armedOgre();
+
+		if(isWall(ogre.getOgreWeapon().getXWeapon(),ogre.getOgreWeapon().getYWeapon())
+				|| isCloseDoor(ogre.getOgreWeapon().getXWeapon(),ogre.getOgreWeapon().getYWeapon())){
+			System.out.println("wwwww");
+			return;
+		}
+
+
+		if(leverPosition.x==ogre.getOgreWeapon().getXWeapon() && leverPosition.y==ogre.getOgreWeapon().getYWeapon() &&ogre.getOgreWeapon().getNameWeapon()=='*'){
+
+			System.out.println("dddd");
+			ogre.getOgreWeapon().setNameWeapon('$');
+
+			matrix[ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]=ogre.getOgreWeapon().getNameWeapon();
+			return;
+		}
+
+
+		if(leverPosition.x!=ogre.getOgreWeapon().getXWeapon() && leverPosition.y!=ogre.getOgreWeapon().getYWeapon() || matrix[leverPosition.y][leverPosition.x]=='$' ){
+
+			System.out.println("aaaaa");
+			ogre.getOgreWeapon().setNameWeapon('*');
+			matrix[ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]=ogre.getOgreWeapon().getNameWeapon();
+			matrix[leverPosition.y][leverPosition.x]='k';
+			return;
+
+		}
+
+
+		matrix[ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]=ogre.getOgreWeapon().getNameWeapon();
+
+
+
+
+		/*if(isLever(ogre.getOgreWeapon().getXWeapon(),ogre.getOgreWeapon().getYWeapon()) && ogre.getOgreWeapon().getNameWeapon()=='*'){
+			System.out.println("dddd");
+			ogre.getOgreWeapon().setNameWeapon('$');
+
+			matrix[ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]=ogre.getOgreWeapon().getNameWeapon();
+			return;
+			//&& (ogre.getOgreWeapon().getYWeapon()!=leverPosition.y ||ogre.getOgreWeapon().getXWeapon()!=leverPosition.x)
+		}*/
+
+
+
+		/*if(ogre.getOgreWeapon().getNameWeapon()=='$' && leverPosition.x!=ogre.getOgreWeapon().getXWeapon() && leverPosition.y!=ogre.getOgreWeapon().getYWeapon()){
+			System.out.println("aaaaa");
+
+			ogre.getOgreWeapon().setNameWeapon('*');
+			matrix[ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]=ogre.getOgreWeapon().getNameWeapon();
+			matrix[leverPosition.y][leverPosition.x]='k';
+
+
+			return;
+
+		}*/
+
+
+
+	}
+
+	
+	
+	
 	public void cleannclub(){
 		for(int i=0;i<matrix.length; i++){
 			for(int j=0; j<matrix.length; j++){
@@ -381,80 +507,10 @@ public class Maze {
 
 
 
+
+
 	
 	
-
-
-	public void moveOgre(){  // metado mal feito organizar 
-
-		// lipa o bastao do ogre 
-
-
-		Point result=new Point();
-
-		result=randomMovesOgre();
-
-		cleanCell(ogre.getPosX(), ogre.getPosY());
-
-		ogre.moveCharacter(result.x,result.y);
-
-		cleannclub(); //;
-
-
-
-
-
-		
-
-
-		if(isLever(this.ogre.getOgreWeapon().getXWeapon(),this.ogre.getOgreWeapon().getYWeapon())){
-
-			this.matrix[this.ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]='$';
-
-		}else if(isLever(ogre.getPosX(), ogre.getPosY())){
-
-
-			this.matrix[ogre.getPosY()][ogre.getPosX()]='$';
-
-			ogre. setleverPogre(ogre.getPosX(), ogre.getPosY());}
-
-
-		else if (ogre.getPosX()==ogre.getleverXogre() && ogre.getPosY()==ogre.getleverYogre()){
-
-
-			this.matrix[ogre.getPosY()][ogre.getPosX()]='$';
-
-
-		}else if(hero.getName()=='K'){
-
-			if(hero.getPosY()==ogre.getleverYogre() && hero.getPosX()==ogre.getleverXogre()){
-
-				this.matrix[ogre.getleverYogre()][ogre.getleverXogre()]=hero.getName();
-
-			}else{
-
-				this.matrix[ogre.getleverYogre()][ogre.getleverXogre()]=' ';
-			}
-
-
-			this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
-
-		}else{
-
-
-			this.matrix[ogre.getleverYogre()][ogre.getleverXogre()]='k';
-
-			this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
-
-		}
-
-
-
-
-	}
-
-
-
 
 	public int playTime(String input){
 		int result;
@@ -462,34 +518,28 @@ public class Maze {
 
 		result=playHero(input);
 
-		if(numberMap==0){
+		//Nivel 1 do jogo
+		if(numberMap==1){
 
 			moveGuard(add);
 			if(guardCaptureHero(guard)==true){ 
 				hero.setIsDead();
 				return 0;
 			}
-
 		}
 
 
+		//Nivel 2 do jogo
+		if(numberMap==2){
 
-		if(numberMap==1){
-
-			moveOgre();
-			ogreAttack();
-
+			playRandomMovesOgre();
+			attackOgre();
 
 			if(ogreKillHero(ogre)==true){ 
 				hero.setIsDead();
 				return 0;
 			}
-
-
-
 		}
-
-
 
 
 
@@ -556,10 +606,9 @@ public class Maze {
 
 
 		if(isLever(hero.getPosX()+newXposition,hero.getPosY()+newYposition)){
-			//cleanCell(hero.getPosX(), hero.getPosY());
 
 
-			if(numberMap==1){
+			if(numberMap==2){
 				this.hero.setName('K');
 			}
 

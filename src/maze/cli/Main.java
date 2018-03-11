@@ -7,11 +7,11 @@ public class Main {
 	public static void main(String[] args) {
 
 		int numMaze=1;
-		Maze maze=new Maze(numMaze);
+		Maze maze=new Maze( numMaze);
 		
 		
 		if(numMaze==1){
-			maze.insertGuard(8, 1);
+			maze.insertGuard(8, 1,2);
 			maze.insertHero(1, 1);
 			
 		}else if(numMaze==2){
