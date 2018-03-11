@@ -383,7 +383,7 @@ public class Maze {
 
 		}
 
-		
+
 
 		if( leverPosition.x==ogre.getPosX()+newXposition && leverPosition.y==ogre.getPosY()+newYposition ){
 
@@ -405,8 +405,8 @@ public class Maze {
 
 
 		moveOgre(newXposition,newYposition);
-		
-		
+
+
 		/*if(isLever(ogre.getPosX()+newXposition,ogre.getPosY()+newYposition)){ // verifica se a nova posicao do ogre e a alavanca ou num club do ogre
 		//	|| isClub(ogre.getPosX()+newXposition,ogre.getPosY()+newYposition)
 			ogre.setName('$');
@@ -491,9 +491,9 @@ public class Maze {
 
 	}
 
-	
-	
-	
+
+
+
 	public void cleannclub(){
 		for(int i=0;i<matrix.length; i++){
 			for(int j=0; j<matrix.length; j++){
@@ -509,8 +509,69 @@ public class Maze {
 
 
 
-	
-	
+	public void  turnGuardMode(){
+
+
+
+		if(guard.getMode()==1){
+
+			if(numberMap==1){
+
+				moveGuard(add);
+				if(guardCaptureHero(guard)==true){ 
+					hero.setIsDead();
+				}
+			}
+		}
+		
+		
+
+
+		if(guard.getMode()==2){
+
+			if(numberMap==1){
+
+				if(guard.getSleepTurn()<=0){
+
+					
+					if(randomNumber(4)==1){
+						guard.setName('g');
+						this.matrix[guard.getPosY()][guard.getPosX()]=guard.getName();
+						guard.slepp();
+						
+					}
+
+				}
+
+
+
+				if(guard.getSleepTurn()>0){
+
+					guard.setSleepTurn(guard.getSleepTurn()-1);
+
+				}else{
+					guard.setName('L');
+					moveGuard(add);
+				}
+
+
+				if(guardCaptureHero(guard)==true){ 
+					hero.setIsDead();
+				}
+			}
+
+
+
+		} 
+
+
+
+
+	}
+
+
+
+
 
 	public int playTime(String input){
 		int result;
@@ -518,8 +579,8 @@ public class Maze {
 
 		result=playHero(input);
 
-		//Nivel 1 do jogo
-		if(numberMap==1){
+
+		/*if(numberMap==1){
 
 			moveGuard(add);
 			if(guardCaptureHero(guard)==true){ 
@@ -527,7 +588,9 @@ public class Maze {
 				return 0;
 			}
 		}
-
+*/
+		turnGuardMode();
+		
 
 		//Nivel 2 do jogo
 		if(numberMap==2){
@@ -544,7 +607,7 @@ public class Maze {
 
 
 
-		if(hero.getWin()==true){
+		if(hero.getWin()==true || hero.getIsDead()==true){
 			return 0;
 		}
 
