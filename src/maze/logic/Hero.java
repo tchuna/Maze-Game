@@ -1,5 +1,7 @@
 package maze.logic;
 
+
+
 public class Hero extends Character{
 	
 	private Boolean isDead;

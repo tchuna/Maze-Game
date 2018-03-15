@@ -16,12 +16,6 @@ public class Guard  extends Character{
 
 	public Guard(int x,int y,int m){
 		super(x, y, 'G');
-		switch (m) {
-		case 1:this.setName('G');break;
-		case 2:this.setName('L');break;
-		case 3:this.setName('R');break;
-		}
-		
 		this.mode=m;
 		insertPositionMoves();
 		//this.numTypeGuard=0;

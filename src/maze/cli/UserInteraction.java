@@ -20,8 +20,8 @@ public class UserInteraction {
 				System.out.print(' ');
 			}
 			System.out.print('\n');
-			
-			
+
+
 		}
 	}
 
@@ -31,11 +31,11 @@ public class UserInteraction {
 		Scanner scan=new Scanner(System.in);
 		//Boolean exit=true;
 		int result=1;
-		
-	
 
-		
-		
+
+
+
+
 		while(result!= 0){
 			System.out.print("Move Direction : ");
 			input=scan.next();
@@ -48,34 +48,34 @@ public class UserInteraction {
 				return ;
 			}else if(input.equals("w")||input.equals("s")||
 					input.equals("a")||input.equals("d")){
-				
+
 				result=maze.playTime(input);
 				displayMaze( maze );
-				
-				
-				
-				
+
+
+
+
 			}
 
 		}
-		
+
 		scan.close();
-		
-		
-		
-		
+
+
+
+
 		if(maze.getHero().getIsDead()==true){
 			System.out.println("Game Over");
 		}
-		
-		
+
+
 		if(maze.getHero().getWin()==true){
 			System.out.println("YOU  WIN ");
-			
+
 		}
-		
-	
-		
+
+
+
 
 
 	}
