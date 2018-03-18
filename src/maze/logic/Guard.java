@@ -5,10 +5,10 @@ import java.awt.Point;
 
 
 public class Guard  extends Character{
-	
-	//private int numTypeGuard;
+
 	private int mode;
 	private int sleepTurn=0;
+	private static int  add_less=23;
 
 	private   Point[] guardPositions = new Point[24];
 
@@ -18,10 +18,10 @@ public class Guard  extends Character{
 		super(x, y, 'G');
 		this.mode=m;
 		insertPositionMoves();
-		//this.numTypeGuard=0;
+
 	}
-	
-	
+
+
 	public void insertPositionMoves(){
 		this.guardPositions[0]=new Point(7,1);
 		this.guardPositions[1]=new Point(7,2);
@@ -47,11 +47,11 @@ public class Guard  extends Character{
 		this.guardPositions[21]=new Point(8,3);
 		this.guardPositions[22]=new Point(8,2);
 		this.guardPositions[23]=new Point(8,1);
-		
+
 	}
-	
-	
-	
+
+
+
 	public static int randomNumber(int n)	//gera num aleatorio de 1 a n-1
 	{
 		int num = (int) (Math.random() * (n-1) +1);
@@ -61,21 +61,200 @@ public class Guard  extends Character{
 		}
 		return num;
 	}
+
 	
 	
 	
+	public void moveGuard_less(int i ,Maze maze){
+
+		add_less--;
+
+
+
+		if(add_less<0){
+			add_less=23;
+		}
+
+
+
+		Point newPOint=new Point();
+		newPOint=this.getguardPositions()[i];
+		maze.inser(this.getPosX(),this.getPosY(),' ');
+		this.setPosition(newPOint.x, newPOint.y);
+		maze.inser(this.getPosX(),this.getPosY(),this.getName());
+
+
+
+	}
+
+
+
+	public void moveGuard_plus(int i,Maze maze){
+
+		add_less++;
+
+		if(add_less>23){
+			add_less=0;
+		}
+
+		Point newPOint=new Point();
+		newPOint=this.getguardPositions()[i];
+		maze.inser(this.getPosX(),this.getPosY(),' ');
+		this.setPosition(newPOint.x, newPOint.y);
+		maze.inser(this.getPosX(),this.getPosY(),this.getName());
+
+	}
+	
+	
+	
+	
+	public void  turnGuardRoockieMode(Maze maze){
+
+
+			moveGuard_plus(add_less,maze);
+			if(guardCaptureHero(maze.getHero())==true){ 
+				maze.getHero().setIsDead();
+			}
+
+
+	}
+
+
+	public void turnGuardSuspiciousMode(Maze maze){
+
+
+		int rand=randomNumber(3);
+
+		if(rand==1){
+			
+				moveGuard_less(add_less,maze);
+				if(guardCaptureHero(maze.getHero())==true){ 
+					maze.getHero().setIsDead();
+				}
+
+		}else{
+			
+
+				moveGuard_plus(add_less,maze);
+				if(guardCaptureHero(maze.getHero())==true){ 
+					maze.getHero().setIsDead();
+				
+			}
+
+		}
+
+
+	}
+
+
+
+
+
+	public void turnGuardDrunkMode(Maze maze){
+
+		int rand=randomNumber(6);
+
+
+
+
+
+		if(this.getSleepTurn()<=0){
+
+
+
+
+			if(randomNumber(4)==1){//OBS
+				this.setName('g');
+				maze.inser(this.getPosX(),this.getPosY(),this.getName());
+				this.slepp();
+
+			}
+
+		}
+
+
+
+		if(this.getSleepTurn()>0){
+
+			this.setSleepTurn(this.getSleepTurn()-1);
+
+		}else if (this.getSleepTurn()==0){
+
+			this.setName('G');
+			if(rand==1){
+
+				moveGuard_less(add_less, maze);
+			}else{
+				moveGuard_plus(add_less,maze);
+
+			}
+
+
+
+		}
+
+
+
+
+		if(guardCaptureHero(maze.getHero())==true){ 
+			maze.getHero().setIsDead();
+		}
+
+	}
+
+
+
+
+	
+
+	public Boolean guardCaptureHero(Character hero){
+
+
+		if(this.getName()=='G'){
+			if (this.getPosX() == hero.getPosX()+1 &&this.getPosY() == hero.getPosY()
+					|| this.getPosX() == hero.getPosX()-1 && this.getPosY() == hero.getPosY()
+					|| this.getPosY() == hero.getPosY()+1 && this.getPosX() == hero.getPosX()
+					|| this.getPosY() == hero.getPosY()-1 && this.getPosX() == hero.getPosX()
+					|| this.getPosX() == hero.getPosX() && this.getPosY() == hero.getPosY()){
+
+				return true ;
+
+
+
+			}else return false;
+
+
+		}else if( this.getPosX() == hero.getPosX() && this.getPosY() == hero.getPosY()){
+			return true;
+
+		}else{
+
+			return false;
+		}
+
+	}
+
+
+
+
+	
+
+
+
+
+
 	public void slepp(){
-		 this.sleepTurn=3;
-		
+		this.sleepTurn=3;
+
 	}
-	
+
 	public void sleepGuard(){
-		
-		
+
+
 	}
-	
+
 	public Point[] getguardPositions(){
-		
+
 		return this.guardPositions;
 	}
 

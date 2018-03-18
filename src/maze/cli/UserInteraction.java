@@ -4,6 +4,24 @@ import java.util.Scanner;
 import maze.logic.*;
 
 public class UserInteraction {
+	
+	
+	
+	
+	public void displayMenu(){
+		
+
+		System.out.print('\n');
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("+          Welcome to the Maze Game          +");
+		System.out.println("+                 1---Play                   +");
+		System.out.println("+                 2---Exit                   +");
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+		
+		
+	}
+	
+	
 
 
 
@@ -25,16 +43,16 @@ public class UserInteraction {
 		}
 	}
 
+	
+	
+	
 
 	public void play(Maze maze){
 		String input;
-		Scanner scan=new Scanner(System.in);
-		//Boolean exit=true;
+		Scanner scan=new Scanner(System.in);	
+		
+		
 		int result=1;
-
-
-
-
 
 		while(result!= 0){
 			System.out.print("Move Direction : ");
@@ -49,12 +67,12 @@ public class UserInteraction {
 			}else if(input.equals("w")||input.equals("s")||
 					input.equals("a")||input.equals("d")){
 
-				result=maze.playTime(input);
+				result=maze.updateTime(input);
 				displayMaze( maze );
 
-
-
-
+			}else {
+				System.out.println("Invalid Direction ");
+				
 			}
 
 		}

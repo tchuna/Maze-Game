@@ -1,6 +1,6 @@
 package maze.logic;
 
-public class Character {
+public abstract class Character {
 
 	//Attributes
 	protected int posX=-1;
