@@ -7,20 +7,10 @@ import maze.logic.*;
 public class Main {
 
 
-
-
-	public void Selected(){
-
-
-	}
-
-
-
-
 	public static void main(String[] args) {
 
 		int  numMaze=1;
-		int input;
+		String input;
 		Maze maze=new Maze( numMaze);
 		Game game;
 		UserInteraction user =new UserInteraction();
@@ -28,17 +18,18 @@ public class Main {
 		boolean isDone=false;
 
 
-		user.displayMenu();
-
-
 
 		while(isDone==false){
+
+			user.displayMenu();
+			
 			System.out.println("Select:");
 			System.out.print(">");
-			input=scan.nextInt();
+			input=scan.next();
+			input=input.toLowerCase();
 
 
-			if(input==1){
+			if(input.equals("p")){
 				int modeGuard,numOg;
 
 				System.out.println("Guard mode (1-Rockie)(2-Suspicius)(3-Drunk)");
@@ -47,7 +38,7 @@ public class Main {
 				modeGuard=scan.nextInt();
 
 				while(modeGuard!=1 && modeGuard!=2 && modeGuard!=3){
-					System.out.println("Invalid Guard Mode");
+					System.out.println("Invalid Guard Mode \n");
 					System.out.println("Guard mode (1-Rockie)(2-Suspicius)(3-Drunk)");
 					System.out.println("Select:");
 					System.out.print(">");
@@ -78,21 +69,18 @@ public class Main {
 				break;
 
 
-			}else if(input==2){
+			}else if(input.equals("e")){
 
 				System.out.println("Exit Game Bye Bye........."); isDone=true;System.exit(0);
 			}else{
 
 				System.out.println("Invalid Input::::::::::");
 			}
-			
-			scan.close();
-
-
-
 
 
 		}
+		
+		scan.close();
 
 
 	}

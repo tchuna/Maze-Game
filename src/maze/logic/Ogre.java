@@ -1,19 +1,18 @@
 package maze.logic;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Ogre extends Character{
 
-	private int oldX;
-	private int oldY;
 
 	private Weapon weaponOgre;
+	private ArrayList<Ogre>ogres=new ArrayList<Ogre>();
+	int lev=0;
 
 
 	Ogre(int x, int y) {
 		super(x, y, 'O');
-		this.oldX=0;
-		this.oldY=0;
 		this.weaponOgre=new Weapon();
 
 	}
@@ -25,10 +24,14 @@ public class Ogre extends Character{
 		maze.cleanCell(this.getPosX(), this.getPosY());
 		this.moveCharacter(x,y);
 		maze.inser(this.getPosX(),this.getPosY(), this.getName());
-		//this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
 
 	}
 
+
+	public void CopyOgres(Maze maze){
+
+		this.ogres=maze.geTogres();
+	}
 
 
 
@@ -57,49 +60,9 @@ public class Ogre extends Character{
 
 
 
-		/*if((leverPosition.x!=ogre.getPosX() && leverPosition.x!=ogre.getOgreWeapon().getXWeapon())||
-				(leverPosition.y!=ogre.getOgreWeapon().getYWeapon() && leverPosition.y !=ogre.getPosY())){
-
-
-			if(leverPosition.x!=0){
-				System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-				matrix[leverPosition.y][leverPosition.x]='k';
-			}
-
-
-		}
-
-
-		if(leverPosition.x!=ogre.getOgreWeapon().getXWeapon() && leverPosition.y!=ogre.getOgreWeapon().getYWeapon()
-				&& leverPosition.x!=ogre.getPosX() && leverPosition.y!=ogre.getPosY() ){
-
-
-			matrix[ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]=ogre.getOgreWeapon().getNameWeapon();
-			if(leverPosition.x!=0){
-				matrix[leverPosition.y][leverPosition.x]='k';
-			}
-
-			return;
-
-		}
-
-
-
-		if(leverPosition.x==ogre.getOgreWeapon().getXWeapon() && leverPosition.y==ogre.getOgreWeapon().getYWeapon() &&ogre.getOgreWeapon().getNameWeapon()=='*'){
-
-			ogre.getOgreWeapon().setNameWeapon('$');
-
-			matrix[ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]=ogre.getOgreWeapon().getNameWeapon();
-			return;
-		}*/
-
-
-
-
-
 		maze.inser(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon(),this.getOgreWeapon().getNameWeapon());
 
-		//matrix[ogre.getOgreWeapon().getYWeapon()][ogre.getOgreWeapon().getXWeapon()]=ogre.getOgreWeapon().getNameWeapon();
+
 
 
 
@@ -138,7 +101,6 @@ public class Ogre extends Character{
 
 
 
-
 	public void playRandomMovesOgre(Maze maze){ 
 
 
@@ -168,38 +130,17 @@ public class Ogre extends Character{
 
 
 
-
 		if (maze.isWall(this.getPosX()+newXposition,this.getPosY()+newYposition) // verifica se a nova posicao do ogre e parede ou porta fecahdo 
 				||maze.isCloseDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isOpenDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isOgre(this.getPosX()+newXposition,this.getPosY()+newYposition)
-				|| maze.isClub(this.getPosX()+newXposition,this.getPosY()+newYposition)
-				|| maze.isLever(this.getPosX()+newXposition,this.getPosY()+newYposition)){
+				||maze.isClub(this.getPosX()+newXposition,this.getPosY()+newYposition)
+				||maze.isLever(this.getPosX()+newXposition,this.getPosY()+newYposition)){
 
 			return;
 
 		}
 
-
-		/*if(leverPosition.x!=this.getPosX()+newXposition && leverPosition.y!=this.getPosY()+newYposition){
-
-			this.setName('O');
-			moveOgre(newXposition,newYposition,maze);
-			return;
-
-		}
-
-
-
-
-
-		if( leverPosition.x==this.getPosX()+newXposition && leverPosition.y==this.getPosY()+newYposition ){
-
-			this.setName('$');
-			maze.inser(this.getPosX()+newXposition, this.getPosY()+newYposition,'S' );
-			moveOgre(newXposition,newYposition,maze);
-			return;
-		}*/
 
 
 
@@ -224,22 +165,24 @@ public class Ogre extends Character{
 
 
 
-	public int getleverXogre(){
-
-		return this.oldX;
-
+	public int geTlev(){
+		return this.lev;
 	}
 
-	public int getleverYogre(){
-
-		return this.oldY;
-
+	public void seTlev(int set){
+		this.lev=set;
 	}
 
 
-	public void setleverPogre(int x, int y){
-		this.oldX=x;
-		this.oldY=y;
+
+	public void putLever(Maze maze){
+
+		Point leverPosition=new Point(4,4);
+		Ogre og=new Ogre(leverPosition.x, leverPosition.y);
+
+		if(this.lev==0){
+			maze.inser(leverPosition.x, leverPosition.y, 'k');
+		}
 
 	}
 

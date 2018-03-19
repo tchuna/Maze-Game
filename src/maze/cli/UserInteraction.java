@@ -14,8 +14,8 @@ public class UserInteraction {
 		System.out.print('\n');
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("+          Welcome to the Maze Game          +");
-		System.out.println("+                 1---Play                   +");
-		System.out.println("+                 2---Exit                   +");
+		System.out.println("+                 P---Play                   +");
+		System.out.println("+                 E---Exit                   +");
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
 		
 		

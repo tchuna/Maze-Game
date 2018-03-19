@@ -116,6 +116,10 @@ public class Maze {
 
 		this.guard=null;
 	}
+	
+	public ArrayList<Ogre> geTogres(){
+		return ogres;
+	}
 
 
 	public void insertHero(int x, int y){
@@ -363,16 +367,22 @@ public class Maze {
 		for(int i=0;i<arrogre.length;i++){
 
 			arrogre[i].playRandomMovesOgre(this);
+			
 			arrogre[i].attackOgre(this);
 
 			if(arrogre[i].ogreKillHero(this)==true){ 
 				hero.setIsDead();
 			}
 		}
+		
+		
+		
+
 
 	}
 
 
+	
 
 
 	public int updateTime(String input){

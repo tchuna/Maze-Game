@@ -46,8 +46,9 @@ public class Hero extends Character{
 		if(this.getName()=='K' && maze.isCloseDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)){
 
 			maze.change_CloseDoor_To_OpenDoor();
-			moveHero(newXposition, newYposition,maze);
 			this.win=true;
+			moveHero(newXposition, newYposition,maze);
+			
 			return 1;
 
 		}
