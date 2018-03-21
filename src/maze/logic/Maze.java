@@ -1,9 +1,14 @@
 package maze.logic;
 
-import java.awt.Point;
+
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Maze {
+public class Maze  implements Serializable{
+
+
+	private static final long serialVersionUID = 1L;
 
 
 
@@ -35,7 +40,7 @@ public class Maze {
 
 	char map2[][]=new char[][]{
 		{'X','X','X','X','X','X','X','X','X','X'},
-		{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'I',' ','C',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ','k',' ',' ',' ',' ','X'},
@@ -58,9 +63,21 @@ public class Maze {
 
 	private Hero hero ;
 	private Guard guard;
-	//private Point exit1 =new Point(0, 5);
-	//private Point exit2 =new Point(0, 6);
-	//private Point exit1Map2=new Point(0, 1);
+
+	private static final int ROCKIE=1;
+	private static final int SUSPICIOS=2;
+	private static final int DRUNK=3;
+	private static final char HEROWEAPON ='C';
+	private static final char CLUB ='*';
+	private static final char WALL ='X';
+	private static final char EXIT='S';
+	private static final char LEVER ='k';
+	private static final char CLOSEDOOR='I';
+	private static final char FREECELL =' ';
+	private static final char OGRE ='O';
+	private static final char SLEEPOGRE ='8';
+	private static final char GUAD ='G';
+	private static final char SLEEPGUARD ='g';
 	private Ogre[] arrogre=new Ogre[numOres];
 	private ArrayList<Ogre>ogres=new ArrayList<Ogre>();
 	private int numberMap;
@@ -116,7 +133,7 @@ public class Maze {
 
 		this.guard=null;
 	}
-	
+
 	public ArrayList<Ogre> geTogres(){
 		return ogres;
 	}
@@ -136,9 +153,9 @@ public class Maze {
 	}
 
 
-	public void insertOgre(int x, int y){
+	public void insertOgre(Ogre ogre){
 
-		this.matrix[x][y]='O';
+		this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
 
 	}
 
@@ -151,7 +168,7 @@ public class Maze {
 
 	public Boolean isCloseDoor(int x , int y){
 
-		if (this.matrix[y][x]=='I'){
+		if (this.matrix[y][x]==CLOSEDOOR){
 			return true ;
 
 		}else {
@@ -165,7 +182,7 @@ public class Maze {
 
 	public Boolean isOpenDoor(int x , int y){
 
-		if (this.matrix[y][x]=='S'){
+		if (this.matrix[y][x]==EXIT){
 			return true ;
 
 		}else {
@@ -180,7 +197,7 @@ public class Maze {
 
 	public Boolean isWall(int x , int y){
 
-		if (this.matrix[y][x]=='X'){
+		if (this.matrix[y][x]==WALL){
 			return true ;
 
 		}else {
@@ -192,7 +209,7 @@ public class Maze {
 
 	public Boolean isLever(int x , int y){
 
-		if (this.matrix[y][x]=='k'){
+		if (this.matrix[y][x]==LEVER){
 			return true ;
 
 		}else {
@@ -205,7 +222,7 @@ public class Maze {
 
 	public Boolean isClub(int x , int y){
 
-		if (this.matrix[y][x]=='*'){
+		if (this.matrix[y][x]==CLUB){
 			return true ;
 
 		}else {
@@ -217,7 +234,7 @@ public class Maze {
 
 	public Boolean isOgre(int x , int y){
 
-		if (this.matrix[y][x]=='O'){
+		if (this.matrix[y][x]==OGRE || this.matrix[y][x]==SLEEPOGRE){
 			return true ;
 
 		}else {
@@ -228,8 +245,23 @@ public class Maze {
 	}
 
 
+	public Boolean isHeroWeapon(int x , int y){
+
+		if (this.matrix[y][x]==HEROWEAPON){
+			return true ;
+
+		}else {
+			return false ;
+		}
+
+
+	}
+
+
+
+
 	public void cleanCell(int x,int y){
-		matrix[y][x]=' ';
+		matrix[y][x]=FREECELL;
 
 	}
 
@@ -251,11 +283,11 @@ public class Maze {
 		for(int i=0;i<matrix.length; i++){
 			for(int j=0; j<matrix.length; j++){
 				if(matrix[i][j]=='I')
-					matrix[i][j]='S';
-			}
+					matrix[i][j]='S'; } 
 		}
-
 	}
+
+
 
 
 
@@ -274,8 +306,6 @@ public class Maze {
 
 			while(ogres.contains(ogre) || isCloseDoor(randX, randY)
 					|| isLever(randX,randY) || isWall(randX, randY)){
-				System.out.println(randX);
-				System.out.println(randY);
 				randX=randomNumberog(8);
 				randY=randomNumberog(8);
 				ogre=new Ogre(randX, randY);
@@ -315,6 +345,8 @@ public class Maze {
 
 		numberMap++;
 
+
+
 		if(numberMap==2|| numberMap==3){
 			Level_2();
 			displayMaze(this);
@@ -328,9 +360,9 @@ public class Maze {
 	public void Level_1(){
 
 		switch (guard.getMode()) {
-		case 1:guard.turnGuardRoockieMode(this);break;
-		case 2:guard.turnGuardSuspiciousMode(this);break;
-		case 3:guard.turnGuardDrunkMode(this);break;
+		case ROCKIE:guard.turnGuardRoockieMode(this);break;
+		case SUSPICIOS:guard.turnGuardSuspiciousMode(this);break;
+		case DRUNK:guard.turnGuardDrunkMode(this);break;
 		}
 
 
@@ -344,17 +376,18 @@ public class Maze {
 		guard=null;
 		this.matrix=map2;
 		hero.setPosition(1, 1);
+		hero.setTakeLever(false);
 		inser(hero.getPosX(),hero.getPosY(),hero.getName());//this.matrix[hero.getPosX()][hero.getPosY()]=hero.getName();
 		creatOres();
-		
+
 		for(int i=0;i<arrogre.length;i++){
 			inser(arrogre[i].getPosX(),arrogre[i].getPosY(),arrogre[i].getName());
-			
-			
+
+
 		}
 
 		System.out.println(arrogre.length);
-		
+
 
 
 	}
@@ -367,30 +400,28 @@ public class Maze {
 		for(int i=0;i<arrogre.length;i++){
 
 			arrogre[i].playRandomMovesOgre(this);
-			
-			arrogre[i].attackOgre(this);
 
 			if(arrogre[i].ogreKillHero(this)==true){ 
 				hero.setIsDead();
 			}
 		}
-		
-		
-		
+
+
+
 
 
 	}
 
 
-	
+
 
 
 	public int updateTime(String input){
 		int result;
 
 		result=hero.playHero(input, this);
-		
-		
+
+
 
 		switch (numberMap) {
 		case 1:Level_1();break;

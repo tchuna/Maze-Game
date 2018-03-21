@@ -1,14 +1,23 @@
 package maze.logic;
 
 import java.awt.Point;
+import java.io.Serializable;
 
 
 
-public class Guard  extends Character{
+public class Guard  extends Character implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
+	private static final int ROCKIE=1;
+	private static final int SUSPICIOS=2;
+	private static final int DRUNK=3;
+	
+	
+	
+	private static int  add_move=23;
 	private int mode;
 	private int sleepTurn=0;
-	private static int  add_less=23;
 
 	private   Point[] guardPositions = new Point[24];
 
@@ -21,6 +30,8 @@ public class Guard  extends Character{
 
 	}
 
+	
+	
 
 	public void insertPositionMoves(){
 		this.guardPositions[0]=new Point(7,1);
@@ -50,6 +61,46 @@ public class Guard  extends Character{
 
 	}
 
+	
+	
+	
+	public void slepp(){
+		this.sleepTurn=3;
+
+	}
+
+	public void sleepGuard(){
+
+
+	}
+
+	public Point[] getguardPositions(){
+
+		return this.guardPositions;
+	}
+
+
+
+
+	public int getMode() {
+		return mode;
+	}
+
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
+
+
+	public int getSleepTurn() {
+		return sleepTurn;
+	}
+
+
+	public void setSleepTurn(int sleep) {
+		this.sleepTurn = sleep;
+	}
+	
 
 
 	public static int randomNumber(int n)	//gera num aleatorio de 1 a n-1
@@ -62,17 +113,17 @@ public class Guard  extends Character{
 		return num;
 	}
 
-	
-	
-	
+
+
+
 	public void moveGuard_less(int i ,Maze maze){
 
-		add_less--;
+		add_move--;
 
 
 
-		if(add_less<0){
-			add_less=23;
+		if(add_move<0){
+			add_move=23;
 		}
 
 
@@ -91,10 +142,10 @@ public class Guard  extends Character{
 
 	public void moveGuard_plus(int i,Maze maze){
 
-		add_less++;
+		add_move++;
 
-		if(add_less>23){
-			add_less=0;
+		if(add_move>23){
+			add_move=0;
 		}
 
 		Point newPOint=new Point();
@@ -104,17 +155,17 @@ public class Guard  extends Character{
 		maze.inser(this.getPosX(),this.getPosY(),this.getName());
 
 	}
-	
-	
-	
-	
+
+
+
+
 	public void  turnGuardRoockieMode(Maze maze){
 
 
-			moveGuard_plus(add_less,maze);
-			if(guardCaptureHero(maze.getHero())==true){ 
-				maze.getHero().setIsDead();
-			}
+		moveGuard_plus(add_move,maze);
+		if(guardCaptureHero(maze.getHero())==true){ 
+			maze.getHero().setIsDead();
+		}
 
 
 	}
@@ -126,19 +177,19 @@ public class Guard  extends Character{
 		int rand=randomNumber(3);
 
 		if(rand==1){
-			
-				moveGuard_less(add_less,maze);
-				if(guardCaptureHero(maze.getHero())==true){ 
-					maze.getHero().setIsDead();
-				}
+
+			moveGuard_less(add_move,maze);
+			if(guardCaptureHero(maze.getHero())==true){ 
+				maze.getHero().setIsDead();
+			}
 
 		}else{
-			
 
-				moveGuard_plus(add_less,maze);
-				if(guardCaptureHero(maze.getHero())==true){ 
-					maze.getHero().setIsDead();
-				
+
+			moveGuard_plus(add_move,maze);
+			if(guardCaptureHero(maze.getHero())==true){ 
+				maze.getHero().setIsDead();
+
 			}
 
 		}
@@ -183,9 +234,9 @@ public class Guard  extends Character{
 			this.setName('G');
 			if(rand==1){
 
-				moveGuard_less(add_less, maze);
+				moveGuard_less(add_move, maze);
 			}else{
-				moveGuard_plus(add_less,maze);
+				moveGuard_plus(add_move,maze);
 
 			}
 
@@ -205,7 +256,7 @@ public class Guard  extends Character{
 
 
 
-	
+
 
 	public Boolean guardCaptureHero(Character hero){
 
@@ -237,46 +288,4 @@ public class Guard  extends Character{
 
 
 
-	
-
-
-
-
-
-	public void slepp(){
-		this.sleepTurn=3;
-
-	}
-
-	public void sleepGuard(){
-
-
-	}
-
-	public Point[] getguardPositions(){
-
-		return this.guardPositions;
-	}
-
-
-
-
-	public int getMode() {
-		return mode;
-	}
-
-
-	public void setMode(int mode) {
-		this.mode = mode;
-	}
-
-
-	public int getSleepTurn() {
-		return sleepTurn;
-	}
-
-
-	public void setSleepTurn(int sleep) {
-		this.sleepTurn = sleep;
-	}
 }

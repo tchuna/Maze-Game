@@ -1,14 +1,19 @@
 package maze.logic;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game {
+public class Game  implements Serializable{
 
 
+	
+	
+	
 	private Maze maze;
 	private int modeGuard;
 	private int numOgres;
+	private static final long serialVersionUID = 1L;
 
 
 	public Game(Maze maze){
@@ -41,6 +46,7 @@ public class Game {
 	}
 
 	
+	
 	public void StardGame(){
 		initializeVar(this.modeGuard, this.numOgres);
 		
@@ -55,7 +61,6 @@ public class Game {
 	public void setMaze(Maze maze) {
 		this.maze = maze;
 	}
-
 
 
 
