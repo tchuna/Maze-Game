@@ -300,9 +300,9 @@ public class Ogre extends Character implements Serializable{
 				||maze.isCloseDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isOpenDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isClub(this.getPosX()+newXposition,this.getPosY()+newYposition)
-				){
+				||maze .isHeroArmed(this.getPosX()+newXposition,this.getPosY()+newYposition)){
 
-			//this.attackOgre(maze);
+			this.attackOgre(maze);
 
 			return;
 
@@ -315,7 +315,7 @@ public class Ogre extends Character implements Serializable{
 			this.setName('O');
 			moveOgre(newXposition,newYposition, maze);
 			maze.inser(this.getPosX(),this.getPosY() ,this.getName());
-			//this.attackOgre(maze);
+			this.attackOgre(maze);
 			return;
 
 
@@ -326,7 +326,7 @@ public class Ogre extends Character implements Serializable{
 			this.setName('$');
 			moveOgre(newXposition,newYposition, maze);
 			maze.inser(this.getPosX(),this.getPosY() ,this.getName());
-			//this.attackOgre(maze);
+			this.attackOgre(maze);
 			return;
 
 
@@ -336,7 +336,7 @@ public class Ogre extends Character implements Serializable{
 
 
 
-		moveOgre(newXposition,newYposition, maze);
+		//moveOgre(newXposition,newYposition, maze);
 		//this.attackOgre(maze);
 
 	}

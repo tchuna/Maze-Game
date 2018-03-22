@@ -256,6 +256,20 @@ public class Maze  implements Serializable{
 
 
 	}
+	
+	
+	public Boolean isHeroArmed(int x , int y){
+
+		if(this.getHero().getIsArmed()==true && this.getHero().getPosX()==x && this.getHero().getPosY()==y){
+			
+			return true;
+		}
+	
+
+
+		return false;
+	}
+
 
 
 
