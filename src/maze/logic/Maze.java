@@ -407,6 +407,8 @@ public class Maze  implements Serializable{
 		}
 
 
+		arrogre[0].putLever(this);
+
 
 
 

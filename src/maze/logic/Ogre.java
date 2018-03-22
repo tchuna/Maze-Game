@@ -2,6 +2,10 @@ package maze.logic;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 public class Ogre extends Character implements Serializable{
 
@@ -12,8 +16,8 @@ public class Ogre extends Character implements Serializable{
 	private static final  int DOWN =2;
 	private static final  int LEFT =3;
 	private static final  int RIGHT =4;
-	
-	
+
+
 	private Weapon weaponOgre;
 	private int lev=0;
 	private  Boolean sleep= false;
@@ -189,9 +193,37 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	public Boolean putLever(Maze maze){
+		Ogre ogreinLever=new Ogre(4,4);
+
+		Iterator<Ogre> iter = maze.geTogres().iterator();
+
+
+		if(maze.getHero().getName()!='K'){
+
+			if(maze.geTogres().contains(ogreinLever)!=true){
+				maze.inser(ogreinLever.getPosX(), ogreinLever.getPosY(),'k');
+				while (iter.hasNext()) {
+					iter.next().setName('O');
+				}
+				return false;
+
+			}
+		}
+
+
+
+		return true;
+	}
+
+
+
 
 
 	public Boolean ogreKillHero(Maze maze){
+
+
+
 
 
 
@@ -235,7 +267,13 @@ public class Ogre extends Character implements Serializable{
 	public void playRandomMovesOgre(Maze maze){ 
 
 
+		int xlever=4;
+		int lever=4;
+
 		wakeOgre(); if(this.sleep==true)return;
+
+		//this.takkkkk(maze);
+
 
 
 
@@ -257,14 +295,14 @@ public class Ogre extends Character implements Serializable{
 
 
 
+
 		if (maze.isWall(this.getPosX()+newXposition,this.getPosY()+newYposition) // verifica se a nova posicao do ogre e parede ou porta fecahdo 
 				||maze.isCloseDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isOpenDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isClub(this.getPosX()+newXposition,this.getPosY()+newYposition)
-				||maze.isLever(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				){
 
-			this.attackOgre(maze);
+			//this.attackOgre(maze);
 
 			return;
 
@@ -272,8 +310,34 @@ public class Ogre extends Character implements Serializable{
 
 
 
+
+		if(maze.isLever(this.getPosX()+newXposition,this.getPosY()+newYposition)==false){
+			this.setName('O');
+			moveOgre(newXposition,newYposition, maze);
+			maze.inser(this.getPosX(),this.getPosY() ,this.getName());
+			//this.attackOgre(maze);
+			return;
+
+
+		}
+
+
+		if(maze.isLever(this.getPosX()+newXposition,this.getPosY()+newYposition)){
+			this.setName('$');
+			moveOgre(newXposition,newYposition, maze);
+			maze.inser(this.getPosX(),this.getPosY() ,this.getName());
+			//this.attackOgre(maze);
+			return;
+
+
+		}
+
+
+
+
+
 		moveOgre(newXposition,newYposition, maze);
-		this.attackOgre(maze);
+		//this.attackOgre(maze);
 
 	}
 

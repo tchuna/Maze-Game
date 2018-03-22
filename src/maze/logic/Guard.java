@@ -162,7 +162,7 @@ public class Guard  extends Character implements Serializable{
 	public void  turnGuardRoockieMode(Maze maze){
 
 
-		moveGuard_plus(add_move,maze);
+		//OBS moveGuard_plus(add_move,maze); 
 		if(guardCaptureHero(maze.getHero())==true){ 
 			maze.getHero().setIsDead();
 		}
