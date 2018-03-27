@@ -19,16 +19,16 @@ public class UserInteraction {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
 		
 		
-	}
+	} 
 	
 	
 
 
 
-	public void displayMaze(Maze maze ) {
+	public void displayMaze(Game game ) {
 
-		int matrixLength=maze.getMatrix().length;
-		char matrix [][]=maze.getMatrix();
+		int matrixLength=game.getMaze().getMatrix().length;
+		char matrix [][]=game.getMaze().getMatrix();
 
 		System.out.print('\n');
 
@@ -47,7 +47,7 @@ public class UserInteraction {
 	
 	
 
-	public void play(Maze maze){
+	public void play(Game game){
 		String input;
 		Scanner scan=new Scanner(System.in);	
 		
@@ -67,8 +67,8 @@ public class UserInteraction {
 			}else if(input.equals("w")||input.equals("s")||
 					input.equals("a")||input.equals("d")){
 
-				result=maze.updateTime(input);
-				displayMaze( maze );
+				result=game.updateGame(input);
+				displayMaze( game);
 
 			}else {
 				System.out.println("Invalid Direction ");
@@ -82,12 +82,12 @@ public class UserInteraction {
 
 
 
-		if(maze.getHero().getIsDead()==true){
+		if(game.getMaze().getHero().getIsDead()==true){
 			System.out.println("Game Over");
 		}
 
 
-		if(maze.getHero().getWin()==true){
+		if(game.getMaze().getHero().getWin()==true){
 			System.out.println("YOU  WIN ");
 
 		}

@@ -21,7 +21,7 @@ public class Maze  implements Serializable{
 			num=num*(-1);
 		}
 		return num;
-	}
+	} 
 
 
 
@@ -35,6 +35,18 @@ public class Maze  implements Serializable{
 		{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X','X','X',' ','X','X','X','X',' ','X'},
 		{'X',' ','I',' ','I',' ','X','k',' ','X'},
+		{'X','X','X','X','X','X','X','X','X','X'},
+	};
+	char map3[][]=new char[][]{
+		{'X','X','X','X','X','X','X','X','X','X'},
+		{'X','X','X','X','X','X','X','X','X','X'},
+		{'X','X','X','X','X','X','X','X','X','X'},
+		{'X','X','X','I','X','X','X','X','X','X'},
+		{'X','X','X','I','X','X','X','X','X','X'},
+		{'X','X','I','X','X','X','X','X','X','X'},
+		{'X','X','X','X','X','X','X','X','X','X'},
+		{'X','I','X','X','X','X','X','X','X','X'},
+		{'X','X','X','X','X','X','X','X','X','X'},
 		{'X','X','X','X','X','X','X','X','X','X'},
 	};
 
@@ -81,6 +93,8 @@ public class Maze  implements Serializable{
 	private Ogre[] arrogre=new Ogre[numOres];
 	private ArrayList<Ogre>ogres=new ArrayList<Ogre>();
 	private int numberMap;
+	private String srtingMatrix =null;
+	public int modeGuard;
 
 
 
@@ -91,7 +105,7 @@ public class Maze  implements Serializable{
 	public Maze(int map){
 
 		switch (map) {
-		case 1:matrix=map1;break;
+		case 1:matrix=map1; insertHero(1, 1);break;
 		case 2:matrix=map2;break;
 		}
 
@@ -275,7 +289,7 @@ public class Maze  implements Serializable{
 
 
 	public void cleanCell(int x,int y){
-		matrix[y][x]=FREECELL;
+		inser(x, y, FREECELL);
 
 	}
 
@@ -419,7 +433,7 @@ public class Maze  implements Serializable{
 				hero.setIsDead();
 			}
 		}
-
+  
 
 		arrogre[0].putLever(this);
 
@@ -443,17 +457,57 @@ public class Maze  implements Serializable{
 		case 1:Level_1();break;
 		case 2:logical_level_2();break;//;break;
 		}
+		
+		
 
+		this.srtingMatrix=toString();
 
 		if(hero.getWin()==true || hero.getIsDead()==true){
+			
+			this.srtingMatrix=toString();
 			return 0;
 		}
+		
 
 
 		return result;
 
 
 	}
+	
+	
+	
+	
+	public String toString(){
+		String result ="" ;
+		
+		
+		for(int i=0; i<matrix.length;i++){
+			
+			for(int j=0; j<matrix.length;j++){
+				result+=String.valueOf(matrix[i][j])+ " ";
+			}
+			
+			result+="\n";
+		}
+		
+		return result;
+	}
+	
+	
+
+	public String getSrtingMatrix() {
+		return srtingMatrix;
+	}
+
+	public void setSrtingMatrix(String srtingMatrix) {
+		this.srtingMatrix = srtingMatrix;
+	}
+	
+	
+	
+	
+	
 
 
 

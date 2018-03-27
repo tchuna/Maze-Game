@@ -12,18 +12,19 @@ public class Main {
 		int  numMaze=1;
 		String input;
 		Maze maze=new Maze( numMaze);
-		Game game;
+		Game game; 
 		UserInteraction user =new UserInteraction();
 		Scanner scan=new Scanner(System.in);
 		boolean isDone=false;
+		
 
 
 
 		while(isDone==false){
-
+ 
 			user.displayMenu();
 			
-			System.out.println("Select:");
+			System.out.println("Select:"); 
 			System.out.print(">");
 			input=scan.next();
 			input=input.toLowerCase();
@@ -65,7 +66,7 @@ public class Main {
 
 				game=new Game(maze, modeGuard, numOg);
 
-				game.StardGame();user.displayMaze(maze);user.play(maze); isDone=true;
+				game.StardGame();user.displayMaze(game);user.play(game); isDone=true;
 				break;
 
 

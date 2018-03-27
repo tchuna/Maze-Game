@@ -7,16 +7,16 @@ import java.io.Serializable;
 
 public class Guard  extends Character implements Serializable{
 
-	
+
 	private static final long serialVersionUID = 1L;
 	private static final int ROCKIE=1;
 	private static final int SUSPICIOS=2;
 	private static final int DRUNK=3;
-	
-	
-	
-	private static int  add_move=23;
-	private int mode;
+
+
+
+	private  int  add_move=23;
+	private int mode; 
 	private int sleepTurn=0;
 
 	private   Point[] guardPositions = new Point[24];
@@ -25,13 +25,14 @@ public class Guard  extends Character implements Serializable{
 
 	public Guard(int x,int y,int m){
 		super(x, y, 'G');
+
 		this.mode=m;
 		insertPositionMoves();
 
 	}
 
-	
-	
+
+
 
 	public void insertPositionMoves(){
 		this.guardPositions[0]=new Point(7,1);
@@ -61,9 +62,9 @@ public class Guard  extends Character implements Serializable{
 
 	}
 
-	
-	
-	
+
+
+
 	public void slepp(){
 		this.sleepTurn=3;
 
@@ -100,7 +101,7 @@ public class Guard  extends Character implements Serializable{
 	public void setSleepTurn(int sleep) {
 		this.sleepTurn = sleep;
 	}
-	
+
 
 
 	public static int randomNumber(int n)	//gera num aleatorio de 1 a n-1
@@ -162,7 +163,7 @@ public class Guard  extends Character implements Serializable{
 	public void  turnGuardRoockieMode(Maze maze){
 
 
-		//OBS moveGuard_plus(add_move,maze); 
+		moveGuard_plus(add_move,maze); 
 		if(guardCaptureHero(maze.getHero())==true){ 
 			maze.getHero().setIsDead();
 		}

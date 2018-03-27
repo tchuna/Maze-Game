@@ -18,7 +18,7 @@ public class Weapon {
 		this.y=0;
 		
 	}
-
+ 
 
 
 	public char getNameWeapon(){
