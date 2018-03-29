@@ -503,6 +503,11 @@ public class Maze  implements Serializable{
 	public void setSrtingMatrix(String srtingMatrix) {
 		this.srtingMatrix = srtingMatrix;
 	}
+
+	public char Verifica(int i, int j) {
+		
+		return matrix[j][i];
+	}
 	
 	
 	

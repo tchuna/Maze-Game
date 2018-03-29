@@ -18,7 +18,7 @@ public class Game  implements Serializable{
 
 
 	public Game(Maze maze){
-
+ 
 		this.maze=maze;
 		
 
@@ -34,7 +34,8 @@ public class Game  implements Serializable{
 		this.modeGuard=modeGuard;
 		this.numOgres=numOgre; 
 		
-		
+		//initializeVar(modeGuard,numOgre);
+		StardGame();
 
 	}
 
@@ -46,7 +47,7 @@ public class Game  implements Serializable{
 		maze.insertGuard(8, 1,modeGrd);
 		maze.numOres=numOgre;
 		maze.modeGuard=modeGrd;
-		//maze.insertHero(1, 1);
+		maze.insertHero(1, 1);
 	}
 
 	
