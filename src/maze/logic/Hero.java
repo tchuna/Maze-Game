@@ -13,16 +13,16 @@ public class Hero extends Character implements Serializable{
 	
 	
 	private Boolean isDead;
-	private Boolean win;
+	private Boolean win; 
 	private Boolean isArmed =false;
 	private Boolean takeLever=false;
 
 
-
+ 
 	public Hero(int x,int y) {
 		super(x,y,'H');
 		this.isDead=false;
-		this.win=false;
+		this.win=false; 
 	}
 
 
@@ -95,9 +95,6 @@ public class Hero extends Character implements Serializable{
 
 
 
-
-
-
 	public void moveHero(int x,int y,Maze maze) {
 
 		maze.cleanCell(this.getPosX(), this.getPosY());
@@ -133,6 +130,14 @@ public class Hero extends Character implements Serializable{
 
 
 
+		if(maze.isHeroWeapon(this.getPosX()+newXposition,this.getPosY()+newYposition) && this.getTakeLever()==true){
+
+			this.setIsArmed(true);
+			moveHero(newXposition, newYposition,maze);
+
+			return 1;
+
+		}
 
 		if(maze.isHeroWeapon(this.getPosX()+newXposition,this.getPosY()+newYposition) && this.getTakeLever()==false){
 

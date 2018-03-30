@@ -9,13 +9,13 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		int  numMaze=1;
+		int  numMaze=2;
 		String input;
 		Maze maze=new Maze( numMaze);
-		Game game; 
+		Game game;  
 		UserInteraction user =new UserInteraction();
 		Scanner scan=new Scanner(System.in);
-		boolean isDone=false;
+		boolean isDone=false; 
 		
 
 

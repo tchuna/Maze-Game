@@ -3,6 +3,7 @@ package maze.logic;
 
 
 import java.io.Serializable;
+import java.nio.channels.NetworkChannel;
 import java.util.ArrayList;
 
 public class Maze  implements Serializable{
@@ -19,7 +20,7 @@ public class Maze  implements Serializable{
 		if(num<0)
 		{
 			num=num*(-1);
-		}
+		} 
 		return num;
 	} 
 
@@ -37,24 +38,13 @@ public class Maze  implements Serializable{
 		{'X',' ','I',' ','I',' ','X','k',' ','X'},
 		{'X','X','X','X','X','X','X','X','X','X'},
 	};
-	char map3[][]=new char[][]{
-		{'X','X','X','X','X','X','X','X','X','X'},
-		{'X','X','X','X','X','X','X','X','X','X'},
-		{'X','X','X','X','X','X','X','X','X','X'},
-		{'X','X','X','I','X','X','X','X','X','X'},
-		{'X','X','X','I','X','X','X','X','X','X'},
-		{'X','X','I','X','X','X','X','X','X','X'},
-		{'X','X','X','X','X','X','X','X','X','X'},
-		{'X','I','X','X','X','X','X','X','X','X'},
-		{'X','X','X','X','X','X','X','X','X','X'},
-		{'X','X','X','X','X','X','X','X','X','X'},
-	};
+
 
 	char map2[][]=new char[][]{
 		{'X','X','X','X','X','X','X','X','X','X'},
-		{'I',' ','C',' ',' ',' ',' ',' ',' ','X'},
+		{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+		{'X','C',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ','k',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
 		{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
@@ -83,30 +73,28 @@ public class Maze  implements Serializable{
 	private static final char CLUB ='*';
 	private static final char WALL ='X';
 	private static final char EXIT='S';
-	private static final char LEVER ='k';
+	private static final char LEVER ='k'; 
 	private static final char CLOSEDOOR='I';
 	private static final char FREECELL =' ';
 	private static final char OGRE ='O';
 	private static final char SLEEPOGRE ='8';
-	private static final char GUAD ='G';
-	private static final char SLEEPGUARD ='g';
 	private Ogre[] arrogre=new Ogre[numOres];
 	private ArrayList<Ogre>ogres=new ArrayList<Ogre>();
 	private int numberMap;
 	private String srtingMatrix =null;
 	public int modeGuard;
+	private boolean notlevel1=false;
 
 
 
 
 
-	//Methods
 
 	public Maze(int map){
 
 		switch (map) {
-		case 1:matrix=map1; insertHero(1, 1);break;
-		case 2:matrix=map2;break;
+		case 1:matrix=map1;insertHero(1, 1);break;
+		case 2:matrix=map2; insertHero(8, 2);notlevel1=true;break;
 		}
 
 		this.numberMap=map;
@@ -270,15 +258,15 @@ public class Maze  implements Serializable{
 
 
 	}
-	
-	
+
+
 	public Boolean isHeroArmed(int x , int y){
 
 		if(this.getHero().getIsArmed()==true && this.getHero().getPosX()==x && this.getHero().getPosY()==y){
-			
+
 			return true;
 		}
-	
+
 
 
 		return false;
@@ -366,7 +354,7 @@ public class Maze  implements Serializable{
 			System.out.print('\n');
 
 
-		}
+		} 
 	}
 
 	public void changeMap(){
@@ -403,9 +391,9 @@ public class Maze  implements Serializable{
 
 		guard=null;
 		this.matrix=map2;
-		hero.setPosition(1, 1);
+		hero.setPosition(8,2);
 		hero.setTakeLever(false);
-		inser(hero.getPosX(),hero.getPosY(),hero.getName());//this.matrix[hero.getPosX()][hero.getPosY()]=hero.getName();
+		inser(hero.getPosX(),hero.getPosY(),hero.getName());
 		creatOres();
 
 		for(int i=0;i<arrogre.length;i++){
@@ -414,7 +402,6 @@ public class Maze  implements Serializable{
 
 		}
 
-		System.out.println(arrogre.length);
 
 
 
@@ -433,10 +420,17 @@ public class Maze  implements Serializable{
 				hero.setIsDead();
 			}
 		}
-  
+
 
 		arrogre[0].putLever(this);
 
+
+
+
+	}
+
+
+	public void logical_crlevel(){
 
 
 
@@ -448,53 +442,61 @@ public class Maze  implements Serializable{
 
 	public int updateTime(String input){
 		int result;
+		if(notlevel1==true){
+
+			Level_2();
+			displayMaze(this);
+			notlevel1=false;
+		}
 
 		result=hero.playHero(input, this);
 
 
 
+
 		switch (numberMap) {
 		case 1:Level_1();break;
-		case 2:logical_level_2();break;//;break;
+		case 2:logical_level_2();break;
+		case 3:logical_crlevel();break;
 		}
-		
-		
+
+
 
 		this.srtingMatrix=toString();
 
 		if(hero.getWin()==true || hero.getIsDead()==true){
-			
+
 			this.srtingMatrix=toString();
 			return 0;
 		}
-		
+
 
 
 		return result;
 
 
 	}
-	
-	
-	
-	
+
+
+
+
 	public String toString(){
 		String result ="" ;
-		
-		
+
+
 		for(int i=0; i<matrix.length;i++){
-			
+
 			for(int j=0; j<matrix.length;j++){
 				result+=String.valueOf(matrix[i][j])+ " ";
 			}
-			
+
 			result+="\n";
 		}
-		
+
 		return result;
 	}
-	
-	
+
+
 
 	public String getSrtingMatrix() {
 		return srtingMatrix;
@@ -505,14 +507,14 @@ public class Maze  implements Serializable{
 	}
 
 	public char Verifica(int i, int j) {
-		
+
 		return matrix[j][i];
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 
 

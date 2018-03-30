@@ -12,7 +12,7 @@ public class Guard  extends Character implements Serializable{
 	private static final int ROCKIE=1;
 	private static final int SUSPICIOS=2;
 	private static final int DRUNK=3;
-
+ 
 
 
 	private  int  add_move=23;
@@ -25,8 +25,14 @@ public class Guard  extends Character implements Serializable{
 
 	public Guard(int x,int y,int m){
 		super(x, y, 'G');
-
 		this.mode=m;
+		switch (m) {
+		case 1: this.setName('r');break;
+		case 2: this.setName('G');break;
+		case 3: this.setName('d');break;
+		}
+
+		
 		insertPositionMoves();
 
 	}
@@ -232,7 +238,7 @@ public class Guard  extends Character implements Serializable{
 
 		}else if (this.getSleepTurn()==0){
 
-			this.setName('G');
+			this.setName('d');
 			if(rand==1){
 
 				moveGuard_less(add_move, maze);
@@ -262,7 +268,7 @@ public class Guard  extends Character implements Serializable{
 	public Boolean guardCaptureHero(Character hero){
 
 
-		if(this.getName()=='G'){
+		if(this.getName()=='G' || this.getName()=='r'|| this.getName()=='d'){
 			if (this.getPosX() == hero.getPosX()+1 &&this.getPosY() == hero.getPosY()
 					|| this.getPosX() == hero.getPosX()-1 && this.getPosY() == hero.getPosY()
 					|| this.getPosY() == hero.getPosY()+1 && this.getPosX() == hero.getPosX()

@@ -1,39 +1,28 @@
 package gui;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import maze.logic.Game;
 import maze.logic.Maze;
-
-import javax.swing.JTextField;
 import java.awt.Toolkit;
-
 import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
-import javax.swing.JTextArea;
 
-public class Frame extends JFrame {
+
+public class Frame extends JFrame{
 
 
 	private static final long serialVersionUID = 1L;
@@ -72,43 +61,12 @@ public class Frame extends JFrame {
 
 
 	public void  initFrame(){
-
+		
+		
 		builtFrame();
+		addComponets();
 		actionsButtons();
-
 	}
-
-
-
-	public void updateGame(){
-
-
-
-	}
-
-
-
-	public void actionMoves() {
-		// Print map
-		mainPanel.requestFocusInWindow();
-
-		//graphicssetMap(game.getCurrentMap());
-
-		mainPanel.repaint();
-		mainPanel.revalidate();
-
-		/*if (game.isOver()) {
-			setDirectionButtons(false);
-			if (game.getGameStatus() == Game.GameStat.LOSE) {
-				lblInstructions.setText("You Lost! Select Ogre Number and Guard Type to Play.");
-			} else if (game.getGameStatus() == Game.GameStat.WIN) {
-				lblInstructions.setText("You Won! Select Ogre Number and Guard Type to Play.");
-			}
-		}*/
-	}
-
-
-
 
 
 
@@ -116,6 +74,7 @@ public class Frame extends JFrame {
 	public void initCompon(){
 		Window=new JFrame();
 		mainPanel = new Panel();
+		
 
 		btnUp = new JButton("UP");
 		btnLeft = new JButton("LEFT");
@@ -137,23 +96,21 @@ public class Frame extends JFrame {
 		initCompon();
 
 		Window.setTitle("Maze Game");
-		Window.setIconImage(Toolkit.getDefaultToolkit().getImage(Frame.class.getResource("/resource/ogre6.png")));
+		Window.setIconImage(Toolkit.getDefaultToolkit().getImage(Frame.class.getResource("/resource/hero.png")));
 		Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Window.setBounds(100, 100, 600, 450);
-		
 		Window.setResizable(false);
+		
+		Window.setVisible(true);
 
 		setupComponests();
-		addComponets();
-		Window.setVisible(true);
-		requestFocus();
 		pack();
 
 	}
 
 
 
-	public void setupComponests(){
+	public void setupComponests(){ 
 
 		btnNewGame.setBounds(435,80,109, 20);
 		btnExit.setBounds(435,364,109, 20);
@@ -171,7 +128,7 @@ public class Frame extends JFrame {
 		btnRight.setEnabled(false);
 
 
-
+ 
 		numberOgres.setBounds(12,10, 150, 20);
 		jOgres.setBounds(160,10 , 50, 20);
 
@@ -182,7 +139,7 @@ public class Frame extends JFrame {
 		currentGame.setFont(new Font("Serif", Font.BOLD,10));
 		currentGame.setBounds(12,432,210,20);
 
-		mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		//mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		jOgres.setBorder(BorderFactory.createLineBorder(Color.black));
 
 
@@ -190,7 +147,6 @@ public class Frame extends JFrame {
 
 
 	public void addComponets() {
-
 		Window.getContentPane().setLayout(null);
 		Window.getContentPane().add(mainPanel);
 		Window.getContentPane().add(btnNewGame);
@@ -204,7 +160,6 @@ public class Frame extends JFrame {
 		Window.getContentPane().add(jOgres);
 		Window.getContentPane().add(lblGuardPersonality);
 		Window.getContentPane().add(guardMode);
-
 
 	}
 
@@ -228,7 +183,7 @@ public class Frame extends JFrame {
 		if(numberOgres!=0){
 			maze=new Maze(1);
 			game=new Game(maze,guardMode.getSelectedIndex()+1,numberOgres);
-			
+
 			((Panel) mainPanel).startGame(game);
 			return game;
 		}
@@ -360,6 +315,80 @@ public class Frame extends JFrame {
 
 	public void bntDirectionsAction(){
 
+		btnUp.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				currentGame.setText("Escape the Mave Moved the Hero");
+
+				game.updateGame("w");
+				((Panel) mainPanel).updateGame(game);
+
+				heroDie();
+				heroWin();
+			}
+		});
+
+
+
+		btnDown.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				currentGame.setText("Escape the Mave Moved the Hero");
+				game.updateGame("s");
+				((Panel) mainPanel).updateGame(game);
+				//game.getMaze().displayMaze(game.getMaze());
+
+				heroDie();
+				heroWin();
+			}
+		});
+
+
+
+		btnRight.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) { 
+
+				currentGame.setText("Escape the Mave Moved the Hero");
+				game.updateGame("d");
+				((Panel) mainPanel).updateGame(game);
+				//game.getMaze().displayMaze(game.getMaze());
+				heroDie();
+				heroWin();
+
+			}
+		});
+
+
+
+		btnLeft.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+
+				currentGame.setText("Escape the Mave Moved the Hero");
+				game.updateGame("a");
+				((Panel) mainPanel).updateGame(game);
+				//game.getMaze().displayMaze(game.getMaze());
+
+				heroDie();
+				heroWin();
+
+			}
+		});
+
+
+
+
+
+
+
 
 
 	}
@@ -373,149 +402,58 @@ public class Frame extends JFrame {
 	}
 
 
+	public void heroWin(){
 
+		if(game.getMaze().getHero().getWin()){
 
-	/*public void  configButtons(){
+			currentGame.setText("You Win");
+			JOptionPane.showMessageDialog(Window,"You Win");
 
+			int result=JOptionPane.showConfirmDialog(mainPanel, "Try again!!");
 
+			if(result==JOptionPane.YES_OPTION){
 
+				creatGame();
+			}else{
 
-		btnExit.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String exit=" (Exit) Are you Sure ?";
-				int result=JOptionPane.showConfirmDialog(rootPane, exit);
-
-				if(result==JOptionPane.YES_OPTION){
-					System.exit(0);
-
-
-				}
+				System.exit(0);
 			}
-		});
+
+		}
 
 
+	}
 
 
+	public void heroDie(){
 
-		btnNewGame.addMouseListener(new MouseAdapter(){
+		if(game.getMaze().getHero().getIsDead()){
 
-			public void mouseClicked (MouseEvent e){
-				if(e.getClickCount()==2){
-					if(fristTime==true){
+			currentGame.setText("You Lose");
+			JOptionPane.showMessageDialog(Window,"Game Over");
 
-						btnRight.setEnabled(true);
-						btnLeft.setEnabled(true);
-						btnUp.setEnabled(true);
-						btnDown.setEnabled(true);
-						currentGame.setText("You cant Pla Now");
-						mainPanel.initGame(textArea, comboBox.getSelectedIndex()+1,comboBoxOgre.getSelectedIndex()+1);
-						fristTime=false;
+			int result=JOptionPane.showConfirmDialog(mainPanel, "Try again!!");
 
-					}else{
+			if(result==JOptionPane.YES_OPTION){
 
-						String stard="Are you Sure  ?";
-						int result=JOptionPane.showConfirmDialog(rootPane, stard);
+				creatGame();
+			}else{
 
-						if(result==JOptionPane.YES_OPTION){
-							btnRight.setEnabled(true);
-							btnLeft.setEnabled(true);
-							btnUp.setEnabled(true);
-							btnDown.setEnabled(true);
-							currentGame.setText("You cant Pla Now");
-
-							mainPanel.initGame(textArea, comboBox.getSelectedIndex()+1,comboBoxOgre.getSelectedIndex()+1);
-
-						}
-					}
-				}
+				System.exit(0);
 			}
-		});
+
+		}
+
+
+	}
 
 
 
 
+	
+	
 
-		btnUp.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(mainPanel.dir("w",textArea)){
-					currentGame.setText("You Die");
-					JOptionPane.showMessageDialog(getRootPane(),"Game Over");
-					currentGame.setText("You cant Pla Now");
-					mainPanel.initGame(textArea, comboBox.getSelectedIndex()+1,comboBoxOgre.getSelectedIndex()+1);
-
-
-
-				}
-
-			}
-		});
-
-
-
-		btnDown.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				if(mainPanel.dir("s",textArea)){
-					JOptionPane.showMessageDialog(getRootPane(),"Game Over");
-					currentGame.setText("You cant Pla Now");
-					mainPanel.initGame(textArea, comboBox.getSelectedIndex()+1,comboBoxOgre.getSelectedIndex()+1);
-
-				}
-
-
-
-			}
-		});
-
-
-
-		btnRight.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) { 
-				if(mainPanel.dir("d",textArea)){
-					currentGame.setText("You Die");
-					JOptionPane.showMessageDialog(getRootPane(),"Game Over");
-					currentGame.setText("You cant Pla Now");
-					mainPanel.initGame(textArea, comboBox.getSelectedIndex()+1,comboBoxOgre.getSelectedIndex()+1);
-
-				}
-
-
-
-			}
-		});
-
-
-
-		btnLeft.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				if(mainPanel.dir("a",textArea)){
-					currentGame.setText("You Die");
-					JOptionPane.showMessageDialog(getRootPane(),"Game Over");
-					currentGame.setText("You cant Pla Now");
-					mainPanel.initGame(textArea, comboBox.getSelectedIndex()+1,comboBoxOgre.getSelectedIndex()+1);
-
-				}
-
-			}
-		});
-
-
-
-
-
-	}*/
-
+	
 }
 
 
