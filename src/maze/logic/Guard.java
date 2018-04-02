@@ -9,10 +9,10 @@ public class Guard  extends Character implements Serializable{
 
 
 	private static final long serialVersionUID = 1L;
-	private static final int ROCKIE=1;
+	private static final int ROCKIE=1; 
 	private static final int SUSPICIOS=2;
 	private static final int DRUNK=3;
- 
+
 
 
 	private  int  add_move=23;
@@ -24,7 +24,7 @@ public class Guard  extends Character implements Serializable{
 
 
 	public Guard(int x,int y,int m){
-		super(x, y, 'G');
+		super(x, y, ' ');
 		this.mode=m;
 		switch (m) {
 		case 1: this.setName('r');break;
@@ -32,7 +32,7 @@ public class Guard  extends Character implements Serializable{
 		case 3: this.setName('d');break;
 		}
 
-		
+
 		insertPositionMoves();
 
 	}
@@ -66,7 +66,7 @@ public class Guard  extends Character implements Serializable{
 		this.guardPositions[22]=new Point(8,2);
 		this.guardPositions[23]=new Point(8,1);
 
-	}
+	} 
 
 
 
@@ -76,10 +76,7 @@ public class Guard  extends Character implements Serializable{
 
 	}
 
-	public void sleepGuard(){
 
-
-	}
 
 	public Point[] getguardPositions(){
 
@@ -95,6 +92,13 @@ public class Guard  extends Character implements Serializable{
 
 
 	public void setMode(int mode) {
+		switch (mode) {
+		case 1:this.setName('r');break;
+		case 2:this.setName('G');break;
+		case 3:this.setName('d');break;
+		default:
+			break;
+		}
 		this.mode = mode;
 	}
 
@@ -110,7 +114,7 @@ public class Guard  extends Character implements Serializable{
 
 
 
-	public static int randomNumber(int n)	//gera num aleatorio de 1 a n-1
+	public int randomNumber(int n)	//gera num aleatorio de 1 a n-1
 	{
 		int num = (int) (Math.random() * (n-1) +1);
 		if(num<0)
@@ -214,12 +218,7 @@ public class Guard  extends Character implements Serializable{
 
 
 
-
-
 		if(this.getSleepTurn()<=0){
-
-
-
 
 			if(randomNumber(4)==1){//OBS
 				this.setName('g');
@@ -246,12 +245,7 @@ public class Guard  extends Character implements Serializable{
 				moveGuard_plus(add_move,maze);
 
 			}
-
-
-
 		}
-
-
 
 
 		if(guardCaptureHero(maze.getHero())==true){ 
@@ -268,31 +262,21 @@ public class Guard  extends Character implements Serializable{
 	public Boolean guardCaptureHero(Character hero){
 
 
-		if(this.getName()=='G' || this.getName()=='r'|| this.getName()=='d'){
-			if (this.getPosX() == hero.getPosX()+1 &&this.getPosY() == hero.getPosY()
-					|| this.getPosX() == hero.getPosX()-1 && this.getPosY() == hero.getPosY()
-					|| this.getPosY() == hero.getPosY()+1 && this.getPosX() == hero.getPosX()
-					|| this.getPosY() == hero.getPosY()-1 && this.getPosX() == hero.getPosX()
-					|| this.getPosX() == hero.getPosX() && this.getPosY() == hero.getPosY()){
+		if (this.getPosX() == hero.getPosX()+1 && this.getPosY() == hero.getPosY()
+				|| this.getPosX() == hero.getPosX()-1 && this.getPosY() == hero.getPosY()
+				|| this.getPosY() == hero.getPosY()+1 && this.getPosX() == hero.getPosX()
+				|| this.getPosY() == hero.getPosY()-1 && this.getPosX() == hero.getPosX()
+				|| this.getPosX() == hero.getPosX() && this.getPosY() == hero.getPosY()){
 
-				return true ;
-
-
-
-			}else return false;
-
-
-		}else if( this.getPosX() == hero.getPosX() && this.getPosY() == hero.getPosY()){
-			return true;
-
-		}else{
-
-			return false;
+			return true ;
 		}
-
+		
+		return false;
 	}
 
-
+	
+	
+	
 
 
 }

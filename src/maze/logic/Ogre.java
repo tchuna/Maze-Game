@@ -14,17 +14,17 @@ public class Ogre extends Character implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private static final  int UP =1;
 	private static final  int DOWN =2;
-	private static final  int LEFT =3;
+	private static final  int LEFT =3; 
 	private static final  int RIGHT =4;
 
 
 	private Weapon weaponOgre;
 	private int lev=0;
 	private  Boolean sleep= false;
-	private static int  stopTurn=2;
+	private  int  stopTurn=2;
 
 
-	Ogre(int x, int y) {
+	public Ogre(int x, int y) {
 		super(x, y, 'O');
 		this.weaponOgre=new Weapon();
 
@@ -82,7 +82,7 @@ public class Ogre extends Character implements Serializable{
 		if(stopTurn<0 ){
 			stopTurn=2;
 			this.sleep=false;
-			this.setName('O');
+			this.nameCh='O';
 		}
 
 
@@ -90,14 +90,21 @@ public class Ogre extends Character implements Serializable{
 
 
 
-	public void  ogreSleeped(Maze maze){
-		this.setName('8');
+	public void  ogreSleeped(Maze maze){ 
+		this.nameCh='8';
 		this.sleep=true;
-		maze.inser(this.getPosX(),this.getPosY(), this.getName());
+		maze.inser(this.posX,this.posY, this.nameCh);
 		maze.cleannclub();
 
 	}
 
+
+
+	public void setStopsleep(int sl){
+		this.stopTurn=sl;
+
+
+	}
 
 
 
@@ -119,7 +126,7 @@ public class Ogre extends Character implements Serializable{
 		if(obj instanceof Ogre){
 			Ogre n=(Ogre)obj;
 
-			return (this.getPosX()==n.getPosX() && this.getPosY()==n.getPosY());
+			return (this.posX==n.getPosX() && this.posY==n.getPosY());
 
 		}
 		return false;
@@ -145,7 +152,7 @@ public class Ogre extends Character implements Serializable{
 
 		case LEFT:this.getOgreWeapon().setWeapon(this.posX-1,this.posY);break;
 
-		case RIGHT:this.getOgreWeapon().setWeapon(this.posX+1,this.posY);break;
+		case RIGHT:this.getOgreWeapon().setWeapon(this.posX+1,this.posY);break; 
 
 		}
 	}
@@ -223,14 +230,12 @@ public class Ogre extends Character implements Serializable{
 	public Boolean ogreKillHero(Maze maze){
 
 
-
-
-
+		
 
 		if (maze.getHero().getIsArmed()==false && (this.getPosX() == maze.getHero().getPosX()+1 && this.getPosY() == maze.getHero().getPosY()
 				|| this.getPosX() == maze.getHero().getPosX()-1 && this.getPosY() == maze.getHero().getPosY()
-				|| this.getPosY() == maze.getHero().getPosY()+1 && this.getPosX() == maze.getHero().getPosX()
-				|| this.getPosY() == maze.getHero().getPosY()-1 && this.getPosX() == maze.getHero().getPosX())
+				|| this.getPosY() == maze.getHero().getPosY()+1 && this.getPosX() == maze.getHero().getPosX() 
+				|| this.getPosY() == maze.getHero().getPosY()-1 && this.getPosX() == maze.getHero().getPosX()) 
 				|| this.getPosY() == maze.getHero().getPosY() && this.getPosX() == maze.getHero().getPosX()){
 
 			return true ; }
@@ -240,6 +245,7 @@ public class Ogre extends Character implements Serializable{
 		if(maze.getHero().getIsArmed()==true && (this.getPosX() == maze.getHero().getPosX()+1 && this.getPosY() == maze.getHero().getPosY()
 				|| this.getPosX() == maze.getHero().getPosX()-1 && this.getPosY() == maze.getHero().getPosY()
 				|| this.getPosY() == maze.getHero().getPosY()+1 && this.getPosX() == maze.getHero().getPosX()
+				|| this.getPosY() == maze.getHero().getPosY() && this.getPosX() == maze.getHero().getPosX()
 				|| this.getPosY() == maze.getHero().getPosY()-1 && this.getPosX() == maze.getHero().getPosX())){
 
 
@@ -272,8 +278,6 @@ public class Ogre extends Character implements Serializable{
 
 		wakeOgre(); if(this.sleep==true)return;
 
-		//this.takkkkk(maze);
-
 
 
 
@@ -296,7 +300,7 @@ public class Ogre extends Character implements Serializable{
 
 
 
-		if (maze.isWall(this.getPosX()+newXposition,this.getPosY()+newYposition) // verifica se a nova posicao do ogre e parede ou porta fecahdo 
+		if (maze.isWall(this.getPosX()+newXposition,this.getPosY()+newYposition) 
 				||maze.isCloseDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isOpenDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isClub(this.getPosX()+newXposition,this.getPosY()+newYposition)
@@ -331,13 +335,6 @@ public class Ogre extends Character implements Serializable{
 
 
 		}
-
-
-
-
-
-		//moveOgre(newXposition,newYposition, maze);
-		//this.attackOgre(maze);
 
 	}
 

@@ -22,7 +22,7 @@ public class Hero extends Character implements Serializable{
 	public Hero(int x,int y) {
 		super(x,y,'H');
 		this.isDead=false;
-		this.win=false; 
+		this.win=false;  
 	}
 
 
@@ -79,7 +79,7 @@ public class Hero extends Character implements Serializable{
 
 
 
-
+ 
 	public Boolean getTakeLever() {
 		return takeLever;
 	}
@@ -103,16 +103,16 @@ public class Hero extends Character implements Serializable{
 
 	}
 
-	public Boolean heroArmed(int x, int y){
+	/*public Boolean heroArmed(int x, int y){
 
 		if(this.posX==x && this.posY==y && this.isArmed==true){
 
 			return true;
 		}
 
-
+ 
 		return false;
-	}
+	}*/
 
 
 	public int playHero(String input,Maze maze){
@@ -194,7 +194,7 @@ public class Hero extends Character implements Serializable{
 				moveHero(newXposition, newYposition,maze);
 
 				return 1;
-			}
+			} 
 
 			maze.change_CloseDoor_To_OpenDoor();
 			this.takeLever=true;

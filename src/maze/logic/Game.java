@@ -48,7 +48,7 @@ public class Game  implements Serializable{
 	public void initializeVarCli(int modeGrd,int numOgre){
 	//maze.insertGuard(8, 1,modeGrd);
 		maze.numOres=numOgre;
-		maze.modeGuard=modeGrd;
+		maze.modeGuard=modeGrd; 
 		//maze.insertHero(1, 1);
 	}
 
@@ -58,7 +58,7 @@ public class Game  implements Serializable{
 		maze.numOres=numOgre;
 		maze.modeGuard=modeGrd;
 		maze.insertHero(1, 1);//OBSSSSSS
-	}
+	} 
  
 	
 	

@@ -75,7 +75,7 @@ public class Maze  implements Serializable{
 	private static final char EXIT='S';
 	private static final char LEVER ='k'; 
 	private static final char CLOSEDOOR='I';
-	private static final char FREECELL =' ';
+	private static final char FREECELL =' '; 
 	private static final char OGRE ='O';
 	private static final char SLEEPOGRE ='8';
 	private Ogre[] arrogre=new Ogre[numOres];
@@ -498,8 +498,8 @@ public class Maze  implements Serializable{
 
 
 
-	public String getSrtingMatrix() {
-		return srtingMatrix;
+	/*public String getSrtingMatrix() {
+		return srtingMatrix; 
 	}
 
 	public void setSrtingMatrix(String srtingMatrix) {
@@ -509,7 +509,7 @@ public class Maze  implements Serializable{
 	public char Verifica(int i, int j) {
 
 		return matrix[j][i];
-	}
+	}*/
 
 
 

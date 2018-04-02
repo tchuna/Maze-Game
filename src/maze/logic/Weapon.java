@@ -19,7 +19,7 @@ public class Weapon {
 		
 	}
  
-
+ 
 
 	public char getNameWeapon(){
 
