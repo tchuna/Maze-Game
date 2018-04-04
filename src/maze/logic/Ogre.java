@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class Ogre extends Character implements Serializable{
-
+ 
 
 
 	private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class Ogre extends Character implements Serializable{
 
 
 	private Weapon weaponOgre;
-	private int lev=0;
+	//private int lev=0;
 	private  Boolean sleep= false;
 	private  int  stopTurn=2;
 
@@ -29,9 +29,6 @@ public class Ogre extends Character implements Serializable{
 		this.weaponOgre=new Weapon();
 
 	}
-
-
-
 
 
 
@@ -53,13 +50,13 @@ public class Ogre extends Character implements Serializable{
 	}
 
 
-	public int geTlev(){
+	/*public int geTlev(){
 		return this.lev;
 	}
 
 	public void seTlev(int set){
 		this.lev=set;
-	}
+	}*/
 
 
 
@@ -108,12 +105,13 @@ public class Ogre extends Character implements Serializable{
 
 
 
-	public static int randomNumber(int n){	//gera num aleatorio de 1 a n-1
+	public int randomNumber(int n){	//gera num aleatorio de 1 a n-1
 
 		int num = (int) (Math.random() * (n-1) +1);
-		if(num<0){
+		
+		/*if(num<0){
 
-			num=num*(-1); }
+			num=num*(-1); }*/
 
 		return num;
 	}
@@ -135,15 +133,15 @@ public class Ogre extends Character implements Serializable{
 
 
 
+ 
+	public void armedOgre(int randNum){
 
-	public void armedOgre(){
 
-
-		int num=randomNumber(5);
+		
 
 		this.getOgreWeapon().setNameWeapon('*');
 
-		switch (num) {
+		switch (randNum) {
 
 
 		case UP: this.getOgreWeapon().setWeapon(this.posX,this.posY-1);break;
@@ -178,7 +176,8 @@ public class Ogre extends Character implements Serializable{
 	public void attackOgre(Maze maze){
 
 
-		this.armedOgre();
+		int num=randomNumber(5);
+		this.armedOgre(num);
 
 		if(maze.isWall(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isCloseDoor(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
@@ -270,7 +269,7 @@ public class Ogre extends Character implements Serializable{
 
 
 
-	public void playRandomMovesOgre(Maze maze){ 
+	public void playRandomMovesOgre(Maze maze,int randnum){ 
 
 
 		int xlever=4;
@@ -278,16 +277,12 @@ public class Ogre extends Character implements Serializable{
 
 		wakeOgre(); if(this.sleep==true)return;
 
-
-
-
-		int random=randomNumber(5);
 		int newXposition=0;
 		int newYposition=0;
 
 
 
-		switch (random) {
+		switch (randnum) {
 		case RIGHT:newXposition++;
 		break;
 		case LEFT:newXposition--;

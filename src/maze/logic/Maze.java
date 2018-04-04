@@ -108,12 +108,12 @@ public class Maze  implements Serializable{
 	}
 
 
-	public Maze(char matrix[][]) {
+	/*public Maze(char matrix[][]) {
 		this.matrix=matrix;
 		this.numberMap=1;
-	}
+	} */
 
-
+ 
 
 	public char[][] getMatrix(){
 
@@ -375,10 +375,13 @@ public class Maze  implements Serializable{
 
 	public void Level_1(){
 
+		int randD=randomNumberog(6);
+		int randS=randomNumberog(3);
+		
 		switch (guard.getMode()) {
 		case ROCKIE:guard.turnGuardRoockieMode(this);break;
-		case SUSPICIOS:guard.turnGuardSuspiciousMode(this);break;
-		case DRUNK:guard.turnGuardDrunkMode(this);break;
+		case SUSPICIOS:guard.turnGuardSuspiciousMode(this,randS);break;
+		case DRUNK:guard.turnGuardDrunkMode(this,randD);break;
 		}
 
 
@@ -408,13 +411,15 @@ public class Maze  implements Serializable{
 	}
 
 
-	public void logical_level_2(){
+	public void logical_level_2(){ 
 
+		int random=0;
 		cleannclub();
 
 		for(int i=0;i<arrogre.length;i++){
 
-			arrogre[i].playRandomMovesOgre(this);
+			random=arrogre[i].randomNumber(5);
+			arrogre[i].playRandomMovesOgre(this,random);
 
 			if(arrogre[i].ogreKillHero(this)==true){ 
 				hero.setIsDead();

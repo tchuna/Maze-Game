@@ -27,9 +27,9 @@ public class Guard  extends Character implements Serializable{
 		super(x, y, ' ');
 		this.mode=m;
 		switch (m) {
-		case 1: this.setName('r');break;
-		case 2: this.setName('G');break;
-		case 3: this.setName('d');break;
+		case ROCKIE: this.setName('r');break;
+		case SUSPICIOS: this.setName('G');break;
+		case DRUNK: this.setName('d');break;
 		}
 
 
@@ -78,6 +78,16 @@ public class Guard  extends Character implements Serializable{
 
 
 
+	public int getAddmove(){
+
+		return this.add_move;
+	}
+
+	public void setAddmove(int move){
+
+		this.add_move=move;
+	}
+
 	public Point[] getguardPositions(){
 
 		return this.guardPositions;
@@ -114,13 +124,11 @@ public class Guard  extends Character implements Serializable{
 
 
 
-	public int randomNumber(int n)	//gera num aleatorio de 1 a n-1
-	{
+	public int randomNumber(int n){	//gera num aleatorio de 1 a n-1
 		int num = (int) (Math.random() * (n-1) +1);
-		if(num<0)
-		{
+		/*if(num<0){ 
 			num=num*(-1);
-		}
+		}*/
 		return num;
 	}
 
@@ -182,10 +190,10 @@ public class Guard  extends Character implements Serializable{
 	}
 
 
-	public void turnGuardSuspiciousMode(Maze maze){
+	public void turnGuardSuspiciousMode(Maze maze, int rand){
 
 
-		int rand=randomNumber(3);
+		//int rand=randomNumber(3);
 
 		if(rand==1){
 
@@ -212,7 +220,7 @@ public class Guard  extends Character implements Serializable{
 
 
 
-	public void turnGuardDrunkMode(Maze maze){
+	public void turnGuardDrunkMode(Maze maze,int rd){// resolve problema 
 
 		int rand=randomNumber(6);
 
@@ -220,7 +228,8 @@ public class Guard  extends Character implements Serializable{
 
 		if(this.getSleepTurn()<=0){
 
-			if(randomNumber(4)==1){//OBS
+			int r=randomNumber(4);
+			if(r==1){//OBS
 				this.setName('g');
 				maze.inser(this.getPosX(),this.getPosY(),this.getName());
 				this.slepp();
@@ -270,13 +279,13 @@ public class Guard  extends Character implements Serializable{
 
 			return true ;
 		}
-		
+
 		return false;
 	}
 
-	
-	
-	
+
+
+
 
 
 }

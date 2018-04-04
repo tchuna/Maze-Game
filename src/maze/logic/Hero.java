@@ -53,7 +53,7 @@ public class Hero extends Character implements Serializable{
 
 
 
-	public boolean isNear(int x, int y){
+/*	public boolean isNear(int x, int y){
 		if(x!=posX+1||y!=posY+1 ){
 			return true;
 
@@ -61,7 +61,7 @@ public class Hero extends Character implements Serializable{
 
 		return false;
 
-	}
+	}*/
 
 
 
@@ -79,7 +79,7 @@ public class Hero extends Character implements Serializable{
 
 
 
- 
+  
 	public Boolean getTakeLever() {
 		return takeLever;
 	}
@@ -195,7 +195,7 @@ public class Hero extends Character implements Serializable{
 
 				return 1;
 			} 
-
+ 
 			maze.change_CloseDoor_To_OpenDoor();
 			this.takeLever=true;
 			moveHero(newXposition, newYposition,maze);
