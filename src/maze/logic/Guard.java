@@ -83,10 +83,7 @@ public class Guard  extends Character implements Serializable{
 		return this.add_move;
 	}
 
-	public void setAddmove(int move){
 
-		this.add_move=move;
-	}
 
 	public Point[] getguardPositions(){
 
@@ -124,11 +121,9 @@ public class Guard  extends Character implements Serializable{
 
 
 
-	public int randomNumber(int n){	//gera num aleatorio de 1 a n-1
+	public int randomNumber(int n){	
 		int num = (int) (Math.random() * (n-1) +1);
-		/*if(num<0){ 
-			num=num*(-1);
-		}*/
+		
 		return num;
 	}
 
@@ -193,9 +188,8 @@ public class Guard  extends Character implements Serializable{
 	public void turnGuardSuspiciousMode(Maze maze, int rand){
 
 
-		//int rand=randomNumber(3);
 
-		if(rand==1){
+		if(rand==3 || rand==1){
 
 			moveGuard_less(add_move,maze);
 			if(guardCaptureHero(maze.getHero())==true){ 
@@ -220,7 +214,7 @@ public class Guard  extends Character implements Serializable{
 
 
 
-	public void turnGuardDrunkMode(Maze maze,int rd){// resolve problema 
+	public void turnGuardDrunkMode(Maze maze,int rd){
 
 		int rand=randomNumber(6);
 
@@ -229,7 +223,7 @@ public class Guard  extends Character implements Serializable{
 		if(this.getSleepTurn()<=0){
 
 			int r=randomNumber(4);
-			if(r==1){//OBS
+			if(r==1){
 				this.setName('g');
 				maze.inser(this.getPosX(),this.getPosY(),this.getName());
 				this.slepp();

@@ -19,13 +19,12 @@ public class Ogre extends Character implements Serializable{
 
 
 	private Weapon weaponOgre;
-	//private int lev=0;
 	private  Boolean sleep= false;
 	private  int  stopTurn=2;
 
 
 	public Ogre(int x, int y) {
-		super(x, y, 'O');
+		super(x, y, 'O'); 
 		this.weaponOgre=new Weapon();
 
 	}
@@ -50,14 +49,6 @@ public class Ogre extends Character implements Serializable{
 	}
 
 
-	/*public int geTlev(){
-		return this.lev;
-	}
-
-	public void seTlev(int set){
-		this.lev=set;
-	}*/
-
 
 
 	public Weapon getOgreWeapon() {
@@ -76,7 +67,7 @@ public class Ogre extends Character implements Serializable{
 
 		stopTurn--;
 
-		if(stopTurn<0 ){
+		if(stopTurn<0 ){ 
 			stopTurn=2;
 			this.sleep=false;
 			this.nameCh='O';
@@ -105,13 +96,10 @@ public class Ogre extends Character implements Serializable{
 
 
 
-	public int randomNumber(int n){	//gera num aleatorio de 1 a n-1
+	public int randomNumber(int n){	
 
 		int num = (int) (Math.random() * (n-1) +1);
-		
-		/*if(num<0){
-
-			num=num*(-1); }*/
+	
 
 		return num;
 	}
@@ -173,16 +161,15 @@ public class Ogre extends Character implements Serializable{
 
 
 
-	public void attackOgre(Maze maze){
+	public void attackOgre(Maze maze ,int rand){
 
-
-		int num=randomNumber(5);
-		this.armedOgre(num);
+		this.armedOgre(rand);
 
 		if(maze.isWall(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isCloseDoor(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isClub(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isOgre(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
+				|| maze.isHeroWeapon(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isOpenDoor(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isLever(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())){
 			return;
@@ -274,6 +261,7 @@ public class Ogre extends Character implements Serializable{
 
 		int xlever=4;
 		int lever=4;
+		int rand=randomNumber(5);
 
 		wakeOgre(); if(this.sleep==true)return;
 
@@ -301,7 +289,7 @@ public class Ogre extends Character implements Serializable{
 				||maze.isClub(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze .isHeroArmed(this.getPosX()+newXposition,this.getPosY()+newYposition)){
 
-			this.attackOgre(maze);
+			this.attackOgre(maze,rand);
 
 			return;
 
@@ -314,7 +302,7 @@ public class Ogre extends Character implements Serializable{
 			this.setName('O');
 			moveOgre(newXposition,newYposition, maze);
 			maze.inser(this.getPosX(),this.getPosY() ,this.getName());
-			this.attackOgre(maze);
+			this.attackOgre(maze,rand);
 			return;
 
 
@@ -325,15 +313,13 @@ public class Ogre extends Character implements Serializable{
 			this.setName('$');
 			moveOgre(newXposition,newYposition, maze);
 			maze.inser(this.getPosX(),this.getPosY() ,this.getName());
-			this.attackOgre(maze);
+			this.attackOgre(maze,rand);
 			return;
 
 
 		}
 
 	}
-
-
 
 
 

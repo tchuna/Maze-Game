@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 
 
 public class Frame extends JFrame{
@@ -54,15 +56,14 @@ public class Frame extends JFrame{
 	public Frame() {
 
 		initFrame();
-
-
+		
 	}
 
 
 
 	public void  initFrame(){
-		
-		
+
+
 		builtFrame();
 		addComponets();
 		actionsButtons();
@@ -74,7 +75,7 @@ public class Frame extends JFrame{
 	public void initCompon(){
 		Window=new JFrame();
 		mainPanel = new Panel();
-		
+
 
 		btnUp = new JButton("UP");
 		btnLeft = new JButton("LEFT");
@@ -88,7 +89,6 @@ public class Frame extends JFrame{
 		guardMode= new JComboBox<String> (guardPers);
 		jOgres= new JTextPane();
 
-
 	}
 
 
@@ -100,7 +100,7 @@ public class Frame extends JFrame{
 		Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Window.setBounds(100, 100, 600, 450);
 		Window.setResizable(false);
-		
+
 		Window.setVisible(true);
 
 		setupComponests();
@@ -128,7 +128,7 @@ public class Frame extends JFrame{
 		btnRight.setEnabled(false);
 
 
- 
+
 		numberOgres.setBounds(12,10, 150, 20);
 		jOgres.setBounds(160,10 , 50, 20);
 
@@ -139,7 +139,6 @@ public class Frame extends JFrame{
 		currentGame.setFont(new Font("Serif", Font.BOLD,10));
 		currentGame.setBounds(12,432,210,20);
 
-		//mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		jOgres.setBorder(BorderFactory.createLineBorder(Color.black));
 
 
@@ -185,6 +184,10 @@ public class Frame extends JFrame{
 			game=new Game(maze,guardMode.getSelectedIndex()+1,numberOgres);
 
 			((Panel) mainPanel).startGame(game);
+
+			mainPanel.setFocusable(true);
+			mainPanel.requestFocusInWindow();
+
 			return game;
 		}
 
@@ -245,7 +248,7 @@ public class Frame extends JFrame{
 						catchNumberOgres();
 						if(invalidnOgres==false){
 							disableButton(true);
-							currentGame.setText("You cant Pla Now");
+							currentGame.setText("Escape the Maze Moved the Hero");
 							fristTime=false;
 							creatGame();
 						}else{
@@ -263,7 +266,7 @@ public class Frame extends JFrame{
 							catchNumberOgres();
 							if(invalidnOgres==false){
 								disableButton(true);
-								currentGame.setText("You cant Pla Now"); 
+								currentGame.setText("Escape the Maze Moved the Hero"); 
 								creatGame();
 							}else{
 
@@ -319,8 +322,10 @@ public class Frame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mainPanel.setFocusable(true);
+				mainPanel.requestFocusInWindow();
 
-				currentGame.setText("Escape the Mave Moved the Hero");
+				currentGame.setText("Escape the Maze Moved the Hero");
 
 				game.updateGame("w");
 				((Panel) mainPanel).updateGame(game);
@@ -336,11 +341,12 @@ public class Frame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mainPanel.setFocusable(true);
+				mainPanel.requestFocusInWindow();
 
-				currentGame.setText("Escape the Mave Moved the Hero");
+				currentGame.setText("Escape the Maze Moved the Hero");
 				game.updateGame("s");
 				((Panel) mainPanel).updateGame(game);
-				//game.getMaze().displayMaze(game.getMaze());
 
 				heroDie();
 				heroWin();
@@ -353,11 +359,12 @@ public class Frame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) { 
+				mainPanel.setFocusable(true);
+				mainPanel.requestFocusInWindow();
 
-				currentGame.setText("Escape the Mave Moved the Hero");
+				currentGame.setText("Escape the Maze Moved the Hero");
 				game.updateGame("d");
 				((Panel) mainPanel).updateGame(game);
-				//game.getMaze().displayMaze(game.getMaze());
 				heroDie();
 				heroWin();
 
@@ -371,12 +378,12 @@ public class Frame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				mainPanel.setFocusable(true);
+				mainPanel.requestFocusInWindow();
 
 				currentGame.setText("Escape the Mave Moved the Hero");
 				game.updateGame("a");
 				((Panel) mainPanel).updateGame(game);
-				//game.getMaze().displayMaze(game.getMaze());
-
 				heroDie();
 				heroWin();
 
@@ -395,9 +402,12 @@ public class Frame extends JFrame{
 
 
 	public void actionsButtons(){
+		
+		
 		bntDirectionsAction();
 		btnNewGameAction();
 		btnExitAction();
+
 
 	}
 
@@ -448,12 +458,6 @@ public class Frame extends JFrame{
 	}
 
 
-
-
-	
-	
-
-	
 }
 
 

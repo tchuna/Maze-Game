@@ -114,7 +114,7 @@ public class GameLogicTest {
 		game.updateGame("s");game.updateGame("s");game.updateGame("s");
 		game.updateGame("d");game.updateGame("d");game.updateGame("d");game.updateGame("d");game.updateGame("d");
 
-		//assertTrue();
+
 
 
 	}
@@ -341,7 +341,7 @@ public class GameLogicTest {
 
 
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -453,6 +453,28 @@ public class GameLogicTest {
 
 
 	}
+	
+	@Test
+	public void tesWakeOgre(){
+
+		Ogre ogre1 =new Ogre(1,1);
+		ogre1.setSleep(true);
+		ogre1.setName('$');
+		ogre1.setStopsleep(3);
+		ogre1.wakeOgre();
+		assertEquals('$', ogre1.getName());
+		
+		ogre1.setStopsleep(-1);
+		ogre1.wakeOgre();
+		assertEquals('O', ogre1.getName());
+		
+
+	}
+	
+	
+	
+	
+	
 
 	@Test
 	public void testRandomArmedOgre(){
@@ -514,7 +536,8 @@ public class GameLogicTest {
 
 
 	}
-
+	
+	
 
 	@Test
 	public void testRandomMoveOgrefaile(){
@@ -571,8 +594,6 @@ public class GameLogicTest {
 
 
 
-	///////////////////////////////////////////////////////More Hero TEST/////////////////////////////////////////////////////////////
-
 
 	@Test
 	public void testTryMoveHero(){ 
@@ -607,50 +628,55 @@ public class GameLogicTest {
 
 
 	}
-	
-	
-	
+
+
+
 	@Test
 	public void testTryMoveHero2(){
-		
+
 		int level=1;
 		Hero hero =new Hero(4,4);
 		Maze maze=new Maze(level);
 
 
 		maze.inser(5, 4,'C');
+		hero.setTakeLever(false);
+		hero.playHero("d", maze);
+		assertEquals(4,hero.getPosY());
+		assertEquals(5,hero.getPosX());
+		assertTrue(hero.getIsArmed());
+		assertEquals('A',hero.getName());
+
+		hero .setPosition(4, 4);
+		maze.inser(5, 4,'C');
 		hero.setTakeLever(true);
 		hero.playHero("d", maze);
 		assertEquals(4,hero.getPosY());
 		assertEquals(5,hero.getPosX());
 		assertTrue(hero.getIsArmed());
-		
+
 		hero .setPosition(4, 4);
 		hero.setTakeLever(false);
 		hero.setIsArmed(false);
-		
+
 		hero.setName('K');
 		maze.inser(5, 4,'k');
 		hero.playHero("d", maze);
 		assertEquals(4,hero.getPosY());
 		assertEquals(5,hero.getPosX());
 		assertEquals('S',maze.getMatrix()[5][0]);
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
 	}
 
 
-	
-	
-	
 
-	///////////////////////////////////////////////////////////////////////7777some guard moves test////////////////////////////////
 
 
 
@@ -665,21 +691,177 @@ public class GameLogicTest {
 		guard.turnGuardSuspiciousMode(maze,1);
 
 		assertEquals(22, guard.getAddmove());
-		
+
 		guard.turnGuardSuspiciousMode(maze,2);
 
 		assertEquals(23, guard.getAddmove());
 
 
 
+	}
 
 
 
 
+	@Test
+	public void testMazeCreatOgre(){
+		int level=1;
+		Maze maze=new Maze(level);
+		maze.creatOres();
+
+		assertEquals(3,maze.geTogres().size());	
 
 
 
 	}
+
+
+
+	@Test
+	public void testChangeMaze(){
+		int level=1;
+		Maze maze=new Maze(level);
+		maze.changeMap();
+
+		assertEquals(2,maze.numMap());	
+		maze.changeMap();
+		assertEquals(3,maze.numMap());	
+
+
+	}
+
+
+	@Test
+	public void tescleanClub(){
+		int level=1;
+		Maze maze=new Maze(level);
+		maze.inser(4, 4, '*');
+
+		assertEquals('*',maze.getMatrix()[4][4]);	
+
+		maze.cleannclub();
+
+		assertEquals(' ',maze.getMatrix()[4][4]);	
+
+
+	}
+	
+	
+	
+	@Test
+	public void testMazePutLever(){
+		
+		int level=2;
+		Maze maze=new Maze(level);
+		Ogre ogre =new Ogre(3,3);
+		
+		assertFalse(ogre.putLever(maze));
+		maze.getHero().setName('K');
+		assertTrue(ogre.putLever(maze));
+		
+		
+		
+	}
+	
+	
+	
+	@Test
+	public void testMazeMet(){
+		int level=2;
+		Maze maze=new Maze(level);
+		maze.inser(4, 4, '*');
+
+		assertEquals('*',maze.getMatrix()[4][4]);	
+		
+		maze.cleanCell(4, 4);
+		assertEquals(' ',maze.getMatrix()[4][4]);
+		
+		maze.inser(4, 4, 'O');
+		assertTrue(maze.isOgre(4, 4));
+		maze.inser(4, 4, '8');
+		assertTrue(maze.isOgre(4, 4));
+		
+		maze.cleanCell(4, 4);
+		assertFalse(maze.isOgre(4, 4));
+		
+		
+		maze.Level_2();
+		
+		assertEquals(8,maze.getHero().getPosX());
+		
+		assertEquals(2,maze.getHero().getPosY());
+		assertFalse(maze.getHero().getTakeLever());
+		assertEquals(null,maze.getGuard());
+		
+		
+
+
+
+	}
+	
+	
+
+	@Test
+	public void testPosClubOgre(){
+		int level=2;
+		Maze maze=new Maze(level);
+		Ogre ogre =new Ogre(3,3);
+		maze.inser(3, 2, 'X');
+		ogre.getOgreWeapon().setWeapon(0, 0);
+		ogre.attackOgre(maze, 1);
+		
+		assertEquals('X',maze.getMatrix()[2][3]);
+		
+		maze.inser(3, 2, ' ');
+		ogre.getOgreWeapon().setWeapon(0, 0);
+		ogre.attackOgre(maze, 1);
+		
+		assertEquals('*',maze.getMatrix()[2][3]);
+		
+		maze.inser(3, 2, '*');
+		ogre.getOgreWeapon().setWeapon(0, 0);
+		ogre.attackOgre(maze, 1);
+		
+		assertEquals('*',maze.getMatrix()[2][3]);
+		
+		
+		maze.inser(3, 2, 'I');
+		ogre.getOgreWeapon().setWeapon(0, 0);
+		ogre.attackOgre(maze, 1);
+		
+		assertEquals('I',maze.getMatrix()[2][3]);
+		
+		
+		maze.inser(3, 2, 'C');
+		ogre.getOgreWeapon().setWeapon(0, 0);
+		ogre.attackOgre(maze, 1);
+		
+		assertEquals('C',maze.getMatrix()[2][3]);
+		
+		maze.inser(3, 2, 'S');
+		ogre.getOgreWeapon().setWeapon(0, 0);
+		ogre.attackOgre(maze, 1);
+		
+		assertEquals('S',maze.getMatrix()[2][3]);
+		
+		maze.inser(3, 2, 'k');
+		ogre.getOgreWeapon().setWeapon(0, 0);
+		ogre.attackOgre(maze, 1);
+		
+		assertEquals('k',maze.getMatrix()[2][3]);
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
 
 
 

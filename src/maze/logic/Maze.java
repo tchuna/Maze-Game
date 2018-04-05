@@ -17,10 +17,6 @@ public class Maze  implements Serializable{
 
 	public static int randomNumberog(int n)	{
 		int num = (int) (Math.random() * (n-1) +3);
-		if(num<0)
-		{
-			num=num*(-1);
-		} 
 		return num;
 	} 
 
@@ -106,12 +102,6 @@ public class Maze  implements Serializable{
 	public int numMap(){
 		return this.numberMap;
 	}
-
-
-	/*public Maze(char matrix[][]) {
-		this.matrix=matrix;
-		this.numberMap=1;
-	} */
 
  
 
@@ -348,7 +338,7 @@ public class Maze  implements Serializable{
 
 		for(int i=0; i<matrixLength;i++){
 			for(int j=0;j<matrixLength;j++ ){
-				System.out.print(matrix[i][j]);
+				System.out.print(matrix[i][j]); 
 				System.out.print(' ');
 			}
 			System.out.print('\n');
@@ -462,7 +452,7 @@ public class Maze  implements Serializable{
 		switch (numberMap) {
 		case 1:Level_1();break;
 		case 2:logical_level_2();break;
-		case 3:logical_crlevel();break;
+		case 3:logical_level_2();break;
 		}
 
 
@@ -500,21 +490,6 @@ public class Maze  implements Serializable{
 
 		return result;
 	}
-
-
-
-	/*public String getSrtingMatrix() {
-		return srtingMatrix; 
-	}
-
-	public void setSrtingMatrix(String srtingMatrix) {
-		this.srtingMatrix = srtingMatrix;
-	}
-
-	public char Verifica(int i, int j) {
-
-		return matrix[j][i];
-	}*/
 
 
 

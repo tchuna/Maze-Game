@@ -6,7 +6,7 @@ public abstract class Character implements Serializable {
 
 	
 
-	//Attributes
+	
 	private static final long serialVersionUID = 1L;
 	protected int posX=-1;
 	protected int posY=-1;

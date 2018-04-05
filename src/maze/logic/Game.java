@@ -1,9 +1,7 @@
 package maze.logic;
 
-import java.awt.Point;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Game  implements Serializable{
 
@@ -22,7 +20,7 @@ public class Game  implements Serializable{
 		
 		
 		initializeVarCli(modeGuard,numOgres);
-		//StardGame();
+		
 		
 
 	} 
@@ -46,18 +44,18 @@ public class Game  implements Serializable{
 
 	
 	public void initializeVarCli(int modeGrd,int numOgre){
-	//maze.insertGuard(8, 1,modeGrd);
+	
 		maze.numOres=numOgre;
 		maze.modeGuard=modeGrd; 
-		//maze.insertHero(1, 1);
+		
 	}
 
 
 	public void initializeVar(int modeGrd,int numOgre){
-		maze.insertGuard(8, 1,modeGrd);//OBSSSS
+		maze.insertGuard(8, 1,modeGrd);
 		maze.numOres=numOgre;
 		maze.modeGuard=modeGrd;
-		maze.insertHero(1, 1);//OBSSSSSS
+		maze.insertHero(1, 1);
 	} 
  
 	
@@ -79,10 +77,6 @@ public class Game  implements Serializable{
 		return maze;
 	}
 
-
-	public void setMaze(Maze maze) {
-		this.maze = maze;
-	}
 
 
 

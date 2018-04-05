@@ -1,25 +1,16 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
+
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.TreeMap;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import maze.logic.Game;
+//implements KeyListener
 import maze.logic.Maze;
-
 
 public class Panel extends JPanel implements KeyListener{
 
@@ -30,15 +21,15 @@ public class Panel extends JPanel implements KeyListener{
 	private JLabel back=new JLabel(); 
 	JLabel[][] labels;
 	boolean isarmed;
-
+	Game game, game2;
+	int mode;
+	int numOgre;
 	
 
-
-
+	
 	private ImageIcon ground = new ImageIcon(getClass().getClassLoader().getResource("resource/b.png"));
 	private ImageIcon wall = new ImageIcon(getClass().getClassLoader().getResource("resource/wall.png"));
 	private ImageIcon floor = new ImageIcon(getClass().getClassLoader().getResource("resource/free.png"));
-	//private ImageIcon key = new ImageIcon(getClass().getClassLoader().getResource("resource/key.png"));
 	private ImageIcon lever= new ImageIcon(getClass().getClassLoader().getResource("resource/key.png"));
 	private ImageIcon opendoor = new ImageIcon(getClass().getClassLoader().getResource("resource/opendoor.png"));
 	private ImageIcon closedoor = new ImageIcon(getClass().getClassLoader().getResource("resource/closedoor.png"));
@@ -62,26 +53,31 @@ public class Panel extends JPanel implements KeyListener{
 
 	public Panel() {
 		super(); 
-		
-		
+
+
 		setBounds(20,70 ,350,350); 
-		 
+
 		back.setIcon(ground);
 		back.setBounds(0, 0, 300, 300); 
 		this.add(back);
 		addKeyListener(this);
 
+		setRequestFocusEnabled(true);
+
 	}
 
- 
+
 
 
 
 	public void startGame(Game game){
-		
+
 		this.removeAll();
-		
-		
+		this.game=game;
+		this.game2=game;
+
+		Maze maze=game.getMaze();
+
 		int leng=game.getMaze().getMatrix().length;
 		this.setLayout(new GridLayout(leng,leng));
 		creatMaze(game);
@@ -89,7 +85,7 @@ public class Panel extends JPanel implements KeyListener{
 		repaint();
 
 
- 
+
 	}
 
 
@@ -97,10 +93,11 @@ public class Panel extends JPanel implements KeyListener{
 
 	public void updateGame(Game game){
 		this.removeAll();
-		
+
 		creatMaze(game);
-		revalidate();
+
 		repaint();
+		revalidate();
 
 	}
 
@@ -169,35 +166,82 @@ public class Panel extends JPanel implements KeyListener{
 
 
 
+	public void heroWin(){
+
+		if(game.getMaze().getHero().getWin()){
+
+			
+			JOptionPane.showMessageDialog(this,"You Win");
+
+
+			System.exit(0);
+
+
+
+		}
+
+	}
+
+
+	public void heroDie(){
+
+		if(game.getMaze().getHero().getIsDead()){
+
+			JOptionPane.showMessageDialog(this,"Game Over");
+
+			System.exit(0);
+
+
+		}
+
+	}
+
+
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-	
+
+
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_W:
-			System.out.println("thunaaaaaaaaaaaaaaaaaaaaaaaa");
+			game.updateGame("w");
+			updateGame(game);
+			heroDie();
+			heroWin();
+
 			break;
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_S:
-			System.out.println("thunaaaaaaaaaaaaaaaaaaaaaaaa");
+			game.updateGame("s");
+			updateGame(game);
+			heroDie();
+			heroWin();
+
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_D:
-			System.out.println("thunaaaaaaaaaaaaaaaaaaaaaaaa");
+			game.updateGame("d");
+			updateGame(game);
+			heroDie();
+			heroWin();
+
 
 			break;
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_A:
-			System.out.println("thunaaaaaaaaaaaaaaaaaaaaaaaa");
+			game.updateGame("a");
+			updateGame(game);
+			heroDie();
+			heroWin();
 
 			break;
 		default:
@@ -205,16 +249,16 @@ public class Panel extends JPanel implements KeyListener{
 		}
 
 	}
-		
+
 
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
+
 	}
 
-	
+
 
 }
 

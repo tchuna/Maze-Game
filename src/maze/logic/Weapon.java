@@ -4,7 +4,7 @@ package maze.logic;
 public class Weapon {
 
 	private int x;
-	private int y;//weaponPosition;
+	private int y;
 
 	private char nameWeapon;
 

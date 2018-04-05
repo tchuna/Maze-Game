@@ -51,19 +51,7 @@ public class Hero extends Character implements Serializable{
 		this.win=true;
 	}
 
-
-
-/*	public boolean isNear(int x, int y){
-		if(x!=posX+1||y!=posY+1 ){
-			return true;
-
-		}
-
-		return false;
-
-	}*/
-
-
+	
 
 
 	public Boolean getIsArmed() {
@@ -103,17 +91,8 @@ public class Hero extends Character implements Serializable{
 
 	}
 
-	/*public Boolean heroArmed(int x, int y){
-
-		if(this.posX==x && this.posY==y && this.isArmed==true){
-
-			return true;
-		}
-
- 
-		return false;
-	}*/
-
+	
+	
 
 	public int playHero(String input,Maze maze){
 
