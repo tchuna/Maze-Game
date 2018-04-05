@@ -302,14 +302,12 @@ public class Maze  implements Serializable{
 		Ogre ogre;
 
 		for(int i=0;i<numOres;i++){
-			randX=randomNumberog(8);
-			randY=randomNumberog(8);;
+			randX=randomNumberog(8); randY=randomNumberog(8);
 
 			ogre=new Ogre(randX, randY);
 
 			while(ogres.contains(ogre) || isCloseDoor(randX, randY)|| isLever(randX,randY) || isWall(randX, randY)){
-				randX=randomNumberog(8);
-				randY=randomNumberog(8);
+				randX=randomNumberog(8); randY=randomNumberog(8);
 				ogre=new Ogre(randX, randY);
 			}
 
