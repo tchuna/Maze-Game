@@ -83,9 +83,9 @@ public class Frame extends JFrame{
 		btnRight = new JButton("RIGHT");
 		btnNewGame = new JButton("New Game") ;
 		btnExit = new JButton("Exit");
-		numberOgres = new JLabel("Number of Ogres :");
+		numberOgres = new JLabel(" Number of Ogres :");
 		currentGame = new JLabel("You cant Start a New Game");
-		lblGuardPersonality = new JLabel("Guard Personality :");
+		lblGuardPersonality = new JLabel(" Guard Personality :");
 		guardMode= new JComboBox<String> (guardPers);
 		jOgres= new JTextPane();
 
@@ -129,17 +129,23 @@ public class Frame extends JFrame{
 
 
 
-		numberOgres.setBounds(12,10, 150, 20);
-		jOgres.setBounds(160,10 , 50, 20);
+		numberOgres.setBounds(12,5, 140, 20);
 
-		lblGuardPersonality.setBounds(12, 35, 150, 20);
-		guardMode.setBounds(160, 35, 100, 20);
+		jOgres.setBounds(160,5 , 50, 20);
+
+		lblGuardPersonality.setBounds(12, 28, 145, 20);
+
+		guardMode.setBounds(160, 28, 100, 20);
+		
+
 
 
 		currentGame.setFont(new Font("Serif", Font.BOLD,10));
 		currentGame.setBounds(12,432,210,20);
 
 		jOgres.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		
 
 
 	}
@@ -226,10 +232,6 @@ public class Frame extends JFrame{
 
 		return ogres;
 	}
-
-
-
-
 
 
 

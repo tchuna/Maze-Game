@@ -10,15 +10,15 @@ public class Hero extends Character implements Serializable{
 	private static final  String DOWN ="s";
 	private static final  String LEFT ="a";
 	private static final  String RIGHT ="d";
-	
-	
+
+
 	private Boolean isDead;
 	private Boolean win; 
 	private Boolean isArmed =false;
 	private Boolean takeLever=false;
 
 
- 
+
 	public Hero(int x,int y) {
 		super(x,y,'H');
 		this.isDead=false;
@@ -51,7 +51,7 @@ public class Hero extends Character implements Serializable{
 		this.win=true;
 	}
 
-	
+
 
 
 	public Boolean getIsArmed() {
@@ -67,7 +67,7 @@ public class Hero extends Character implements Serializable{
 
 
 
-  
+
 	public Boolean getTakeLever() {
 		return takeLever;
 	}
@@ -91,15 +91,11 @@ public class Hero extends Character implements Serializable{
 
 	}
 
-	
-	
+
+
 
 	public int playHero(String input,Maze maze){
-
-
-
-		int newXposition=0;
-		int newYposition=0;
+		int newXposition=0,newYposition=0;
 
 		switch (input) {
 		case RIGHT:newXposition++;break;
@@ -108,6 +104,7 @@ public class Hero extends Character implements Serializable{
 		case DOWN:newYposition++;break;  }
 
 
+	
 
 		if(maze.isHeroWeapon(this.getPosX()+newXposition,this.getPosY()+newYposition) && this.getTakeLever()==true){
 
@@ -174,7 +171,7 @@ public class Hero extends Character implements Serializable{
 
 				return 1;
 			} 
- 
+
 			maze.change_CloseDoor_To_OpenDoor();
 			this.takeLever=true;
 			moveHero(newXposition, newYposition,maze);

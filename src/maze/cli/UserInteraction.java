@@ -25,23 +25,6 @@ public class UserInteraction {
 
 
 
-	public void displayMaze(Game game ) {
-
-		int matrixLength=game.getMaze().getMatrix().length;
-		char matrix [][]=game.getMaze().getMatrix();
-
-		System.out.print('\n');
-
-		for(int i=0; i<matrixLength;i++){
-			for(int j=0;j<matrixLength;j++ ){
-				System.out.print(matrix[i][j]);
-				System.out.print(' ');
-			}
-			System.out.print('\n');
-
-
-		}
-	}
 
 	
 	
@@ -68,7 +51,7 @@ public class UserInteraction {
 					input.equals("a")||input.equals("d")){
 
 				result=game.updateGame(input);
-				displayMaze( game);
+				game.getMaze().displayMaze(game.getMaze());
 
 			}else {
 				System.out.println("Invalid Direction ");

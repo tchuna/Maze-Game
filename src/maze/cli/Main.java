@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		int  numMaze=2;
+		int  numMaze=1;
 		String input;
 		Maze maze=new Maze( numMaze);
 		Game game;  
@@ -66,7 +66,7 @@ public class Main {
 
 				game=new Game(maze, modeGuard, numOg);
 
-				game.StardGame();user.displayMaze(game);user.play(game); isDone=true;
+				game.StardGame();game.getMaze().displayMaze(maze);;user.play(game); isDone=true;
 				break;
 
 
