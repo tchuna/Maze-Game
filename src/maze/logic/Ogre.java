@@ -215,25 +215,18 @@ public class Ogre extends Character implements Serializable{
 
 	public Boolean ogreKillHero(Maze maze){
 
-
-		
-
 		if (maze.getHero().getIsArmed()==false && (this.getPosX() == maze.getHero().getPosX()+1 && this.getPosY() == maze.getHero().getPosY()
 				|| this.getPosX() == maze.getHero().getPosX()-1 && this.getPosY() == maze.getHero().getPosY()
 				|| this.getPosY() == maze.getHero().getPosY()+1 && this.getPosX() == maze.getHero().getPosX() 
 				|| this.getPosY() == maze.getHero().getPosY()-1 && this.getPosX() == maze.getHero().getPosX()) 
 				|| this.getPosY() == maze.getHero().getPosY() && this.getPosX() == maze.getHero().getPosX()){
-
 			return true ; }
-
-
 
 		if(maze.getHero().getIsArmed()==true && (this.getPosX() == maze.getHero().getPosX()+1 && this.getPosY() == maze.getHero().getPosY()
 				|| this.getPosX() == maze.getHero().getPosX()-1 && this.getPosY() == maze.getHero().getPosY()
 				|| this.getPosY() == maze.getHero().getPosY()+1 && this.getPosX() == maze.getHero().getPosX()
 				|| this.getPosY() == maze.getHero().getPosY() && this.getPosX() == maze.getHero().getPosX()
 				|| this.getPosY() == maze.getHero().getPosY()-1 && this.getPosX() == maze.getHero().getPosX())){
-
 
 			ogreSleeped(maze);
 
@@ -244,11 +237,7 @@ public class Ogre extends Character implements Serializable{
 		if(this.getOgreWeapon().getXWeapon()== maze.getHero().getPosX()&& this.getOgreWeapon().getYWeapon()== maze.getHero().getPosY()){
 			return true; }
 
-
-
 		return false;
-
-
 
 
 	}

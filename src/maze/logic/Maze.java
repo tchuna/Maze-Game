@@ -103,7 +103,7 @@ public class Maze  implements Serializable{
 		return this.numberMap;
 	}
 
- 
+
 
 	public char[][] getMatrix(){
 
@@ -298,33 +298,24 @@ public class Maze  implements Serializable{
 
 
 	public void creatOres(){
-		int randX, randY;
+		int randX,randY;
 		Ogre ogre;
-
-
 
 		for(int i=0;i<numOres;i++){
 			randX=randomNumberog(8);
-			randY=randomNumberog(8);
+			randY=randomNumberog(8);;
 
 			ogre=new Ogre(randX, randY);
 
-
-			while(ogres.contains(ogre) || isCloseDoor(randX, randY)
-					|| isLever(randX,randY) || isWall(randX, randY)){
+			while(ogres.contains(ogre) || isCloseDoor(randX, randY)|| isLever(randX,randY) || isWall(randX, randY)){
 				randX=randomNumberog(8);
 				randY=randomNumberog(8);
 				ogre=new Ogre(randX, randY);
-
 			}
 
 			ogres.add(ogre);
-
 		}
-
 		this.arrogre=ogres.toArray(new Ogre[ogres.size()]);
-
-
 	}
 
 
@@ -367,7 +358,7 @@ public class Maze  implements Serializable{
 
 		int randD=randomNumberog(6);
 		int randS=randomNumberog(3);
-		
+
 		switch (guard.getMode()) {
 		case ROCKIE:guard.turnGuardRoockieMode(this);break;
 		case SUSPICIOS:guard.turnGuardSuspiciousMode(this,randS);break;
