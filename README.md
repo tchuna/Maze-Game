@@ -2,9 +2,6 @@
 
 ### Maze Game
 
-
-![A](/src/resource/m.png)
-
 ![M](/src/resource/maze.png)
 
 
