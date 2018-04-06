@@ -51,8 +51,7 @@ public class Frame extends JFrame{
 	private Boolean fristTime=true;
 	private JPanel mainPanel;
 	private JFrame Window;
-	private Game game;
-	private Maze maze=new Maze(1);
+	
 
 
 
@@ -142,9 +141,9 @@ public class Frame extends JFrame{
 	 * */
 	public void setupComponests(){ 
 
-		btnNewGame.setBounds(435,100,115, 20);
+		bntCratLevel.setBounds(435,100,115, 20);
 		btnExit.setBounds(435,364,115, 20);
-		bntCratLevel.setBounds(435,50,115,20);
+		btnNewGame.setBounds(435,50,115,20);
 
 		btnDown.setBounds(450,259,80, 20);
 		btnDown.setEnabled(false);
@@ -211,7 +210,7 @@ public class Frame extends JFrame{
 	
 	/**
 	 * Disable the direction buttons 
-	 * 
+	 * @param disable
 	 * */
 	public void disableButton(boolean disable){
 
@@ -229,24 +228,20 @@ public class Frame extends JFrame{
 	 * Create a current Game 
 	 * 
 	 * */
-	public Game  creatGame(){
+	public void  creatGame(){
 
 		int numberOgres=catchNumberOgres();
 		if(numberOgres!=0){
-			maze=new Maze(1);
-			game=new Game(maze,guardMode.getSelectedIndex()+1,numberOgres);
+			
+			
+			((Panel) mainPanel). CreatGame(numberOgres,guardMode.getSelectedIndex()+1);
 
-			((Panel) mainPanel).startGame(game);
+			((Panel) mainPanel).startGame();
 
 			mainPanel.setFocusable(true);
 			mainPanel.requestFocusInWindow();
 
-			return game;
 		}
-
-
-
-		return null;
 
 	}
 
@@ -257,8 +252,8 @@ public class Frame extends JFrame{
 	
 	/**
 	 * Catch the invalid type and number of ogres in game 
-	 * 
-	 * */
+	 * @return number of ogres
+	 */
 	public int catchNumberOgres(){
 		int ogres = 0;
 		try {
@@ -417,11 +412,11 @@ public class Frame extends JFrame{
 
 				currentGame.setText("Escape the Maze Moved the Hero");
 
-				game.updateGame("w");
-				((Panel) mainPanel).updateGame(game);
+				((Panel) mainPanel).updateGame("w");
+				((Panel) mainPanel).refresh();
 
-				heroDie();
-				heroWin();
+				((Panel) mainPanel).heroDie();
+				((Panel) mainPanel).heroWin();
 			}
 		});
 
@@ -435,11 +430,11 @@ public class Frame extends JFrame{
 				mainPanel.requestFocusInWindow();
 
 				currentGame.setText("Escape the Maze Moved the Hero");
-				game.updateGame("s");
-				((Panel) mainPanel).updateGame(game);
+				((Panel) mainPanel).updateGame("s");
+				((Panel) mainPanel).refresh();
 
-				heroDie();
-				heroWin();
+				((Panel) mainPanel).heroDie();
+				((Panel) mainPanel).heroWin();
 			}
 		});
 
@@ -453,10 +448,10 @@ public class Frame extends JFrame{
 				mainPanel.requestFocusInWindow();
 
 				currentGame.setText("Escape the Maze Moved the Hero");
-				game.updateGame("d");
-				((Panel) mainPanel).updateGame(game);
-				heroDie();
-				heroWin();
+				((Panel) mainPanel).updateGame("d");
+				((Panel) mainPanel).refresh();
+				((Panel) mainPanel).heroDie();
+				((Panel) mainPanel).heroWin();
 
 			}
 		});
@@ -472,10 +467,10 @@ public class Frame extends JFrame{
 				mainPanel.requestFocusInWindow();
 
 				currentGame.setText("Escape the Mave Moved the Hero");
-				game.updateGame("a");
-				((Panel) mainPanel).updateGame(game);
-				heroDie();
-				heroWin();
+				((Panel) mainPanel).updateGame("a");
+				((Panel) mainPanel).refresh();
+				((Panel) mainPanel).heroDie();
+				((Panel) mainPanel).heroWin();
 
 			}
 		});
@@ -510,59 +505,8 @@ public class Frame extends JFrame{
 
 
 	
-	/**
-	 * Verify is the current hero is a Winer
-	 * 
-	 * */
-	public void heroWin(){
-
-		if(game.getMaze().getHero().getWin()){
-
-			currentGame.setText("You Win");
-			JOptionPane.showMessageDialog(Window,"You Win");
-
-			int result=JOptionPane.showConfirmDialog(mainPanel, "Try again!!");
-
-			if(result==JOptionPane.YES_OPTION){
-
-				creatGame();
-			}else{
-
-				System.exit(0);
-			}
-
-		}
-
-
-	}
-
 
 	
-	/**
-	 * Verify is the current hero is  Dead
-	 * 
-	 * */
-	public void heroDie(){
-
-		if(game.getMaze().getHero().getIsDead()){
-
-			currentGame.setText("You Lose");
-			JOptionPane.showMessageDialog(Window,"Game Over");
-
-			int result=JOptionPane.showConfirmDialog(mainPanel, "Try again!!");
-
-			if(result==JOptionPane.YES_OPTION){
-
-				creatGame();
-			}else{
-
-				System.exit(0);
-			}
-
-		}
-
-
-	}
 
 
 }

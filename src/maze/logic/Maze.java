@@ -18,7 +18,7 @@ public class Maze  implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 
-
+ 
 
 
 
@@ -253,6 +253,25 @@ public class Maze  implements Serializable{
 
 
 	}
+	
+	/**
+	 * Verify is a position a close door  
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
+	public Boolean isHero(int x , int y){
+
+		if (this.matrix[y][x]=='H'){
+			return true ;
+
+		}else {
+			return false ;
+		}
+
+
+	}
 
 
 
@@ -470,7 +489,7 @@ public class Maze  implements Serializable{
 
 			ogre=new Ogre(randX, randY);
 
-			while(ogres.contains(ogre) || isCloseDoor(randX, randY)|| isLever(randX,randY) || isWall(randX, randY)){
+			while(ogres.contains(ogre) || isCloseDoor(randX, randY)|| isLever(randX,randY) || isWall(randX, randY) || isHero(randX, randY) ){
 				randX=randomNumberog(8); randY=randomNumberog(8);
 				ogre=new Ogre(randX, randY);
 			}

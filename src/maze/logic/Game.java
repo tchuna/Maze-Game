@@ -100,6 +100,7 @@ public class Game  implements Serializable{
 	/**
 	 * Update the Game 
 	 * @param input the value direction to move the hero  position
+	 * @return maze 
 	 * */
 	public int updateGame(String input) {
 

@@ -25,10 +25,10 @@ public class Panel extends JPanel implements KeyListener{
 	private JLabel back=new JLabel(); 
 	JLabel[][] labels;
 	boolean isarmed;
-	Game game, game2;
+	Game game;
 	int mode;
 	int numOgre;
-	
+	Maze maze;
 
 	
 	private ImageIcon ground = new ImageIcon(getClass().getClassLoader().getResource("resource/b.png"));
@@ -83,16 +83,13 @@ public class Panel extends JPanel implements KeyListener{
 
 	
 	/**
-	 * Start the GuiGame in Panel 
-	 * @param current game 
+	 * Start the GuiGame  
+	 * 
 	 * */
-	public void startGame(Game game){
+	public void startGame(){
 
 		this.removeAll();
-		this.game=game;
-		this.game2=game;
-
-		Maze maze=game.getMaze();
+		
 
 		int leng=game.getMaze().getMatrix().length;
 		this.setLayout(new GridLayout(leng,leng));
@@ -105,13 +102,41 @@ public class Panel extends JPanel implements KeyListener{
 	}
 
 
-
-
+	
 	/**
-	 * Update  the GuiGame in Panel 
-	 * @param current game 
+	 * Create a game 
+	 * @param nOgres number ogres current game
+	 * @param mode1 guard personality
 	 * */
-	public void updateGame(Game game){
+	public void CreatGame(int nOgres,int mode1){
+		
+		maze=new Maze(1);
+		this.numOgre=nOgres;
+		this.mode=mode1;
+		game=new Game(maze,mode1,numOgre);
+		startGame();
+		
+	}
+
+
+	
+	
+	/**
+	 * update state current game
+	 * @param input value
+	 * */
+	public void  updateGame(String input ){
+		game.updateGame(input);
+		
+		
+	}
+	
+	
+	/**
+	 * Refresh current game
+	 * 
+	 * */
+	public void refresh(){
 		this.removeAll();
 
 		creatMaze(game);
@@ -128,7 +153,7 @@ public class Panel extends JPanel implements KeyListener{
 	/**
 	 * Transform all the char in matrix game to images  
 	 * 
-	 * @param current game 
+	 * @param game current  games 
 	 * */
 	public void creatMaze(Game game){
 		int leng=game.getMaze().getMatrix().length;
@@ -158,6 +183,7 @@ public class Panel extends JPanel implements KeyListener{
 	/**
 	 * Transform the char in matrix game to images 
 	 * @param  img  
+	 * @return the result image
 	 * */
 	public  ImageIcon inserImage(char img){
 
@@ -206,22 +232,28 @@ public class Panel extends JPanel implements KeyListener{
 
 		if(game.getMaze().getHero().getWin()){
 
-			
 			JOptionPane.showMessageDialog(this,"You Win");
 
+			int result=JOptionPane.showConfirmDialog(this, "Try again!!");
 
-			System.exit(0);
+			if(result==JOptionPane.YES_OPTION){
 
+				CreatGame(numOgre,mode);
+			}else{
 
+				System.exit(0);
+			}
 
 		}
+
 
 	}
 
 
-	
+
+
 	/**
-	 * Verify is the current hero is  Dead
+	 * Verify is the current hero is Dead
 	 * 
 	 * */
 	public void heroDie(){
@@ -230,10 +262,18 @@ public class Panel extends JPanel implements KeyListener{
 
 			JOptionPane.showMessageDialog(this,"Game Over");
 
-			System.exit(0);
+			int result=JOptionPane.showConfirmDialog(this, "Try again!!");
 
+			if(result==JOptionPane.YES_OPTION){
+
+				CreatGame(numOgre,mode );
+			}else{
+
+				System.exit(0);
+			}
 
 		}
+
 
 	}
 
@@ -260,7 +300,7 @@ public class Panel extends JPanel implements KeyListener{
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_W:
 			game.updateGame("w");
-			updateGame(game);
+			refresh();
 			heroDie();
 			heroWin();
 
@@ -268,7 +308,7 @@ public class Panel extends JPanel implements KeyListener{
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_S:
 			game.updateGame("s");
-			updateGame(game);
+			refresh();
 			heroDie();
 			heroWin();
 
@@ -276,7 +316,7 @@ public class Panel extends JPanel implements KeyListener{
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_D:
 			game.updateGame("d");
-			updateGame(game);
+			refresh();
 			heroDie();
 			heroWin();
 
@@ -285,7 +325,7 @@ public class Panel extends JPanel implements KeyListener{
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_A:
 			game.updateGame("a");
-			updateGame(game);
+			refresh();
 			heroDie();
 			heroWin();
 
