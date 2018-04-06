@@ -2,6 +2,11 @@ package maze.logic;
 
 import java.io.Serializable;
 
+
+/**
+ * Class for Hero Character in Game 
+ * @see Character
+ * */
 public class Hero extends Character implements Serializable{
 
 
@@ -19,6 +24,11 @@ public class Hero extends Character implements Serializable{
 
 
 
+	/**
+	 * Creates a Hero
+	 * @param x	Coordinate x of its initial position
+	 * @param y	Coordinate y of its initial position
+	 * */
 	public Hero(int x,int y) {
 		super(x,y,'H');
 		this.isDead=false;
@@ -29,24 +39,41 @@ public class Hero extends Character implements Serializable{
 
 
 
+	/**
+	 * Gets the variable to decide  is a hero  alive 
+	 * @return isDead
+	 */
 	public Boolean getIsDead(){
 		return this.isDead;
 	}
 
 
 
+	/**
+	 *Make die the hero 
+	 * 
+	 **/
 	public void  setIsDead() {
 		this.isDead=true;
 	}
 
 
+	
 
+	/**
+	 * Gets the variable to decide  is a hero  win
+	 * @return win
+	 */
 	public Boolean getWin(){
 		return this.win;
 	}
 
 
 
+	/**
+	 *Make win the hero 
+	 * 
+	 **/
 	public void  setWin() {
 		this.win=true;
 	}
@@ -54,13 +81,20 @@ public class Hero extends Character implements Serializable{
 
 
 
+	/**
+	 * Gets the variable to decide  is a hero  armed
+	 * @return isArmed
+	 */
 	public Boolean getIsArmed() {
 		return isArmed;
 	}
 
 
 
-
+	/**
+	 * Set the variable to decide  is a hero  armed
+	 * @param isArmed
+	 */
 	public void setIsArmed(Boolean isArmed) {
 		this.isArmed = isArmed;
 	}
@@ -68,6 +102,10 @@ public class Hero extends Character implements Serializable{
 
 
 
+	/**
+	 * Gets the variable to decide  is a hero  have a key 
+	 * @return takeLever
+	 */
 	public Boolean getTakeLever() {
 		return takeLever;
 	}
@@ -75,6 +113,10 @@ public class Hero extends Character implements Serializable{
 
 
 
+	/**
+	 * Set the variable to decide  is a hero  has a key
+	 * @param takeLever
+	 **/
 	public void setTakeLever(Boolean takeLever) {
 		this.takeLever = takeLever;
 	}
@@ -83,6 +125,12 @@ public class Hero extends Character implements Serializable{
 
 
 
+	/**
+	 * Move a Hero to new position
+	 * @param x	position
+	 * @param y	position 
+	 * @param maze current maze game 
+	 * */
 	public void moveHero(int x,int y,Maze maze) {
 
 		maze.cleanCell(this.getPosX(), this.getPosY());
@@ -93,7 +141,14 @@ public class Hero extends Character implements Serializable{
 
 
 
-
+	
+	/**
+	 * Moves the hero based on the user input
+	 * @param input  
+	 * @param maze current maze game  
+	 * @return  the result 
+	 * 
+	 */
 	public int playHero(String input,Maze maze){
 		int newXposition=0,newYposition=0;
 

@@ -12,7 +12,7 @@ import maze.logic.Hero;
 import maze.logic.Maze;
 import maze.logic.Ogre;
 
-public class GameLogicTest {
+public class GameLogicAndMovesTest {
 
 	/*maze teste map1 
 	 * 

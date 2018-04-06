@@ -24,6 +24,11 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 
+
+/**
+ * Class for Frame Game   
+ * 
+ * */
 public class Frame extends JFrame{
 
 
@@ -31,7 +36,7 @@ public class Frame extends JFrame{
 
 
 
-	private JButton btnUp,btnLeft,btnDown, btnRight,btnNewGame,btnExit;
+	private JButton btnUp,btnLeft,btnDown, btnRight,btnNewGame,btnExit,bntCratLevel;
 
 	private JLabel numberOgres, currentGame,lblGuardPersonality;
 
@@ -53,16 +58,25 @@ public class Frame extends JFrame{
 
 
 
+	/**
+	 * Create Frame 
+	 * 
+	 * */
 	public Frame() {
 
 		initFrame();
-		
+
 	}
 
 
+	
 
+	
+	/**
+	 * Initialize the main Frame   
+	 * 
+	 * */
 	public void  initFrame(){
-
 
 		builtFrame();
 		addComponets();
@@ -72,9 +86,14 @@ public class Frame extends JFrame{
 
 
 
+	/**
+	 * Create all components to add in main Frame  
+	 * 
+	 * */
 	public void initCompon(){
 		Window=new JFrame();
 		mainPanel = new Panel();
+
 
 
 		btnUp = new JButton("UP");
@@ -83,6 +102,7 @@ public class Frame extends JFrame{
 		btnRight = new JButton("RIGHT");
 		btnNewGame = new JButton("New Game") ;
 		btnExit = new JButton("Exit");
+		bntCratLevel=new JButton("Creat Level");
 		numberOgres = new JLabel(" Number of Ogres :");
 		currentGame = new JLabel("You cant Start a New Game");
 		lblGuardPersonality = new JLabel(" Guard Personality :");
@@ -92,6 +112,11 @@ public class Frame extends JFrame{
 	}
 
 
+
+	/**
+	 * Built the main Window   
+	 * 
+	 * */
 	private void builtFrame(){
 		initCompon();
 
@@ -110,10 +135,16 @@ public class Frame extends JFrame{
 
 
 
+	
+	/**
+	 * Put all components in correct position in main Window 
+	 * 
+	 * */
 	public void setupComponests(){ 
 
-		btnNewGame.setBounds(435,80,109, 20);
-		btnExit.setBounds(435,364,109, 20);
+		btnNewGame.setBounds(435,100,115, 20);
+		btnExit.setBounds(435,364,115, 20);
+		bntCratLevel.setBounds(435,50,115,20);
 
 		btnDown.setBounds(450,259,80, 20);
 		btnDown.setEnabled(false);
@@ -136,7 +167,7 @@ public class Frame extends JFrame{
 		lblGuardPersonality.setBounds(12, 28, 145, 20);
 
 		guardMode.setBounds(160, 28, 100, 20);
-		
+
 
 
 
@@ -144,13 +175,18 @@ public class Frame extends JFrame{
 		currentGame.setBounds(12,432,210,20);
 
 		jOgres.setBorder(BorderFactory.createLineBorder(Color.black));
-		
-		
+
+
 
 
 	}
 
 
+	
+	/**
+	 * Add all components in Window frame 
+	 * 
+	 * */
 	public void addComponets() {
 		Window.getContentPane().setLayout(null);
 		Window.getContentPane().add(mainPanel);
@@ -165,11 +201,18 @@ public class Frame extends JFrame{
 		Window.getContentPane().add(jOgres);
 		Window.getContentPane().add(lblGuardPersonality);
 		Window.getContentPane().add(guardMode);
+		Window.getContentPane().add(bntCratLevel);
+
 
 	}
 
 
 
+	
+	/**
+	 * Disable the direction buttons 
+	 * 
+	 * */
 	public void disableButton(boolean disable){
 
 		btnRight.setEnabled(disable);
@@ -182,6 +225,10 @@ public class Frame extends JFrame{
 
 
 
+	/**
+	 * Create a current Game 
+	 * 
+	 * */
 	public Game  creatGame(){
 
 		int numberOgres=catchNumberOgres();
@@ -207,6 +254,11 @@ public class Frame extends JFrame{
 
 
 
+	
+	/**
+	 * Catch the invalid type and number of ogres in game 
+	 * 
+	 * */
 	public int catchNumberOgres(){
 		int ogres = 0;
 		try {
@@ -238,20 +290,43 @@ public class Frame extends JFrame{
 
 
 
+	/**
+	 * Verify the New Game  button actions 
+	 * 
+	 * */
 	public void btnNewGameAction(){
 
 		btnNewGame.addMouseListener(new MouseAdapter(){
 
 			public void mouseClicked (MouseEvent e){
-				if(e.getClickCount()==2){
+				mainPanel.setFocusable(true);
+				mainPanel.requestFocusInWindow();
 
-					if(fristTime==true){
 
+				if(fristTime==true){
+
+					catchNumberOgres();
+					if(invalidnOgres==false){
+						disableButton(true);
+						currentGame.setText("Escape the Maze Moved the Hero");
+						fristTime=false;
+						creatGame();
+					}else{
+
+						JOptionPane.showMessageDialog(Window,"Enter correct values (Ogres)");
+
+					}
+
+				}else{
+
+					String stard="Are you Sure  ?";
+					int result=JOptionPane.showConfirmDialog(Window, stard);
+
+					if(result==JOptionPane.YES_OPTION){
 						catchNumberOgres();
 						if(invalidnOgres==false){
 							disableButton(true);
-							currentGame.setText("Escape the Maze Moved the Hero");
-							fristTime=false;
+							currentGame.setText("Escape the Maze Moved the Hero"); 
 							creatGame();
 						}else{
 
@@ -259,28 +334,11 @@ public class Frame extends JFrame{
 
 						}
 
-					}else{
-
-						String stard="Are you Sure  ?";
-						int result=JOptionPane.showConfirmDialog(Window, stard);
-
-						if(result==JOptionPane.YES_OPTION){
-							catchNumberOgres();
-							if(invalidnOgres==false){
-								disableButton(true);
-								currentGame.setText("Escape the Maze Moved the Hero"); 
-								creatGame();
-							}else{
-
-								JOptionPane.showMessageDialog(Window,"Enter correct values (Ogres)");
-
-							}
-
-						}
-
 					}
 
 				}
+
+
 
 			}
 		});
@@ -293,12 +351,19 @@ public class Frame extends JFrame{
 
 
 
+	/**
+	 * Verify the Exit button actions 
+	 * 
+	 * */
 	public void btnExitAction(){
 
 		btnExit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mainPanel.setFocusable(true);
+				mainPanel.requestFocusInWindow();
+
 				String exit=" (Exit) Are you Sure ?";
 				int result=JOptionPane.showConfirmDialog(Window, exit);
 
@@ -315,9 +380,32 @@ public class Frame extends JFrame{
 
 
 
+	
+	
+	public void bntCreatLevel(){
+
+		bntCratLevel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainPanel.setFocusable(true);
+				mainPanel.requestFocusInWindow();
+				JOptionPane.showMessageDialog(Window,"For Next Update");
+			}
+		});
 
 
 
+	}
+
+
+
+
+	
+	/**
+	 * Verify the directions button actions 
+	 * 
+	 * */
 	public void bntDirectionsAction(){
 
 		btnUp.addActionListener(new ActionListener() {
@@ -402,18 +490,30 @@ public class Frame extends JFrame{
 
 	}
 
+	
+	
 
+	/**
+	 * Verify the button actions 
+	 * 
+	 * */
 	public void actionsButtons(){
-		
-		
+
+
 		bntDirectionsAction();
 		btnNewGameAction();
 		btnExitAction();
+		bntCreatLevel();
 
 
 	}
 
 
+	
+	/**
+	 * Verify is the current hero is a Winer
+	 * 
+	 * */
 	public void heroWin(){
 
 		if(game.getMaze().getHero().getWin()){
@@ -437,6 +537,11 @@ public class Frame extends JFrame{
 	}
 
 
+	
+	/**
+	 * Verify is the current hero is  Dead
+	 * 
+	 * */
 	public void heroDie(){
 
 		if(game.getMaze().getHero().getIsDead()){

@@ -9,9 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import maze.logic.Game;
-//implements KeyListener
+
 import maze.logic.Maze;
 
+/**
+ * Class for Panel in game 
+ * 
+ * */
 public class Panel extends JPanel implements KeyListener{
 
 	private static final long serialVersionUID = 1L;
@@ -43,6 +47,7 @@ public class Panel extends JPanel implements KeyListener{
 	private ImageIcon ogre = new ImageIcon(getClass().getClassLoader().getResource("resource/ogre.png"));
 	private ImageIcon ogresleep = new ImageIcon(getClass().getClassLoader().getResource("resource/ogresleep.png"));
 	private ImageIcon club = new ImageIcon(getClass().getClassLoader().getResource("resource/club.png"));
+	private ImageIcon ogreKey = new ImageIcon(getClass().getClassLoader().getResource("resource/orgrekey.png"));
 
 
 
@@ -50,7 +55,13 @@ public class Panel extends JPanel implements KeyListener{
 
 
 
+	
+	
 
+	/**
+	 * Create  Panel 
+	 * 
+	 * */
 	public Panel() {
 		super(); 
 
@@ -70,6 +81,11 @@ public class Panel extends JPanel implements KeyListener{
 
 
 
+	
+	/**
+	 * Start the GuiGame in Panel 
+	 * @param current game 
+	 * */
 	public void startGame(Game game){
 
 		this.removeAll();
@@ -91,6 +107,10 @@ public class Panel extends JPanel implements KeyListener{
 
 
 
+	/**
+	 * Update  the GuiGame in Panel 
+	 * @param current game 
+	 * */
 	public void updateGame(Game game){
 		this.removeAll();
 
@@ -104,6 +124,12 @@ public class Panel extends JPanel implements KeyListener{
 
 
 
+	
+	/**
+	 * Transform all the char in matrix game to images  
+	 * 
+	 * @param current game 
+	 * */
 	public void creatMaze(Game game){
 		int leng=game.getMaze().getMatrix().length;
 		map=game.getMaze().getMatrix();
@@ -129,6 +155,10 @@ public class Panel extends JPanel implements KeyListener{
 
 
 
+	/**
+	 * Transform the char in matrix game to images 
+	 * @param  img  
+	 * */
 	public  ImageIcon inserImage(char img){
 
 		if(isarmed==true){
@@ -153,7 +183,7 @@ public class Panel extends JPanel implements KeyListener{
 		case 'O':  result=ogre;break;
 		case 'A':  result=hero;break;
 		case '*':  result=club;break;
-		case '$':  result=ogre;break;
+		case '$':  result= ogreKey;break;
 		case 'S':  result=opendoor;break;
 		case '8':  result=ogresleep;break;
 		case 'd':  result=guard_drunk;break;
@@ -166,6 +196,12 @@ public class Panel extends JPanel implements KeyListener{
 
 
 
+	
+
+	/**
+	 * Verify is the current hero is a Winer
+	 * 
+	 * */
 	public void heroWin(){
 
 		if(game.getMaze().getHero().getWin()){
@@ -183,6 +219,11 @@ public class Panel extends JPanel implements KeyListener{
 	}
 
 
+	
+	/**
+	 * Verify is the current hero is  Dead
+	 * 
+	 * */
 	public void heroDie(){
 
 		if(game.getMaze().getHero().getIsDead()){
@@ -206,6 +247,11 @@ public class Panel extends JPanel implements KeyListener{
 
 
 
+	
+	/**
+	 * Key press events 
+	 * @param e keyEvent
+	 * */
 	@Override
 	public void keyPressed(KeyEvent e) {
 

@@ -3,7 +3,12 @@ package maze.cli;
 import java.util.Scanner;
 
 import maze.logic.*;
+import maze.logic.Character;
 
+/**
+ * Class for Main
+ * 
+ * */
 public class Main {
 
 

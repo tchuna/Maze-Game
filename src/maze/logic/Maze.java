@@ -6,6 +6,12 @@ import java.io.Serializable;
 import java.nio.channels.NetworkChannel;
 import java.util.ArrayList;
 
+
+
+/**
+ * Class for Maze game 
+ * 
+ * */
 public class Maze  implements Serializable{
 
 
@@ -15,6 +21,13 @@ public class Maze  implements Serializable{
 
 
 
+
+	/**
+	 * generate a random number between 1-n
+	 * 
+	 * @param n 
+	 * @return num  the random number generate 
+	 */
 	public static int randomNumberog(int n)	{
 		int num = (int) (Math.random() * (n-1) +3);
 		return num;
@@ -86,6 +99,12 @@ public class Maze  implements Serializable{
 
 
 
+
+	/**
+	 * Creates Maze
+	 * @param map level  map 
+	 * 
+	 * */
 	public Maze(int map){
 
 		switch (map) {
@@ -99,38 +118,73 @@ public class Maze  implements Serializable{
 
 	}
 
+	
+	/**
+	 * Get the current map level 
+	 * @return numberMap
+	 */
 	public int numMap(){
 		return this.numberMap;
 	}
 
 
 
+	
+	/**
+	 * Get the current matrix in game  
+	 * @return matrix
+	 */
 	public char[][] getMatrix(){
 
 		return this.matrix;
 	}
 
+	
+	/**
+	 * Get the Hero in Game 
+	 * @return hero 
+	 */
 	public Hero getHero(){
 
 		return this.hero;
 	}
 
 
+	/**
+	 * Get the Guard in Game 
+	 * @return guard 
+	 */
 	public Guard getGuard(){
 
 		return this.guard;
 	}
 
+	
+	/**
+	 * Set  the guard  in Game  to null 
+	 * 
+	 **/
 	public void setGuard(){
 
 		this.guard=null;
 	}
 
+	
+	/**
+	 * Get the ArrayList of ogres in Game  
+	 * @return ogres 
+	 */
 	public ArrayList<Ogre> geTogres(){
 		return ogres;
 	}
 
 
+	
+	/**
+	 * Insert the hero in maze Game 
+	 * @param x hero x position  
+	 * @param y hero y position 
+	 **/
 	public void insertHero(int x, int y){
 		hero =new Hero(x, y);
 
@@ -138,6 +192,13 @@ public class Maze  implements Serializable{
 
 	}
 
+	
+
+	/**
+	 * Insert the guard in maze Game 
+	 * @param x guard  x position  
+	 * @param y guard  y position 
+	 **/
 	public void insertGuard(int x, int y,int mode){
 		guard =new Guard(x, y,mode);
 		this.matrix[guard.getPosY()][guard.getPosX()]=guard.getName();
@@ -145,6 +206,13 @@ public class Maze  implements Serializable{
 	}
 
 
+	
+
+	/**
+	 * Insert the ogre in maze Game 
+	 * @param x ogre x position  
+	 * @param y ogre y position 
+	 **/
 	public void insertOgre(Ogre ogre){
 
 		this.matrix[ogre.getPosY()][ogre.getPosX()]=ogre.getName();
@@ -152,12 +220,28 @@ public class Maze  implements Serializable{
 	}
 
 
+	
+
+	/**
+	 * Insert a element in matrix Game 
+	 * @param x  position  
+	 * @param y  position 
+	 **/
 	public void  inser(int x, int y, char name) {
 		this.matrix[y][x]=name;
 	}
 
 
+	
+	
 
+	/**
+	 * Verify is a position a close door  
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
 	public Boolean isCloseDoor(int x , int y){
 
 		if (this.matrix[y][x]==CLOSEDOOR){
@@ -172,6 +256,13 @@ public class Maze  implements Serializable{
 
 
 
+	/**
+	 * Verify is a position a open door  
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
 	public Boolean isOpenDoor(int x , int y){
 
 		if (this.matrix[y][x]==EXIT){
@@ -187,6 +278,13 @@ public class Maze  implements Serializable{
 
 
 
+	/**
+	 * Verify is a position a wall 
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
 	public Boolean isWall(int x , int y){
 
 		if (this.matrix[y][x]==WALL){
@@ -199,6 +297,14 @@ public class Maze  implements Serializable{
 
 	}
 
+	
+	/**
+	 * Verify is a position a lever  
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
 	public Boolean isLever(int x , int y){
 
 		if (this.matrix[y][x]==LEVER){
@@ -212,6 +318,13 @@ public class Maze  implements Serializable{
 	}
 
 
+	/**
+	 * Verify is a position a club  
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
 	public Boolean isClub(int x , int y){
 
 		if (this.matrix[y][x]==CLUB){
@@ -224,6 +337,14 @@ public class Maze  implements Serializable{
 
 	}
 
+	
+	/**
+	 * Verify is a position a ogre 
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
 	public Boolean isOgre(int x , int y){
 
 		if (this.matrix[y][x]==OGRE || this.matrix[y][x]==SLEEPOGRE){
@@ -237,6 +358,14 @@ public class Maze  implements Serializable{
 	}
 
 
+	
+	/**
+	 * Verify is a position weapon 
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
 	public Boolean isHeroWeapon(int x , int y){
 
 		if (this.matrix[y][x]==HEROWEAPON){
@@ -250,6 +379,14 @@ public class Maze  implements Serializable{
 	}
 
 
+	
+	/**
+	 * Verify is a Armed hero 
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 *@return result 
+	 */
 	public Boolean isHeroArmed(int x , int y){
 
 		if(this.getHero().getIsArmed()==true && this.getHero().getPosX()==x && this.getHero().getPosY()==y){
@@ -265,7 +402,15 @@ public class Maze  implements Serializable{
 
 
 
+	
+	
 
+	/**
+	 * Clean a cell in matrix game   
+	 * @param x  position  
+	 * @param y  position
+	 *  
+	 **/
 	public void cleanCell(int x,int y){
 		inser(x, y, FREECELL);
 
@@ -273,6 +418,12 @@ public class Maze  implements Serializable{
 
 
 
+	
+	/**
+	 * Clean every club  in matrix game   
+	 * 
+	 *  
+	 **/
 	public void cleannclub(){
 		for(int i=0;i<matrix.length; i++){
 			for(int j=0; j<matrix.length; j++){
@@ -284,6 +435,12 @@ public class Maze  implements Serializable{
 
 
 
+	
+	/**
+	 * change every close door in open door
+	 * 
+	 *  
+	 **/
 	public void change_CloseDoor_To_OpenDoor(){
 
 		for(int i=0;i<matrix.length; i++){
@@ -296,7 +453,14 @@ public class Maze  implements Serializable{
 
 
 
+	
+	
 
+	/**
+	 * Create  every ogres in game 
+	 * 
+	 *  
+	 **/
 	public void creatOres(){
 		int randX,randY;
 		Ogre ogre;
@@ -318,6 +482,12 @@ public class Maze  implements Serializable{
 
 
 
+	
+	/**
+	 * Display a matrix game in current maze
+	 * @param current maze
+	 *  
+	 **/
 	public void displayMaze(Maze maze ) {
 
 		int matrixLength=maze.getMatrix().length;
@@ -336,6 +506,12 @@ public class Maze  implements Serializable{
 		} 
 	}
 
+	
+	/**
+	 * Change the map in maze game 
+	 * 
+	 *  
+	 **/
 	public void changeMap(){
 
 		numberMap++;
@@ -352,6 +528,13 @@ public class Maze  implements Serializable{
 
 
 
+	
+	
+	/**
+	 * level 1 logical game 
+	 * 
+	 *  
+	 **/
 	public void Level_1(){
 
 		int randD=randomNumberog(6);
@@ -367,7 +550,13 @@ public class Maze  implements Serializable{
 	}
 
 
+	
 
+	/**
+	 * level 2 logical game 
+	 * 
+	 *  
+	 **/
 	public void Level_2(){
 
 
@@ -390,6 +579,12 @@ public class Maze  implements Serializable{
 	}
 
 
+	
+	/**
+	 * level 2 logical game 
+	 * 
+	 *  
+	 **/
 	public void logical_level_2(){ 
 
 		int random=0;
@@ -414,16 +609,17 @@ public class Maze  implements Serializable{
 	}
 
 
-	public void logical_crlevel(){
 
-
-
-	}
-
-
-
-
-
+	
+	
+	/**
+	 * Update the current Maze game 
+	 * 
+	 * @param input  
+	 
+	 * @return  the result  
+	 * 
+	 */
 	public int updateTime(String input){
 		int result;
 		if(notlevel1==true){
@@ -464,6 +660,12 @@ public class Maze  implements Serializable{
 
 
 
+	
+	/** 
+	 * convert the matrix char in game 
+	 * to string
+	 *  
+	 **/
 	public String toString(){
 		String result ="" ;
 

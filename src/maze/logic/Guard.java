@@ -5,6 +5,11 @@ import java.io.Serializable;
 
 
 
+/**
+ * Class for Guard Character in Game 
+ * @see Character
+ * 
+ * */
 public class Guard  extends Character implements Serializable{
 
 
@@ -23,6 +28,12 @@ public class Guard  extends Character implements Serializable{
 
 
 
+	/**
+	 * Creates a Guard
+	 * @param x	Coordinate x of its initial position
+	 * @param y	Coordinate y of its initial position
+	 * @param mode  the guard personality
+	 * */
 	public Guard(int x,int y,int m){
 		super(x, y, ' ');
 		this.mode=m;
@@ -40,6 +51,10 @@ public class Guard  extends Character implements Serializable{
 
 
 
+	/**
+	 * insert the positions for guard moves 
+	 *
+	 * */
 	public void insertPositionMoves(){
 		this.guardPositions[0]=new Point(7,1);
 		this.guardPositions[1]=new Point(7,2);
@@ -71,10 +86,16 @@ public class Guard  extends Character implements Serializable{
 
 
 
+	/**
+	 * Make guard sleep  turns
+	 * 
+	 *
+	 * */
 	public void slepp(){
 		this.sleepTurn=3;
 
 	}
+
 
 
 
@@ -85,6 +106,11 @@ public class Guard  extends Character implements Serializable{
 
 
 
+	/**
+	 * Get guard  default positions
+	 * 
+	 * @return guardPositions
+	 */
 	public Point[] getguardPositions(){
 
 		return this.guardPositions;
@@ -92,12 +118,22 @@ public class Guard  extends Character implements Serializable{
 
 
 
-
+	/**
+	 * Get guard personality
+	 * 
+	 * @return mode
+	 */
 	public int getMode() {
 		return mode;
 	}
 
 
+
+	/**
+	 * Set guard  personality
+	 * @param mode mode personality 
+	 * 
+	 * */
 	public void setMode(int mode) {
 		switch (mode) {
 		case 1:this.setName('r');break;
@@ -110,26 +146,48 @@ public class Guard  extends Character implements Serializable{
 	}
 
 
+	/**
+	 * Get the number turn the guard need to sleep
+	 * 
+	 * @return sleepTurn
+	 */
 	public int getSleepTurn() {
 		return sleepTurn;
 	}
 
 
+	/**
+	 * Set  guard  sleep turn
+	 * 
+	 * @param sleep new sleepTurn
+	 * */
 	public void setSleepTurn(int sleep) {
 		this.sleepTurn = sleep;
 	}
 
 
 
+	/**
+	 * generate a random number between 1-n
+	 * 
+	 * @param n 
+	 * @return num  the random number generate 
+	 */
 	public int randomNumber(int n){	
 		int num = (int) (Math.random() * (n-1) +1);
-		
+
 		return num;
 	}
 
 
 
 
+
+	/**
+	 * Move guard in decrement position
+	 * @param i position move
+	 * @param maze the current maze game 
+	 * */
 	public void moveGuard_less(int i ,Maze maze){
 
 		add_move--;
@@ -154,6 +212,12 @@ public class Guard  extends Character implements Serializable{
 
 
 
+
+	/**
+	 * Move guard in increment position
+	 * @param i position move
+	 * @param maze the current maze 
+	 * */
 	public void moveGuard_plus(int i,Maze maze){
 
 		add_move++;
@@ -172,7 +236,11 @@ public class Guard  extends Character implements Serializable{
 
 
 
-
+	/**
+	 * Moves the guardian  whit roockie personality to its next position
+	 * @param maze current maze game 
+	 * 
+	 **/
 	public void  turnGuardRoockieMode(Maze maze){
 
 
@@ -184,7 +252,13 @@ public class Guard  extends Character implements Serializable{
 
 	}
 
+	
 
+	/**
+	 * Moves the guardian  whit suspicious personality to its next position
+	 * @param maze current maze game 
+	 * @param rand the random decision 
+	 **/
 	public void turnGuardSuspiciousMode(Maze maze, int rand){
 
 
@@ -214,6 +288,12 @@ public class Guard  extends Character implements Serializable{
 
 
 
+	
+	/**
+	 * Moves the guardian  whit drunk personality to its next position
+	 * @param maze current maze game 
+	 * @param rd the random decision 
+	 **/
 	public void turnGuardDrunkMode(Maze maze,int rd){
 
 		int rand=randomNumber(6);
@@ -262,6 +342,12 @@ public class Guard  extends Character implements Serializable{
 
 
 
+	/**
+	 *  Verify is the hero was capture 
+	 * @param hero to verify
+	 * 
+	 * @return result the verification  
+	 */
 	public Boolean guardCaptureHero(Character hero){
 
 

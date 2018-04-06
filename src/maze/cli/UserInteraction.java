@@ -1,8 +1,14 @@
 package maze.cli;
 import java.util.Scanner;
 
+
+
 import maze.logic.*;
 
+/**
+ * Class for User Interactions
+ * 
+ * */
 public class UserInteraction {
 	
 	
@@ -30,6 +36,11 @@ public class UserInteraction {
 	
 	
 
+	/**
+	 *Start the game 
+	 * 
+	 * @param game the game to start 
+	 **/
 	public void play(Game game){
 		String input;
 		Scanner scan=new Scanner(System.in);	

@@ -7,6 +7,11 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
+/**
+ * Class for Ogre Character in Game 
+ * @see Character
+ * */
 public class Ogre extends Character implements Serializable{
  
 
@@ -23,6 +28,11 @@ public class Ogre extends Character implements Serializable{
 	private  int  stopTurn=2;
 
 
+	/**
+	 * Creates a Ogre
+	 * @param x	Coordinate x of its initial position
+	 * @param y	Coordinate y of its initial position
+	 * */
 	public Ogre(int x, int y) {
 		super(x, y, 'O'); 
 		this.weaponOgre=new Weapon();
@@ -32,18 +42,32 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	/**
+	 * Gets the variable to decide  if the ogre sleep  
+	 * @return takeLever
+	 */
 	public Boolean getSleep() {
 		return sleep;
 	}
 
 
 
+	
+	/**
+	 * Set the variable to decide  if the ogre sleep  
+	 * @param sl
+	 **/
 	public void setSleep(Boolean sl) {
 		this.sleep = sl;
 	}
 
 
 
+	/**
+	 * Get the number turn the ogre need to sleep 
+	 * @return weaponOgre
+	 **
+	 */
 	public int getStopTurn() {
 		return stopTurn;
 	}
@@ -51,6 +75,12 @@ public class Ogre extends Character implements Serializable{
 
 
 
+
+	/**
+	 * Get the ogre weapon
+	 * @return weaponOgre
+	 **
+	 */
 	public Weapon getOgreWeapon() {
 		return weaponOgre;
 
@@ -58,6 +88,11 @@ public class Ogre extends Character implements Serializable{
 
 
 
+
+	/**
+	 * Make the ogre wake up
+	 * 
+	 **/
 	public  void wakeOgre(){
 
 		if(this.sleep==false){
@@ -77,7 +112,12 @@ public class Ogre extends Character implements Serializable{
 	}
 
 
+	
 
+	/**
+	 * Make the ogre sleep 
+	 * @param tmaze current maze game
+	 **/
 	public void  ogreSleeped(Maze maze){ 
 		this.nameCh='8';
 		this.sleep=true;
@@ -88,6 +128,10 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	/**
+	 * Set the variable to decide  the number turn the ogre sleep
+	 * @param sl
+	 **/
 	public void setStopsleep(int sl){
 		this.stopTurn=sl;
 
@@ -96,6 +140,12 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	/**
+	 * generate a random number between 1-n
+	 * 
+	 * @param n 
+	 * @return num  the random number generate 
+	 */
 	public int randomNumber(int n){	
 
 		int num = (int) (Math.random() * (n-1) +1);
@@ -107,6 +157,12 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	/**
+	 * verify  is two ogres is equals 
+	 * @param objs the ogre to verify 
+	 * 
+	 * @return the result  
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Ogre){
@@ -122,10 +178,12 @@ public class Ogre extends Character implements Serializable{
 
 
  
+	/**
+	 *  the direction the ogre attack 
+	 *  
+	 * @param randnum the random decision 
+	 **/
 	public void armedOgre(int randNum){
-
-
-		
 
 		this.getOgreWeapon().setNameWeapon('*');
 
@@ -149,6 +207,12 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	/**
+	 * Move a Ogre to new position
+	 * @param x	position
+	 * @param y	position 
+	 * @param maze current maze game 
+	 * */
 	public void moveOgre(int x,int y,Maze maze){
 
 		maze.cleanCell(this.getPosX(), this.getPosY());
@@ -161,6 +225,11 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	/**
+	 * Moves the ogre  weapon random position
+	 * @param maze current maze game 
+	 * @param rand the random decision 
+	 **/
 	public void attackOgre(Maze maze ,int rand){
 
 		this.armedOgre(rand);
@@ -169,6 +238,7 @@ public class Ogre extends Character implements Serializable{
 				|| maze.isCloseDoor(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isClub(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isOgre(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
+				|| maze.isHeroArmed(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isHeroWeapon(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isOpenDoor(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())
 				|| maze.isLever(this.getOgreWeapon().getXWeapon(),this.getOgreWeapon().getYWeapon())){
@@ -213,6 +283,12 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	/**
+	 *  Verify is the hero was killed
+	 * @param hero to verify
+	 * 
+	 * @return result the verification  
+	 */
 	public Boolean ogreKillHero(Maze maze){
 
 		if (maze.getHero().getIsArmed()==false && (this.getPosX() == maze.getHero().getPosX()+1 && this.getPosY() == maze.getHero().getPosY() || this.getPosX() == maze.getHero().getPosX()-1 && this.getPosY() == maze.getHero().getPosY()
@@ -238,6 +314,11 @@ public class Ogre extends Character implements Serializable{
 
 
 
+	/**
+	 * Moves the ogre random position
+	 * @param maze current maze game 
+	 * @param randnum the random decision 
+	 **/
 	public void playRandomMovesOgre(Maze maze,int randnum){ 
 
 
@@ -267,6 +348,7 @@ public class Ogre extends Character implements Serializable{
 
 		if (maze.isWall(this.getPosX()+newXposition,this.getPosY()+newYposition) 
 				||maze.isCloseDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
+				||maze.isHeroWeapon(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isOpenDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isClub(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze .isHeroArmed(this.getPosX()+newXposition,this.getPosY()+newYposition)){

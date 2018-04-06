@@ -2,6 +2,11 @@ package gui;
 
 import java.awt.EventQueue;
 
+
+
+/**
+ *class for GuiMain Game 
+ **/
 public  class GuiMain  {
 	
 	
