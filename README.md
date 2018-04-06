@@ -29,11 +29,11 @@ https://tchuna.github.io/LPOO1718_T4G13/.
 
 
 
-### Developer
+## Developer
 
-## Name:  Elgner Eristido Gomer Ramos
-## Number:  201208090
-## Mail:  ei12173@fe.up.pt
+### Name:  Elgner Eristido Gomer Ramos
+### Number:  201208090
+### Mail:  ei12173@fe.up.pt
 
 
 
