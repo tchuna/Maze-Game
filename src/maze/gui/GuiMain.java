@@ -1,4 +1,4 @@
-package gui;
+package maze.gui;
 
 import java.awt.EventQueue;
 

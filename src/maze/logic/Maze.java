@@ -3,7 +3,6 @@ package maze.logic;
 
 
 import java.io.Serializable;
-import java.nio.channels.NetworkChannel;
 import java.util.ArrayList;
 
 
@@ -14,8 +13,7 @@ import java.util.ArrayList;
  * */
 public class Maze  implements Serializable{
 
-
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 
 
  
@@ -142,7 +140,7 @@ public class Maze  implements Serializable{
 	
 	/**
 	 * Get the Hero in Game 
-	 * @return hero 
+	 * @return hero  
 	 */
 	public Hero getHero(){
 
