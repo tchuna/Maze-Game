@@ -1,6 +1,10 @@
 #Code developed for Maze game in java 
 
 ### Maze Game
+
+
+![Mo](/src/resource/m.png)
+
 ![M](/src/resource/maze.png)
 
 
