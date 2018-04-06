@@ -1,5 +1,10 @@
 #Code developed for Maze game in java 
 
+### Maze Game
+
+![M](/src/resource/maze.png)
+
+
 
 ### Code Documentation
 https://tchuna.github.io/LPOO1718_T4G13/.
