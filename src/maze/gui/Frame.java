@@ -120,7 +120,7 @@ public class Frame extends JFrame{
 		initCompon();
 
 		Window.setTitle("Maze Game");
-		Window.setIconImage(Toolkit.getDefaultToolkit().getImage(Frame.class.getResource("/resource/hero.png")));
+		Window.setIconImage(Toolkit.getDefaultToolkit().getImage(Frame.class.getResource("/resource/i.png")));
 		Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Window.setBounds(100, 100, 600, 450);
 		Window.setResizable(false);
