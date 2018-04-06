@@ -3,7 +3,7 @@
 ### Maze Game
 
 
-![Mo](/src/resource/m.png)
+![A](/src/resource/m.png)
 
 ![M](/src/resource/maze.png)
 
