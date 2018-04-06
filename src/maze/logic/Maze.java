@@ -179,7 +179,7 @@ public class Maze  implements Serializable{
 
 	
 	/**
-	 * Insert the hero in maze Game 
+	 * Insert the hero in maze Game  
 	 * @param x hero x position  
 	 * @param y hero y position 
 	 **/
@@ -579,7 +579,7 @@ public class Maze  implements Serializable{
 
 		guard=null;
 		this.matrix=map2;
-		hero.setPosition(8,2);
+		hero.setPosition(5,1);
 		hero.setTakeLever(false);
 		inser(hero.getPosX(),hero.getPosY(),hero.getName());
 		creatOres();

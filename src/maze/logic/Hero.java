@@ -179,7 +179,7 @@ public class Hero extends Character implements Serializable{
 			return 1;
 
 		}
-
+ 
 
 
 		if(this.getName()=='K' && maze.isCloseDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)){

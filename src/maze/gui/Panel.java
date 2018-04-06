@@ -303,6 +303,7 @@ public class Panel extends JPanel implements KeyListener{
 			refresh();
 			heroDie();
 			heroWin();
+			refresh();
 
 			break;
 		case KeyEvent.VK_DOWN:
@@ -311,6 +312,7 @@ public class Panel extends JPanel implements KeyListener{
 			refresh();
 			heroDie();
 			heroWin();
+			refresh();
 
 			break;
 		case KeyEvent.VK_RIGHT:
@@ -319,15 +321,18 @@ public class Panel extends JPanel implements KeyListener{
 			refresh();
 			heroDie();
 			heroWin();
+			refresh();
 
 
 			break;
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_A:
 			game.updateGame("a");
+			
 			refresh();
 			heroDie();
 			heroWin();
+			refresh();
 
 			break;
 		default:
