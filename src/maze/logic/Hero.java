@@ -238,6 +238,7 @@ public class Hero extends Character implements Serializable{
 
 
 		if (maze.isWall(this.getPosX()+newXposition,this.getPosY()+newYposition) 
+				||maze.isGuard(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				||maze.isCloseDoor(this.getPosX()+newXposition,this.getPosY()+newYposition)
 				|| maze.isOgre(this.getPosX()+newXposition,this.getPosY()+newYposition)){
 

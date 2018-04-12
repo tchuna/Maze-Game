@@ -252,6 +252,20 @@ public class Maze  implements Serializable{
 
 	}
 	
+	
+	
+	public Boolean isGuard(int x , int y){
+
+		if (this.matrix[y][x]=='r' || this.matrix[y][x]=='g'||this.matrix[y][x]=='d'||this.matrix[y][x]=='G'){
+			return true ;
+
+		}else {
+			return false ;
+		}
+
+
+	}
+	
 	/**
 	 * Verify is a position a close door  
 	 * @param x  position  

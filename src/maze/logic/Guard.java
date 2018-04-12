@@ -350,6 +350,9 @@ public class Guard  extends Character implements Serializable{
 	 */
 	public Boolean guardCaptureHero(Character hero){
 
+		if(this.nameCh=='g'){
+			return false;
+		}
 
 		if (this.getPosX() == hero.getPosX()+1 && this.getPosY() == hero.getPosY()
 				|| this.getPosX() == hero.getPosX()-1 && this.getPosY() == hero.getPosY()
