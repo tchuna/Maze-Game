@@ -24,14 +24,8 @@ https://tchuna.github.io/LPOO1718_T4G13/.
 
 
 
-### Better Code Hub
-![BTR](/src/resource/bt.png)
 
 
-
-## Developer
-
-### Name:  Elgner Ramos
 
 
 
