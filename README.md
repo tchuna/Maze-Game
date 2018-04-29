@@ -1,9 +1,11 @@
 #Code developed for Maze game in java 
 
+### Maze Game
 
-### Code Documentation
-https://tchuna.github.io/LPOO1718_T4G13/.
+![A](/src/resource/m.png)
 
+
+![M](/src/resource/maze.png)
 
 
 
@@ -24,16 +26,6 @@ https://tchuna.github.io/LPOO1718_T4G13/.
 
 
 
-### Better Code Hub
-![BTR](/src/resource/bt.png)
 
 
-
-## Developer
-
-### Name:  Elgner Eristido Gomer Ramos
-### Number:  201208090
-### Mail:  ei12173@fe.up.pt
-
-
-
+ 
