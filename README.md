@@ -1,9 +1,11 @@
 #Code developed for Maze game in java 
 
+### Maze Game
 
-### Code Documentation
-https://tchuna.github.io/LPOO1718_T4G13/.
+![A](/src/resource/m.png)
 
+
+![M](/src/resource/maze.png)
 
 
 
@@ -20,10 +22,6 @@ https://tchuna.github.io/LPOO1718_T4G13/.
 
 ### Coverage:  98,3 %
 ![Coverage](/src/resource/co.png)
-
-
-
-
 
 
 
